@@ -1,0 +1,20 @@
+diff -ruN ekg-20030709.orig/src/vars.c ekg-20030709/src/vars.c
+--- ekg-20030709.orig/src/vars.c	2003-05-30 17:44:05.000000000 +0200
++++ ekg-20030709/src/vars.c	2003-07-10 13:43:14.000000000 +0200
+@@ -38,6 +38,7 @@
+ #include "stuff.h"
+ #include "themes.h"
+ #include "ui.h"
++#include "version.h"
+ #include "vars.h"
+ #include "xmalloc.h"
+ 
+@@ -716,7 +717,7 @@
+  */
+ void variable_help(const char *name)
+ {
+-	FILE *f = fopen(DATADIR "/vars.txt", "r");
++	FILE *f = fopen("/usr/doc/ekg-" VERSION "/vars.txt", "r");
+ 	char *line, *type = NULL, *def = NULL, *tmp;
+ 	string_t s = string_init(NULL);
+ 	int found = 0;

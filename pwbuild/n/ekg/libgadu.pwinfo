@@ -1,0 +1,4 @@
+info="A client-side library for Gadu-Gadu."
+desc="libgadu library is responsible for Gadu-Gadu protocol implementation in open source Gadu-Gadu clients, like ekg or Kadu, or even in a Jabber transport to Gadu-Gadu network, named jggtrans.
+
+libgadu has been developed by Wojtek Kaniewski, along with ekg - a console Gadu-Gadu client."

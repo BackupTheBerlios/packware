@@ -1,0 +1,5 @@
+/usr/include
+/usr/lib
+/usr/doc/ekg-${version}/api.txt
+/usr/doc/ekg-${version}/protocol.html
+/usr/doc/ekg-${version}/functions.txt

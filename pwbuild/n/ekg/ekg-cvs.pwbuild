@@ -1,0 +1,36 @@
+#!/bin/sh
+
+name="ekg"
+version="20040729"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d -b docs ../ChangeLog IDEAS-2.0 *.txt protocol.html emoticons.* api/functions.txt -x CVS
+
+_source -m bfe59b48b11880f26df245cf442740d1 -s 483721 -g http://dev.null.pl/${name}/
+
+_patch varstxt
+
+_c_opt --prefix=/usr
+_c_opt --mandir=/usr/man
+_c_opt --enable-shared
+_c_opt --enable-dynamic
+_c_opt --with-pthread
+_have_python && _c_opt --with-python
+
+_cmi
+
+rm ${pkg}/usr/share/ekg/vars.txt
+
+cp ${src1}/contrib/ekl2.sh ${pkg}/usr/bin/ekl2
+cp ${src1}/docs/ekl2.man.en ${pkg}/usr/man/man1/ekl2.1
+cp ${src1}/docs/ekl2.man.pl ${pkg}/usr/man/pl/man1/ekl2.1
+
+_sub libgadu
+
+# $Log: ekg-cvs.pwbuild,v $
+# Revision 1.1  2004/07/30 16:46:09  swiergot
+# - Initial commit.
+# - Version 20040729.
+#
