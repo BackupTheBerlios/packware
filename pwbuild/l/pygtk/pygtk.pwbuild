@@ -1,0 +1,23 @@
+#!/bin/sh
+
+name="pygtk"
+xversion="2.2"
+version="${xversion}.0"
+build="1"
+
+_pwbuilder 0.6.1
+
+_doc -d PKG-INFO
+
+_source -m 992122f8a61c266aeb1b7b35be9c4be1 -s 553761 ftp://ftp.gnome.org/pub/GNOME/sources/${name}/${xversion}/
+
+_c_opt --prefix=/usr
+_c_opt --enable-threads
+
+_cmi
+
+# $Log: pygtk.pwbuild,v $
+# Revision 1.1  2004/08/01 11:48:02  stoodi
+# - Initial commit.
+# - Version 2.2.0
+#
