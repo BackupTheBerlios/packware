@@ -1,0 +1,21 @@
+#!/bin/sh
+
+name="oddcastv2-xmms"
+version="2.0.14"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d -x README -x TODO
+
+_source -m 01a36cd6b547ac2354f7170b1db0de28 -s 721597 -n `echo ${name} | tr - _` -g http://www.oddsock.org/tools/`echo ${name} | tr - _`/
+
+_c_opt --prefix=/usr
+
+_cmi
+
+# $Log: oddcastv2-xmms.pwbuild,v $
+# Revision 1.1  2004/10/04 21:14:06  swiergot
+# - Initial commit.
+# - Version 2.0.14.
+#
