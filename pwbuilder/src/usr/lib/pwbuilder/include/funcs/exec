@@ -1,0 +1,7 @@
+#!/bin/sh
+
+function _exec() {
+
+	env -i USER=$USER HOME=$HOME sh -l /usr/lib/pwbuilder/bin/xexec "$@"
+
+}
