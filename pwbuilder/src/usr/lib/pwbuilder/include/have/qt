@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_qt() {
+
+	if [ -d /usr/lib/qt ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

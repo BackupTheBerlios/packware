@@ -1,0 +1,74 @@
+#!/bin/sh
+
+function _configure() {
+
+	srcnum="1"
+	subdir=""
+	opts=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			-b) shift ; subdir="$1" ;;
+			*) opts="${opts} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ ! -f ${tmp}/altconfigure_${srcnum} ]; then
+
+		echo -n "./configure" > ${tmp}/altconfigure_${srcnum}
+
+	fi
+
+	eval "srcd=\"\${src${srcnum}}\""
+
+	(
+
+		if [ ! "${inotherdir}" = "yes" ]; then
+
+			cd ${srcd}/${subdir}
+
+		fi
+
+		touch ${tmp}/c_opts_${srcnum}
+
+		if [ -f ${tmp}/nextconfigure_${srcnum} ]; then
+
+			mv -f ${tmp}/nextconfigure_${srcnum} ${tmp}/actconfigure_${srcnum}
+
+		else
+
+			cp -f ${tmp}/altconfigure_${srcnum} ${tmp}/actconfigure_${srcnum}
+
+		fi
+
+		if [ "${pw_debug}" = "yes" ]; then
+
+			echo "+ Configure #${srcnum} ("`cat ${tmp}/actconfigure_${srcnum}` `cat ${tmp}/c_opts_${srcnum}` ${opts}")"
+			`cat ${tmp}/actconfigure_${srcnum}` `cat ${tmp}/c_opts_${srcnum}` ${opts}
+			echo $? > ${tmp}/confres
+
+		else
+
+			echo "+ Configure #${srcnum}"
+			`cat ${tmp}/actconfigure_${srcnum}` `cat ${tmp}/c_opts_${srcnum}` ${opts} > /dev/null
+			echo $? > ${tmp}/confres
+
+		fi
+
+	)
+
+	if [ ! `cat ${tmp}/confres` = 0 ]; then
+
+		pwtext "! Error: configure failed"
+		exit 3
+
+	fi
+
+}

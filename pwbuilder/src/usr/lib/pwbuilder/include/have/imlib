@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_imlib() {
+
+	if [ -x /usr/bin/imlib_config ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_slang() {
+
+	if [ -x /usr/lib/libslang.so ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

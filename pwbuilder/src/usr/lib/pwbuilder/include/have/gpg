@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_gpg() {
+
+	if [ -x /usr/bin/gpg ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

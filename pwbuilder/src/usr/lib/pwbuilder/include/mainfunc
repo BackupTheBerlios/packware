@@ -1,0 +1,58 @@
+#!/bin/sh
+
+function usage() {
+
+	pwtext "Usage: pwbuilder [-d] [-s] [-t arch] [-r] target"
+	echo
+	pwtext "       --debug       , -d        Show full compilation output. Don't remove"
+	pwtext "                                 working directory at the end."
+	pwtext "       --no-strip    , -s        Don't strip binaries."
+	pwtext "       --target arch , -t arch   Build for specified architecture."
+	pwtext "       --allow-root  , -r        Allow to run as root."
+
+}
+
+function findscript() {
+
+	if [ "$1" = "" ]; then
+
+		ls `basename \`pwd\``.pwbuild > /dev/null 2>&1
+
+		if [ $? = 0 ]; then
+
+			echo `basename \`pwd\``.pwbuild
+			return
+
+		fi
+
+	fi
+
+	for i in . $1; do
+
+		ls ${i}/$1.pwbuild > /dev/null 2>&1
+
+		if [ $? = 0 ]; then
+
+			echo ${i}/$1.pwbuild
+			return
+
+		fi
+
+		try=`ls -1 ${i}/*.pwbuild 2> /dev/null`
+
+		if [ ! "$?" = "0" ]; then
+
+			continue
+
+		fi
+
+		if [ `echo "${try}" | wc -l | tr -d ' '` = 1 ]; then
+
+			echo ${try}
+			return
+
+		fi
+
+	done
+
+}

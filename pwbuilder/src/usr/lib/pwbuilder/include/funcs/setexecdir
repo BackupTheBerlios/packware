@@ -1,0 +1,14 @@
+#!/bin/sh
+
+function _setexecdir() {
+
+	if [ "$1" = "" ]; then
+
+		pwtext "_setexecdir: no directory supplied"
+		exit 2
+
+	fi
+
+	echo "$1" > ${tmp}/setexecdir
+
+}

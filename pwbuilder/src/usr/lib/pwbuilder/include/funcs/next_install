@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function _next_install() {
+
+	srcnum="1"
+	nextinstall=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			*) nextinstall="${nextinstall} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${nextinstall}" = "" ]; then
+
+		pwtext "_next_install: no command specified"
+		exit 2
+
+	fi
+
+	echo -n " ${nextinstall} " >> ${tmp}/nextinstall_${srcnum}
+
+}

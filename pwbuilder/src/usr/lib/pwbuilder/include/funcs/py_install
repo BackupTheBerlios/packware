@@ -1,0 +1,66 @@
+#!/bin/sh
+
+function _py_install() {
+
+	srcnum="1"
+	subdir=""
+	undefine=""
+	opts=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			-b) shift ; subdir="$1" ;;
+			-u) undefine="yes" ;;
+			*) opts="${opts} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	eval "srcd=\"\${src${srcnum}}\""
+
+	(
+
+		if [ ! "${inotherdir}" = "yes" ]; then
+
+			cd ${srcd}/${subdir}
+
+		fi
+
+		touch ${tmp}/py_i_opts_${srcnum}
+
+		if [ ! "${undefine}" = "yes" ]; then
+
+			destvars="--root=${pkg}"
+
+		fi
+
+		if [ "${pw_debug}" = "yes" ]; then
+
+			echo "+ Python install #${srcnum} (python setup.py install "${destvars} `cat ${tmp}/py_i_opts_${srcnum}` ${opts}")"
+			python setup.py install ${destvars} `cat ${tmp}/py_i_opts_${srcnum}` ${opts}
+			echo $? > ${tmp}/pyinres
+
+		else
+
+			echo "+ Python install #${srcnum}"
+			python setup.py install ${destvars} `cat ${tmp}/py_i_opts_${srcnum}` ${opts} > /dev/null
+			echo $? > ${tmp}/pyinres
+
+		fi
+
+	)
+
+	if [ ! `cat ${tmp}/pyinres` = 0 ]; then
+
+		pwtext "! Error: python install failed"
+		exit 3
+
+	fi
+
+}

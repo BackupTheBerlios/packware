@@ -1,0 +1,4 @@
+WARNING! pwbuilder 0.6 is completely incompatible with pwbuilder 0.5. There is
+no buildpkg, there is pwbuilder command instead. We don't use .pwbuilder files
+any more, new format is .pwbuild. It's got completely different syntax. In
+other words, everything has changed!

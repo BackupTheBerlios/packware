@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_sasl() {
+
+	if [ -d /usr/lib/sasl ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

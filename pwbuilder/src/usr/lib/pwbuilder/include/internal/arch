@@ -1,0 +1,38 @@
+#!/bin/sh
+
+function is_arch_dep () {
+
+	if [ -d lib/modules ]; then
+
+		return 0
+
+	fi
+
+	if [ -d usr/lib ]; then
+
+		if find usr/lib -type f -name '*.a' | grep '[.]a$' > /dev/null 2>&1; then
+
+			return 0
+
+		fi
+
+	fi
+
+	if [ -d usr/src ]; then
+
+		if find usr/src -name bzImage | grep bzImage > /dev/null 2>&1; then
+
+			return 0
+
+		fi
+
+	fi
+
+	# Which one is faster?
+	#find . -type f -exec file -b {} \; | sort | uniq | egrep "x86|186|286|386|8086|Dev86|Intel 80" > /dev/null 2>&1
+	find . -type f ! -path './usr/include/*' ! -name '*.h' -exec file -b {} \; | \
+		egrep "x86|186|286|386|8086|Dev86|Intel 80" > /dev/null 2>&1
+
+	return $?
+
+}

@@ -1,0 +1,24 @@
+pwbuilder has an ability to create subpackages. First, in .pwbuil script there
+should be _sub command to define a subpackage, ie.:
+
+_sub libgadu
+
+and the subpackage will be named ${subpackage}, not ${name}-${subpackage}.
+Second is to define a list of files and directories that will get into the
+subpackage. It is done by creating ${subpackage}.pwsub file. Example content:
+
+/usr/include
+/usr/lib
+/usr/doc/ekg-${version}/api.txt
+/usr/doc/ekg-${version}/protocol.html
+/usr/doc/ekg-${version}/functions.txt
+
+As you can see, we can use variables defined in .pwbuild. And they are not only
+name, version and build variables, but any variables declared in .pwbuild
+script. Warning: names of variables must be enclosed in {} brackets, we can't
+write just $version.
+Optionally, we can create .pwinfo files for subpackages, named
+${subpackage}.pwinfo.
+
+Full ekg package source that makes use of subpackages feature can be found
+in out CVS.

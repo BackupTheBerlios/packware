@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_libmng() {
+
+	if [ -f /usr/lib/libmng.so ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

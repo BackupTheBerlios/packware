@@ -1,0 +1,27 @@
+#!/bin/sh
+
+function _cmi() {
+
+	srcnum="1"
+	undefine=""
+	subdir=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			-u) undefine="-u" ;;
+			-b) shift ; subdir="-b $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	_configure -s ${srcnum} ${subdir}
+	_make -s ${srcnum} ${subdir}
+	_install -s ${srcnum} ${subdir} ${undefine}
+
+}

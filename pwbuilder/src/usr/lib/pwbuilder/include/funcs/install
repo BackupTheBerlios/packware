@@ -1,0 +1,82 @@
+#!/bin/sh
+
+function _install() {
+
+	srcnum="1"
+	subdir=""
+	undefine=""
+	opts=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			-b) shift ; subdir="$1" ;;
+			-u) undefine="yes" ;;
+			*) opts="${opts} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ ! -f ${tmp}/altinstall_${srcnum} ]; then
+
+		echo -n "make install" > ${tmp}/altinstall_${srcnum}
+
+	fi
+
+	eval "srcd=\"\${src${srcnum}}\""
+
+	(
+
+		if [ ! "${inotherdir}" = "yes" ]; then
+
+			cd ${srcd}/${subdir}
+
+		fi
+
+		touch ${tmp}/i_opts_${srcnum}
+
+		if [ -f ${tmp}/nextinstall_${srcnum} ]; then
+
+			mv -f ${tmp}/nextinstall_${srcnum} ${tmp}/actinstall_${srcnum}
+
+		else
+
+			cp -f ${tmp}/altinstall_${srcnum} ${tmp}/actinstall_${srcnum}
+
+		fi
+
+		if [ ! "${undefine}" = "yes" ]; then
+
+			destvars="DESTDIR=${pkg} INSTALLROOT=${pkg} INSTALL_ROOT=${pkg} PERL_INSTALL_ROOT=${pkg} INSTALL_PREFIX=${pkg}"
+
+		fi
+
+		if [ "${pw_debug}" = "yes" ]; then
+
+			echo "+ Install #${srcnum} ("`cat ${tmp}/actinstall_${srcnum}` ${destvars} `cat ${tmp}/i_opts_${srcnum}` ${opts}")"
+			`cat ${tmp}/actinstall_${srcnum}` ${destvars} `cat ${tmp}/i_opts_${srcnum}` ${opts}
+			echo $? > ${tmp}/instres
+
+		else
+
+			echo "+ Install #${srcnum}"
+			`cat ${tmp}/actinstall_${srcnum}` ${destvars} `cat ${tmp}/i_opts_${srcnum}` ${opts} > /dev/null
+			echo $? > ${tmp}/instres
+
+		fi
+
+	)
+
+	if [ ! `cat ${tmp}/instres` = 0 ]; then
+
+		pwtext "! Error: make install failed"
+		exit 3
+
+	fi
+
+}

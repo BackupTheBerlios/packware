@@ -1,0 +1,20 @@
+#!/bin/sh
+
+alias ln='ln -f'
+alias cp='cp -f'
+
+source /usr/lib/pwbuilder/include/version
+source /usr/lib/pwbuilder/include/functions
+
+srccnt=0
+
+source ${fqbsp}
+
+echo "name=${name}" >> ${scripts}/save
+echo "version=${version}" >> ${scripts}/save
+echo "build=${build}" >> ${scripts}/save
+
+echo "namever=${name}-${version}" >> ${scripts}/save
+
+echo "scripts=${scripts}" >> ${scripts}/save
+echo "sub=${sub}" >> ${scripts}/save

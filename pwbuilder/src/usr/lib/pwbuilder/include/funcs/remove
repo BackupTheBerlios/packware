@@ -1,0 +1,14 @@
+#!/bin/sh
+
+function _remove() {
+
+	if [ "$1" = "" ]; then
+
+		pwtext "_remove: no file or directory supplied"
+		exit 2
+
+	fi
+
+	echo "$@" >> ${tmp}/toremove
+
+}

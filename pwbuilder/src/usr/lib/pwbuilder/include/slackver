@@ -1,0 +1,32 @@
+#!/bin/sh
+
+slackver="`sed 's}Slackware }}' /etc/slackware-version | cut -f 1 -d ' '`"
+
+slackver_max="`echo ${slackver} | cut -f 1 -d -`"
+slackver_ext="`echo ${slackver} | cut -f 2 -d -`"
+
+if [ "${slackver_max}" = "${slackver_ext}" ]; then
+
+    slackver_ext=""
+
+fi
+
+slackver_a="`echo ${slackver_max} | cut -f 1 -d '.'`"
+slackver_b="`echo ${slackver_max} | cut -f 2 -d '.'`"
+slackver_c="`echo ${slackver_max} | cut -f 3 -d '.'`"
+
+slackver="${slackver_a}.${slackver_b}"
+
+if [ "${slackver_c}" = "" ]; then
+
+    slackver_c="0"
+
+fi
+
+slackver_max="$slackver_a.$slackver_b.$slackver_c"
+
+export slackver_a
+export slackver_b
+export slackver_c
+export slackver
+export slackver_max

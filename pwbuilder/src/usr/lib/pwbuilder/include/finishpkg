@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# $1 is ${pkgfile}
+# $2 is ${targetpkgdir}
+# $3 is ${scripts}
+
+pwtext "+ Package %s.tgz" $1
+
+chown -R root.root . > /dev/null 2>&1
+chown -R root.bin bin > /dev/null 2>&1
+chown -R root.bin sbin > /dev/null 2>&1
+chown -R root.bin usr/bin > /dev/null 2>&1
+chown -R root.bin usr/sbin > /dev/null 2>&1
+
+if [ -f $3/chmod ]; then
+
+	source $3/chmod > /dev/null 2>&1
+
+fi
+
+if [ -f $3/chown ]; then
+
+	source $3/chown > /dev/null 2>&1
+
+fi
+
+tar-1.13 cf $1.tar . > /dev/null 2>&1
+gzip -9 $1.tar > /dev/null 2>&1
+
+mv -f $1.tar.gz $2/$1.tgz > /dev/null 2>&1

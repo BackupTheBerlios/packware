@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function _py_b_opt() {
+
+	srcnum="1"
+	opts=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			*) opts="${opts} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${opts}" = "" ]; then
+
+		pwtext "_py_b_opt: no option specified"
+		exit 2
+
+	fi
+
+	echo -n " ${opts} " >> ${tmp}/py_b_opts_${srcnum}
+
+}

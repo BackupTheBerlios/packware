@@ -1,0 +1,23 @@
+*.pwbuild
+
+Main building script. The file doesn't need (though it might, better not) to
+be executable. Name of this file doesn't need to be related to package name
+in any way. Available commands has been described in PWBUILD file.
+
+*.pwinfo
+
+A file with informations about package (description etc.) Name of this file
+should be the same as package name. Details in PWINFO file.
+
+*.pwsub
+
+A list of files and directories belonging to a subpackage. Name of this file
+should be the same as subpackage name. If there is "_sub NAME" command in
+.pwbuild script, there must be NAME.pwsub file (additionally there might be
+NAME.pwinfo, too).
+
+*.pw-postinst
+
+A script that will be included in package as install/doinst.sh file and
+executed when installing the package. Name of this file should be the same as
+name of package or subpackage.

@@ -1,0 +1,100 @@
+#!/bin/sh
+
+source /usr/lib/pwbuilder/include/version
+
+pwtext "pwbuilder %s - Slackware packages building system" ${pwbuilder_version}
+echo "Copyright (c) 2002-2003 The Packware Project"
+echo
+
+if [ ! -x /usr/lib/libfakeroot.so.0.0.1 -o ! -x /usr/bin/fakeroot -o ! -x /usr/bin/faked ]; then
+
+	pwtext "fakeroot not found."
+	exit 1
+
+fi
+
+for conf in /etc/pwbuilder.conf ~/.pwbuilderrc; do
+
+	if [ -r ${conf} ]; then
+
+		source ${conf}
+
+	fi
+
+done
+
+source /usr/lib/pwbuilder/include/mainfunc
+
+while [ $# -gt 0 ]; do
+
+	case "$1" in
+
+		--debug|-d) debug=yes ;;
+		--no-strip|-s) nostrip=yes ;;
+		--target|-t) shift; target="$1" ;;
+		--help|-h) usage ; exit 0 ;;
+		--allow-root|-r) allowroot=yes ;;
+		*) argument="$1" ;;
+
+	esac
+
+	shift
+
+done
+
+source /usr/lib/pwbuilder/include/slackver
+
+source /usr/lib/pwbuilder/default.conf
+
+if [ ! "${allowroot}" = "yes" -a `id -u` = 0 ]; then
+
+	pwtext "Refusing to run as root."
+	exit 1
+
+fi
+
+if [ -f "${argument}" ]; then
+
+	if echo "${argument}" | grep '[.]pwbuild$' > /dev/null 2>&1; then
+
+		buildscript="${argument}"
+
+	else
+
+		buildscript="`findscript \"${argument}\"`"
+
+	fi
+
+else
+
+	buildscript="`findscript \"${argument}\"`"
+
+fi
+
+if [ "${buildscript}" = "" ]; then
+
+	pwtext "Nothing to build."
+	exit 1
+
+fi
+
+pwtext "Executing %s..." "${buildscript}"
+
+source /usr/lib/pwbuilder/include/createenv
+
+PATH="/usr/lib/pwbuilder/bin:${PATH}" \
+sh /usr/lib/pwbuilder/include/runbuild "${buildscript}"
+
+if [ $? = 0 ]; then
+
+	pwtext "Creating packages..."
+	source /usr/lib/pwbuilder/include/createpkg
+
+fi
+
+if [ ! "${pw_debug}" = "yes" ]; then
+
+	pwtext "Cleaning up..."
+	rm -rf ${tmp}
+
+fi

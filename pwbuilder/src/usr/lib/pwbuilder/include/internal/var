@@ -1,0 +1,13 @@
+#!/bin/sh
+
+function getvar() {
+
+	if [ ! -f "${var}/$1" ]; then
+
+		return
+
+	fi
+
+	cat ${var}/$1
+
+}

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ "$1" = "-n" ]; then
+	newline=no
+	shift
+fi
+
+message="$1"
+shift
+
+translated="`gettext -d pwbuilder -e \"${message}\"`"
+
+printf "${translated}" "$@"
+
+if [ ! "${newline}" = "no" ]; then
+	echo
+fi

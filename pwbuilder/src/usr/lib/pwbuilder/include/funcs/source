@@ -1,0 +1,243 @@
+#!/bin/sh
+
+function _source() {
+
+	sf=""
+	project=""
+	topdir=""
+	compext="tar.bz2"
+	leavepacked=""
+	md5=""
+	fname=""
+	fver=""
+	url=""
+	remote=""
+	fok=""
+	xtop=""
+	singf=""
+	size=""
+	sep="-"
+	passftp=""
+	failig=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-f) sf=yes ;;
+			-p) shift ; project="$1" ;;
+			-t) shift ; topdir="$1" ;;
+			-g) compext=tar.gz ;;
+			-z) compext=tgz ;;
+			-Z) compext=zip ;;
+			-u) leavepacked=yes ;;
+			-i) failig=yes ;;
+			-m) shift ; md5="$1" ;;
+			-n) shift ; fname="$1" ;;
+			-v) shift ; fver="$1" ;;
+			-s) shift ; size="$1" ;;
+			-c) sep=_ ;;
+			*) url="$1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${fname}" = "" ]; then
+
+		fname="${name}"
+
+	fi
+
+	if [ "${fver}" = "" ]; then
+
+		fver="${version}"
+
+	fi
+
+	if [ "${url}" = "" ]; then
+
+		url="/"
+
+	fi
+
+	if [ "${passiveftp}" = "yes" ]; then
+
+		passftp="--passive-ftp"
+
+	fi
+
+	autourl="${fname}${sep}${fver}.${compext}"
+
+	if [ "${sf}" = "yes" ]; then
+
+		if [ "${project}" = "" ]; then
+
+			project="${name}"
+
+		fi
+
+		url="http://${sfmirror}.dl.sourceforge.net/sourceforge/${project}/${autourl}"
+
+	elif echo "${url}" | grep "/$" > /dev/null 2>&1; then
+
+		url="${url}${autourl}"
+
+	fi
+
+	ffile="`basename \"${url}\"`"
+
+	pwtext -n "+ Source %s" ${ffile}
+
+	if [ "${size}" = "" ]; then
+
+		echo
+
+	else
+
+		echo " (`expr ${size} / 1024` kB)"
+
+	fi
+
+	if echo "${url}" | egrep "^http://|^ftp://" > /dev/null 2>&1; then
+
+		remote=yes
+
+	fi
+
+	try=0
+
+	while [ "${try}" -lt 3 ]; do
+
+		if [ -f "${srcspool}"/"${ffile}" ]; then
+
+			fok=yes
+
+		elif [ "${remote}" = "yes" ]; then
+
+			wget -t 3 -c -P "${srcspool}" ${passftp} "${url}" > /dev/null 2>&1
+
+			if [ $? = 0 ]; then
+
+				fok=yes
+
+			fi
+
+		fi
+
+		if [ "${fok}" = "yes" -a ! "${md5}" = "" ]; then
+
+			fmd5=`md5sum "${srcspool}"/"${ffile}" | cut -d ' ' -f 1`
+
+			if [ ! "${fmd5}" = "${md5}" ]; then
+
+				fok=no
+				rm -f "${srcspool}"/"${ffile}"
+
+			fi
+
+		fi
+
+		if [ "${fok}" = "yes" ]; then
+
+			break
+
+		fi
+
+		try=`expr ${try} + 1`
+
+	done
+
+	if [ ! "${fok}" = "yes" ]; then
+
+		pwtext "! Error: none valid found"
+
+		if [ ! "${failig}" = "yes" ]; then
+
+			exit 4
+
+		else
+
+			return 4
+
+		fi
+
+	fi
+
+	srccnt=`expr ${srccnt} + 1`
+
+	if [ "${leavepacked}" = "yes" ]; then
+
+		eval "src${srccnt}=\"${srcspool}\"/\"${ffile}\""
+		echo "src${srccnt}=\"${srcspool}\"/\"${ffile}\"" >> ${scripts}/save
+		eval "srcx=\"${srcspool}\"/\"${ffile}\""
+		return
+
+	fi
+
+	srcnum="${RANDOM}${RANDOM}${RANDOM}"
+	mkdir -p ${xsrcdir}/${srcnum}
+
+	( cd ${xsrcdir}/${srcnum}
+
+	case "${ffile}" in
+
+		*.tar.bz2) tar jxf "${srcspool}/${ffile}" > /dev/null 2>&1 ; echo $? > ${tmp}/extres ;;
+		*.tar.gz) tar zxf "${srcspool}/${ffile}" > /dev/null 2>&1 ; echo $? > ${tmp}/extres ;;
+		*.tgz) tar zxf "${srcspool}/${ffile}" > /dev/null 2>&1 ; echo $? > ${tmp}/extres ;;
+		*.tar.Z) tar zxf "${srcspool}/${ffile}" > /dev/null 2>&1 ; echo $? > ${tmp}/extres ;;
+		*.zip) unzip "${srcspool}/${ffile}" > /dev/null 2>&1 ; echo $? > ${tmp}/extres ;;
+		*.bz2) bzcat "${srcspool}/${ffile}" 1> "`basename ${ffile} .bz2`" 2> /dev/null ; echo $? > ${tmp}/extres ;;
+		*.gz) zcat "${srcspool}/${ffile}" 1> "`basename ${ffile} .gz`" 2> /dev/null ; echo $? > ${tmp}/extres ;;
+		*) pwtext "_source: unsupported format" ; echo "unsupported" > ${tmp}/extres ;;
+
+	esac )
+
+	if [ ! `cat ${tmp}/extres` = 0 ]; then
+
+		pwtext "! Error: extracting failed"
+		exit 3
+
+	elif [ "`cat ${tmp}/extres`" = "unsupported" ]; then
+
+		exit 4
+
+	fi
+
+	case "${ffile}" in
+
+		*.tar.bz2) xtop="`basename \"${ffile}\" .tar.bz2`" ;;
+		*.tar.gz) xtop="`basename \"${ffile}\" .tar.gz`" ;;
+		*.tgz) xtop="`basename \"${ffile}\" .tgz`" ;;
+		*.tar.Z) xtop="`basename \"${ffile}\" .tar.Z`" ;;
+		*.zip) xtop="`basename \"${ffile}\" .zip`" ;;
+		*.bz2) singf="`basename \"${ffile}\" .bz2`" ;;
+		*.gz) singf="`basename \"${ffile}\" .gz`" ;;
+
+	esac
+
+	if [ "${topdir}" = "" -a ! "${xtop}" = "" ]; then
+
+		topdir="${xtop}"
+
+	fi
+
+	if [ ! -d ${xsrcdir}/${srcnum}/"${topdir}" ]; then
+
+		topdir=""
+
+	fi
+
+	if [ ! "${singf}" = "" ]; then
+
+		topdir="${singf}"
+
+	fi
+
+	eval "src${srccnt}=${xsrcdir}/${srcnum}/\"${topdir}\""
+	echo "src${srccnt}=${xsrcdir}/${srcnum}/\"${topdir}\"" >> ${scripts}/save
+	eval "srcx=${xsrcdir}/${srcnum}/\"${topdir}\""
+
+}

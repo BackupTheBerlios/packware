@@ -1,0 +1,67 @@
+# Uncomment this if you want to see a full output of configure, make and make
+# install, and to keep temporary directory.
+
+# debug=yes
+
+# Default target architecture is i386 on Slackware 8 and earlier, and i486
+# on Slackware 9 and later. You can change default architecture here.
+
+# target=athlon-xp
+
+# If you want to supply extra parameters to compiler, put them below.
+
+# cflags=
+
+# If you have ccache installed and you want to use it to speed build process
+# up, uncomment this option.
+
+# use_ccache=yes
+
+# If you have distcc installed and you want to use it to speed build process
+# up, uncomment this option.
+
+# use_distcc=yes
+
+# If you don't want pwbuilder to strip binaries, uncomment the following 
+# variable.
+
+# nostrip=yes
+
+# A directory where built packages are saved. Valid values: SRC (the same
+# directory where .pwbuild script exists, the default),
+# TGZ (~/tgz/packages/${target}/ - pwbuilder 0.5 behaviour), CUSTOM
+# (a directory defined in custompkgdir variable).
+
+# pkgdir="SRC"
+
+# custompkgdir="~/packages"
+
+# If you want pwbuilder to look for sources in other directory than this where
+# .pwbuild exists, set the following variable.
+
+# srcspool="~/sources"
+
+# If you want pwbuilder to create temporary directory under location other
+# than /tmp, use this option to change that.
+
+# usertmp="~/tmp"
+
+# You can choose here a SourceForge mirror to use. By default the best mirror
+# will be detected automatically. If it fails, choose the mirror yourself out
+# of the following: aleron, belnet, cesnet, easynews, flow, heanet, keihanna,
+# twtelecom, umn, unc.
+
+# sfmirror="unc"
+
+# By default, pwbuilder refuses to run as root. If for some reason you need to
+# do that, uncomment the option below. Note that running pwbuilder with root
+# privileges is dangerous, broken or not well tested pwbuilds may modify or
+# even damage your system.
+
+# allowroot="yes"
+
+# If your Internet connection requires the passive FTP retrieval scheme, in
+# which the client initiates the data transfer, use the following option. This
+# is sometimes required for FTP to work behind firewalls.
+
+# passiveftp="yes"

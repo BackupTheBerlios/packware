@@ -1,0 +1,74 @@
+#!/bin/sh
+
+function _make() {
+
+	srcnum="1"
+	subdir=""
+	opts=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			-b) shift ; subdir="$1" ;;
+			*) opts="${opts} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ ! -f ${tmp}/altmake_${srcnum} ]; then
+
+		echo -n "make" > ${tmp}/altmake_${srcnum}
+
+	fi
+
+	eval "srcd=\"\${src${srcnum}}\""
+
+	(
+
+		if [ ! "${inotherdir}" = "yes" ]; then
+
+			cd ${srcd}/${subdir}
+
+		fi
+
+		touch ${tmp}/m_opts_${srcnum}
+
+		if [ -f ${tmp}/nextmake_${srcnum} ]; then
+
+			mv -f ${tmp}/nextmake_${srcnum} ${tmp}/actmake_${srcnum}
+
+		else
+
+			cp -f ${tmp}/altmake_${srcnum} ${tmp}/actmake_${srcnum}
+
+		fi
+
+		if [ "${pw_debug}" = "yes" ]; then
+
+			echo "+ Make #${srcnum} ("`cat ${tmp}/actmake_${srcnum}` `cat ${tmp}/m_opts_${srcnum}` ${opts}")"
+			`cat ${tmp}/actmake_${srcnum}` `cat ${tmp}/m_opts_${srcnum}` ${opts}
+			echo $? > ${tmp}/makeres
+
+		else
+
+			echo "+ Make #${srcnum}"
+			`cat ${tmp}/actmake_${srcnum}` `cat ${tmp}/m_opts_${srcnum}` ${opts} > /dev/null
+			echo $? > ${tmp}/makeres
+
+		fi
+
+	)
+
+	if [ ! `cat ${tmp}/makeres` = 0 ]; then
+
+		pwtext "! Error: make failed"
+		exit 3
+
+	fi
+
+}

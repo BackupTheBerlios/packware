@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_alsa() {
+
+	if [ -f /usr/include/alsa/asoundlib.h ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

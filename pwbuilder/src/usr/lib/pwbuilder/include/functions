@@ -1,0 +1,13 @@
+#!/bin/sh
+
+for i in /usr/lib/pwbuilder/include/funcs/*; do
+
+	source ${i}
+
+done
+
+for i in /usr/lib/pwbuilder/include/have/*; do
+
+	source ${i}
+
+done

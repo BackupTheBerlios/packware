@@ -1,0 +1,25 @@
+tmp - temporary directory unique for every pwbuilder process.
+
+pkg - directory that will be used as install root for a package. Content of
+this directory will become package content.
+
+doc - directory ${pkg}/usr/doc/${name}-${version} with package documentation.
+
+docdir - equals to /usr/doc/${name}-${version}.
+
+src - directory that contains .pwbuild script.
+
+srcN - directories with sources that was added by _source command (N = 1...).
+
+srcx - recently defined srcN.
+
+slackver - version of existing Slackware (8.0, 8.1, 9.0, etc.).
+
+slackver_a - first part of full version (7, 8, 9, etc.).
+
+slackver_b - second part of full version (0, 1 etc.).
+
+slackver_c - third part of full version (0, 01 etc.).
+
+slackver_max - full version, equals to
+${slackver_a}.${slackver_b}.${slackver_c} (np 8.0.0, 8.1.0, 9.0.0 etc.).

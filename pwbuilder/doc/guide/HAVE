@@ -1,0 +1,11 @@
+There are commands available for .pwbuild script that allow to check installed
+software. Examples include:
+
+_have_openssl && _c_opt --with-openssl
+_have_mysql && _c_opt --with-mysql
+
+_have_* commands return 0 if software exists, or 1 if it doesn't. To know what
+_have_* commands are available, look into /usr/lib/pwbuilder/include/have
+directory.
+
+_have_* commands have been used ie. in php or sylpheed-claws packages.

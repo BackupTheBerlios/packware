@@ -1,0 +1,60 @@
+#!/bin/sh
+
+function _chown() {
+
+	recursive=""
+	dereference=""
+	hasown=""
+	own=""
+	files=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-d) dereference="--dereference" ;;
+			-R) recursive="-R" ;;
+			*)
+
+			    if [ ! "${hasown}" = "y" ]; then
+
+				    own="$1"
+				    hasown="y"
+
+			    else
+
+				    if echo "$1" | grep "^${pkg}/" > /dev/null 2>&1; then
+
+					    files="${files} $1"
+
+				    else
+
+					    files="${files} ./$1"
+
+				    fi
+
+			    fi ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${own}" = "" ]; then
+
+		pwtext "_chown: owning not specified"
+		exit 2
+
+	fi
+
+	if [ "${files}" = "" ]; then
+
+		pwtext "_chown: no files specified"
+		exit 2
+
+	fi
+
+	echo "chown ${recursive} ${dereference} ${own} ${files}" >> ${scripts}/chown
+
+}

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_pgsql() {
+
+	if [ -x /usr/bin/pg_config ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

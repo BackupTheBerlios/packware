@@ -1,0 +1,229 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2003-07-09 12:52+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /usr/lib/pwbuilder/include/mainfunc:5
+msgid "Usage: pwbuilder [-d] [-s] [-t arch] [-r] target"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/mainfunc:7
+msgid "       --debug       , -d        Show full compilation output. Don't remove"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/mainfunc:8
+msgid "                                 working directory at the end."
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/mainfunc:9
+msgid "       --no-strip    , -s        Don't strip binaries."
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/mainfunc:10
+msgid "       --target arch , -t arch   Build for specified architecture."
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/mainfunc:11
+msgid "       --allow-root  , -r        Allow to run as root."
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/finishpkg:7
+msgid "+ Package %s.tgz"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/set:7
+msgid "_set: not enough parameters."
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/sub:23
+msgid "_sub: subpackage name not supplied"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/make:65
+msgid "! Error: make failed"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/pwbuilder:17
+msgid "_pwbuilder: missing argument"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/pwbuilder:24
+msgid "_pwbuilder: invalid version"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/pwbuilder:34
+msgid "! Error: your pwbuilder %s is too old (at least %s needed)"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/c_opt:23
+msgid "_c_opt: no option specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/chmod:44
+msgid "_chmod: mode not specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/chmod:51
+msgid "_chmod: no files specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/chown:46
+msgid "_chown: owning not specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/chown:53
+msgid "_chown: no files specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/next_make:23
+msgid "_next_make: no command specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/i_opt:23
+msgid "_i_opt: no option specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/m_opt:23
+msgid "_m_opt: no option specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/patch:27
+msgid "_patch: no patch specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/patch:44
+msgid "+ Patch %s"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/patch:54
+msgid "! Error: file not found"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/patch:101
+msgid "! Error: no matching file"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/patch:125
+msgid "! Error: applying failed"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/configure:65
+msgid "! Error: configure failed"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/alt_configure:23
+msgid "_alt_configure: no command specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/next_configure:23
+msgid "_next_configure: no command specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/config:7
+msgid "_config: no option specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/config:17
+msgid "_config: invalid option - %s"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/py_b_opt:23
+msgid "_py_b_opt: no option specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/py_build:49
+msgid "! Error: python build failed"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/py_i_opt:23
+msgid "_py_i_opt: no option specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/remove:7
+msgid "_remove: no file or directory supplied"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/source:92
+msgid "+ Source %s"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/source:155
+msgid "! Error: none valid found"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/source:194
+msgid "_source: unsupported format"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/source:200
+msgid "! Error: extracting failed"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/alt_install:23
+msgid "_alt_install: no command specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/install:73
+msgid "! Error: make install failed"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/alt_make:23
+msgid "_alt_make: no command specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/next_install:23
+msgid "_next_install: no command specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/py_install:57
+msgid "! Error: python install failed"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/require:30
+msgid "_require: no package specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/require:37
+msgid "_require: condition used but no version specified"
+msgstr ""
+
+#: /usr/bin/pwbuilder:5
+msgid "pwbuilder %s - Slackware packages building system"
+msgstr ""
+
+#: /usr/bin/pwbuilder:11
+msgid "fakeroot not found."
+msgstr ""
+
+#: /usr/bin/pwbuilder:51
+msgid "Refusing to run as root."
+msgstr ""
+
+#: /usr/bin/pwbuilder:76
+msgid "Nothing to build."
+msgstr ""
+
+#: /usr/bin/pwbuilder:81
+msgid "Executing %s..."
+msgstr ""
+
+#: /usr/bin/pwbuilder:90
+msgid "Creating packages..."
+msgstr ""
+
+#: /usr/bin/pwbuilder:97
+msgid "Cleaning up..."
+msgstr ""
+

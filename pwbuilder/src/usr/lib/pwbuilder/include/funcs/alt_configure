@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function _alt_configure() {
+
+	srcnum="1"
+	altconfigure=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			*) altconfigure="${altconfigure} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${altconfigure}" = "" ]; then
+
+		pwtext "_alt_configure: no command specified"
+		exit 2
+
+	fi
+
+	echo -n " ${altconfigure} " >> ${tmp}/altconfigure_${srcnum}
+
+}

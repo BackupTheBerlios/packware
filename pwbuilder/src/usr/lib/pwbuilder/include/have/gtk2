@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_gtk2() {
+
+	if [ -f /usr/lib/pkgconfig/gtk+-2.0.pc ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function _alt_install() {
+
+	srcnum="1"
+	altinstall=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			*) altinstall="${altinstall} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${altinstall}" = "" ]; then
+
+		pwtext "_alt_install: no command specified"
+		exit 2
+
+	fi
+
+	echo -n " ${altinstall} " >> ${tmp}/altinstall_${srcnum}
+
+}

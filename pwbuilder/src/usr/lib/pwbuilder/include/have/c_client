@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_c_client() {
+
+	if [ -f /usr/lib/c-client.a -a -d /usr/include/c-client ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

@@ -1,0 +1,121 @@
+#!/bin/sh
+
+function copy_defdoc() {
+
+	eval "srcd=\"\${src$1}\""
+
+	altdir=""
+
+	if [ ! "$2" = "x" ]; then
+
+		altdir="`echo $2 | cut -c 2-`"
+		echo "${altdir}" >> ${tmp}/altdirs
+		altdir="-${altdir}"
+
+	fi
+
+	(
+
+	unset LC_ALL
+	unset LANG
+
+	cd "${srcd}"
+
+	if [ "$3" = "" ]; then
+
+		find . | egrep '^[.]/[A-Z]+$|^[.]/ABOUT-NLS$' | sed "s}\.}${srcd}}" >> ${tmp}/doc${altdir}
+
+	else
+
+		cd $3
+		find . | egrep '^[.]/[A-Z]+$|^[.]/ABOUT-NLS$' | sed "s}\.}${srcd}/$3}" >> ${tmp}/doc${altdir}
+
+	fi
+
+	)
+
+}
+
+function copy_doc() {
+
+	eval "srcd=\"\${src$1}\""
+
+	shift
+
+	altdir=""
+
+	if [ ! "$1" = "x" ]; then
+
+		altdir="`echo $1 | cut -c 2-`"
+		echo "${altdir}" >> ${tmp}/altdirs
+		altdir="-${altdir}"
+
+	fi
+
+	shift
+
+	[ ! "$1" = "" ] && subdir="/$1"
+
+	shift
+
+	for i in "$@"; do
+	
+		echo "${srcd}${subdir}/${i}" >> ${tmp}/doc${altdir}
+
+	done
+
+}
+
+function exclude_doc() {
+
+	eval "srcd=\"\${src$1}\""
+
+	shift
+
+	altdir=""
+
+	if [ ! "$1" = "x" ]; then
+
+		altdir="`echo $1 | cut -c 2-`"
+		echo "${altdir}" >> ${tmp}/altdirs
+		altdir="-${altdir}"
+
+	fi
+
+	shift
+
+	[ ! "$1" = "" ] && subdir="/$1"
+
+	shift
+
+	for i in "$@"; do
+
+		echo "${srcd}${subdir}/${i}" >> ${tmp}/exdoc${altdir}
+
+	done
+
+}
+
+function finish_doc() {
+
+	touch ${tmp}/doc
+	touch ${tmp}/exdoc
+	sort ${tmp}/doc ${tmp}/exdoc | uniq -u > ${tmp}/redoc
+	[ -s ${tmp}/redoc ] && cp -af `cat ${tmp}/redoc` ${doc}
+
+	if [ -f ${tmp}/altdirs ]; then
+
+		sort ${tmp}/altdirs | uniq > ${tmp}/realtdirs
+
+		for i in `cat ${tmp}/realtdirs`; do
+
+			touch ${tmp}/exdoc-${i}
+			sort ${tmp}/doc-${i} ${tmp}/exdoc-${i} | uniq -u > ${tmp}/redoc
+			mkdir ${pkg}/usr/doc/${i}
+			[ -s ${tmp}/redoc ] && cp -af `cat ${tmp}/redoc` ${pkg}/usr/doc/${i}
+
+		done
+
+	fi
+
+}

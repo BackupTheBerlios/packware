@@ -1,0 +1,58 @@
+#!/bin/sh
+
+function _chmod() {
+
+	recursive=""
+	hasmode=""
+	mode=""
+	files=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-R) recursive="-R" ;;
+			*)
+
+			    if [ ! "${hasmode}" = "y" ]; then
+
+				    mode="$1"
+				    hasmode="y"
+
+			    else
+
+				    if echo "$1" | grep "^${pkg}/" > /dev/null 2>&1; then
+
+					    files="${files} $1"
+
+				    else
+
+					    files="${files} ./$1"
+
+				    fi
+
+			    fi ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${mode}" = "" ]; then
+
+		pwtext "_chmod: mode not specified"
+		exit 2
+
+	fi
+
+	if [ "${files}" = "" ]; then
+
+		pwtext "_chmod: no files specified"
+		exit 2
+
+	fi
+
+	echo "chmod ${recursive} ${mode} ${files}" >> ${scripts}/chmod
+
+}

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function _sub() {
+
+	buildnum=""
+	subname=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-b) shift ; buildnum="$1" ;;
+			*) subname="$1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${subname}" = "" ]; then
+
+		pwtext "_sub: subpackage name not supplied"
+		exit 2
+
+	fi
+
+	echo "${subname}=${buildnum}" >> ${tmp}/sub
+
+}

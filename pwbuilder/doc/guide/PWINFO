@@ -1,0 +1,14 @@
+In a directory that contains .pwbuild script, one can put ${name}.pwinfo file,
+where ${name} is a value of name variable in .pwbuild script.
+
+In .pwinfo file, some variables should be defined. They include:
+
+info - short description of package, half line long.
+
+desc - longer description.
+
+desc field is automatically formated during building package. A way of
+formatting is illustrated by attached files. File janosik.pwinfo is an example
+of such file. File slack-desc is an output file, generated from janosik.pwinfo.
+slack-desc can't have more than eleven lines. One paragraph should be written
+in one line, without breaking a line.

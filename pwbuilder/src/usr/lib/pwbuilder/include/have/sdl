@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_sdl() {
+
+	if [ -x /usr/bin/sdl-config ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+function _qconf_fix()
+{
+    mf=`basename $1`
+    sed 's}(INSTALL_ROOT)\(../\)*}(INSTALL_ROOT)}g' $1 > ${tmp}/${mf}.qconf-fix
+    cat ${tmp}/${mf}.qconf-fix > $1
+    rm -f ${tmp}/${mf}.qconf-fix
+}

@@ -1,0 +1,48 @@
+#!/bin/sh
+
+function _doc() {
+
+	defnum=""
+	defdoc=""
+	srcnum="1"
+	docs=""
+	exdocs=""
+	subdir=""
+	altdir=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-d) defdoc=yes ;;
+			-b) shift ; subdir="$1" ;;
+			-s) shift ; srcnum="$1" ;;
+			-x) shift ; exdocs="${exdocs} $1" ;;
+			-r) shift ; altdir="$1" ;;
+			*) docs="${docs} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${defdoc}" = "yes" ]; then
+
+		echo "copy_defdoc ${srcnum} x${altdir} ${subdir}" >> ${scripts}/doc
+
+	fi
+
+	if [ ! "${docs}" = "" ]; then
+
+		echo "copy_doc ${srcnum} x${altdir} \"${subdir}\" ${docs}" >> ${scripts}/doc
+
+	fi
+
+	if [ ! "${exdocs}" = "" ]; then
+
+		echo "exclude_doc ${srcnum} x${altdir} \"${subdir}\" ${exdocs}" >> ${scripts}/doc
+
+	fi
+
+}

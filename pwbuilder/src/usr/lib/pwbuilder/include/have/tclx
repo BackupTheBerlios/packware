@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_tclx() {
+
+	if [ -x /usr/lib/libtclx.so ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

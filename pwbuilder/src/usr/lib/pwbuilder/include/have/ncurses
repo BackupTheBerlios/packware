@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_ncurses() {
+
+	if [ -x /usr/lib/libncurses.so ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

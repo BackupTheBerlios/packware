@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function _alt_make() {
+
+	srcnum="1"
+	altmake=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			*) altmake="${altmake} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${altmake}" = "" ]; then
+
+		pwtext "_alt_make: no command specified"
+		exit 2
+
+	fi
+
+	echo -n " ${altmake} " >> ${tmp}/altmake_${srcnum}
+
+}

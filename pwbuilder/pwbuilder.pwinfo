@@ -1,0 +1,6 @@
+info="A tool for building Slackware packages."
+desc="pwbuilder is a powerful tool for creating software packages for Slackware Linux.
+
+pwbuilder aims to be the easiest tool in its category. However, pwbuilder provides an advanced API that allows you to make packages exactly in the way you want.
+
+Look at /usr/doc/${name}-${version}/ for more information."

@@ -1,0 +1,7 @@
+function config() {
+    if [ ! -f "$1" ]; then
+	mv -f $1.new $1
+    fi
+}
+
+config etc/pwbuilder.conf

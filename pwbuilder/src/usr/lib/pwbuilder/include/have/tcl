@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_tcl() {
+
+	if [ -x /usr/lib/libtcl.so ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

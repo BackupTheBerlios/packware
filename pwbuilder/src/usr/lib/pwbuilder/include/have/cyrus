@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_cyrus() {
+
+	if [ -f /usr/lib/libcyrus.a -a -d /usr/include/cyrus ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_tk() {
+
+	if [ -x /usr/lib/libtk.so ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

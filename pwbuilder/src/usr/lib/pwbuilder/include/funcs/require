@@ -1,0 +1,76 @@
+#!/bin/sh
+
+function _require() {
+
+	cond=""
+	pver=""
+	subp=""
+	pname=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-eq) cond="=" ; shift ; pver="$1" ;;
+			-lt) cond="<" ; shift ; pver="$1" ;;
+			-gt) cond=">" ; shift ; pver="$1" ;;
+			-le) cond="<=" ; shift ; pver="$1" ;;
+			-ge) cond=">=" ; shift ; pver="$1" ;;
+			-p) shift ; subp="$1" ;;
+			*) pname="$1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${pname}" = "" ]; then
+
+		pwtext "_require: no package specified"
+		exit 2
+
+	fi
+
+	if [ ! "${cond}" = "" -a "${pver}" = "" ]; then
+
+		pwtext "_require: condition used but no version specified"
+		exit 2
+
+	fi
+
+	if [ "${subp}" = "" ]; then
+
+		subp="${name}"
+
+	fi
+
+	pver1=`echo ${pver}- | cut -d - -f 1`
+	pver2=`echo ${pver}- | cut -d - -f 2`
+	pver3=`echo ${pver}- | cut -d - -f 3`
+
+	if [ ! "${pver3}" = "" ]; then
+
+		pvers="${pver}"
+
+	elif [ "${pver2}" = "" ]; then
+
+		pvers="${pver1}-i386-1"
+
+	else
+
+		pvers="${pver1}-i386-${pver2}"
+
+	fi
+
+	if [ "${cond}" = "" ]; then
+
+		echo "${pname}" > ${tmp}/req-${subp}
+
+	else
+
+		echo "${pname} ${cond} ${pvers}" > ${tmp}/req-${subp}
+
+	fi
+
+}

@@ -1,0 +1,254 @@
+#!/bin/sh
+
+if [ -f ${scripts}/save ]; then
+
+	source ${scripts}/save
+
+fi
+
+if [ -f ${tmp}/config ]; then
+
+	source ${tmp}/config
+
+fi
+
+source /usr/lib/pwbuilder/include/internal/doc
+source /usr/lib/pwbuilder/include/internal/var
+source /usr/lib/pwbuilder/include/internal/arch
+
+if [ -f ${scripts}/doc ]; then
+
+	source ${scripts}/doc
+	finish_doc
+
+fi
+
+rmdir ${pkg}/usr/doc/${name}-${version} > /dev/null 2>&1
+rmdir ${pkg}/usr/doc > /dev/null 2>&1
+rmdir ${pkg}/usr > /dev/null 2>&1
+
+cat ${scripts}/bsdefs > ${scripts}/subsed
+echo -n "sed " >> ${scripts}/subsed
+
+for d in `cut -d '=' -f 1 ${scripts}/bsdefs | tr -d ' '`; do
+
+	echo -n "-e \"s!\\\${${d}}!\${${d}}!g\" " >> ${scripts}/subsed
+
+done
+
+echo "\$1" >> ${scripts}/subsed
+
+touch ${tmp}/sub
+
+for u in `cat ${tmp}/sub`; do
+
+	s=`echo ${u} | cut -d '=' -f 1`
+
+	if [ ! -f ${src}/${s}.pwsub ]; then
+
+		continue
+
+	fi
+
+	mkdir -p ${sub}/${s}
+
+	echo "${sub}/${s}" >> ${tmp}/subdirs
+
+	sh ${scripts}/subsed ${src}/${s}.pwsub > ${tmp}/${s}.list
+
+	cat ${tmp}/${s}.list |
+
+	while read item; do
+
+		idir=`dirname "${item}"`
+		mkdir -p ${sub}/${s}/"${idir}" > /dev/null 2>&1
+		mv ${pkg}/"${item}" ${sub}/${s}/"${idir}" > /dev/null 2>&1
+
+	done
+
+done
+
+if [ -f ${tmp}/toremove ]; then
+
+	for i in `cat ${tmp}/toremove`; do
+
+		rm -rf $pkg/${i}
+
+	done
+
+fi
+
+rm -rf ${pkg}/usr/man/cat* ${pkg}/var/man/cat*
+
+rmdir ${pkg}/usr/man > /dev/null 2>&1
+rmdir ${pkg}/usr > /dev/null 2>&1
+
+rmdir ${pkg}/var/man > /dev/null 2>&1
+rmdir ${pkg}/var > /dev/null 2>&1
+
+if [ -d ${pkg}/usr/man ]; then
+
+	find ${pkg}/usr/man -type l -exec /usr/lib/pwbuilder/bin/sltm {} \;
+
+fi
+
+touch ${tmp}/subdirs
+
+for i in ${pkg} `cat ${tmp}/subdirs` ; do
+
+(
+
+cd ${i}
+
+pkgname=`basename ${i}`
+
+if [ "${pkgname}" = "installroot" ]; then
+
+	pkgname="${name}"
+
+fi
+
+find . -type l -exec /usr/lib/pwbuilder/bin/sltd {} \; >> ${tmp}/links
+
+if [ -f ${tmp}/links ]; then
+
+	if [ -s ${tmp}/links ]; then
+
+		mkdir install > /dev/null 2>&1
+		cat ${tmp}/links > install/doinst.sh
+
+	fi
+
+	rm -f ${tmp}/links
+
+fi
+
+postinst="`getvar ${pkgname}-postinst`"
+
+if [ "${postinst}" = "" ]; then
+
+	postinst=${pkgname}
+
+fi
+
+if [ -f ${src}/${postinst}.pw-postinst ]; then
+
+	mkdir install > /dev/null 2>&1
+	cat ${src}/${postinst}.pw-postinst >> install/doinst.sh
+
+fi
+
+pwinfo="`getvar ${pkgname}-pwinfo`"
+
+if [ "${pwinfo}" = "" ]; then
+
+	pwinfo=${pkgname}
+
+fi
+
+if [ -f ${tmp}/req-${pkgname} ]; then
+
+	mkdir install > /dev/null 2>&1
+	cp ${tmp}/req-${pkgname} install/slack-required
+
+fi
+
+if [ -f ${src}/${pwinfo}.pwinfo ]; then
+
+	source ${src}/${pwinfo}.pwinfo
+
+	if [ ! "${desc}" = "" ]; then
+
+		mkdir install > /dev/null 2>&1
+
+		if [ ! "${info}" = "" ]; then
+
+			echo "${pkgname}: ${pkgname} (${info})" > install/slack-desc
+
+		else
+
+			echo "${pkgname}: ${pkgname}" > install/slack-desc
+
+		fi
+
+		echo "${pkgname}:" >> install/slack-desc
+		echo "${desc}" | /usr/lib/pwbuilder/bin/desc ${pkgname} >> install/slack-desc
+
+	fi
+
+	unset info
+	unset desc
+
+fi
+
+find . -type l -exec rm -f {} \;
+
+find . -type f -path '*/man/*man?/*.*' ! -path '*.gz' -exec gzip -9f {} \;
+
+if [ -d usr/info ]; then
+
+	rm -f usr/info/dir > /dev/null 2>&1
+	gzip -9f usr/info/*.info* > /dev/null 2>&1
+
+fi
+
+if [ ! "${nostrip}" = "yes" ]; then
+
+	find . -type f -perm +111 -exec strip --strip-unneeded {} \; > /dev/null 2>&1
+
+fi
+
+find . -type f -perm +111 -exec chmod 755 {} \; > /dev/null 2>&1
+find . -type f ! -perm +111 -exec chmod 644 {} \; > /dev/null 2>&1
+find . -type d -exec chmod 755 {} \; > /dev/null 2>&1
+
+if is_arch_dep; then
+
+	architecture="`echo ${pw_target} | tr - _`"
+
+else
+
+	architecture="noarch"
+
+fi
+
+if [ "${pkgdir}" = "TGZ" ]; then
+
+	eval "targetpkgdir=~/tgz/packages/${architecture}"
+	mkdir -p ${targetpkgdir} > /dev/null 2>&1
+
+elif [ "${pkgdir}" = "CUSTOM" -a ! "${custompkgdir}" = "" ]; then
+
+	eval "custompkgdir=${custompkgdir}"
+
+	if [ -d ${custompkgdir} ]; then
+
+		targetpkgdir="${custompkgdir}"
+
+	else
+
+		targetpkgdir="${src}"
+
+	fi
+
+else
+
+	targetpkgdir="${src}"
+
+fi
+
+buildnum=`grep "^${pkgname}=" ${tmp}/sub | cut -d '=' -f 2`
+
+if [ "${buildnum}" = "" ]; then
+
+	buildnum="${build}"
+
+fi
+
+pkgfile="${pkgname}-`echo ${version} | tr - _`-${architecture}-${buildnum}"
+
+fakeroot sh /usr/lib/pwbuilder/include/finishpkg ${pkgfile} ${targetpkgdir} ${scripts}
+
+)
+
+done

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function _next_configure() {
+
+	srcnum="1"
+	nextconfigure=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			*) nextconfigure="${nextconfigure} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${nextconfigure}" = "" ]; then
+
+		pwtext "_next_configure: no command specified"
+		exit 2
+
+	fi
+
+	echo -n " ${nextconfigure} " >> ${tmp}/nextconfigure_${srcnum}
+
+}

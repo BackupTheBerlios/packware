@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_python() {
+
+	if [ -x /usr/bin/python ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

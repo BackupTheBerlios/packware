@@ -1,0 +1,15 @@
+pwbuilder automatically sets some variables for make install called by
+_install. Those variables include:
+
+DESTDIR=${pkg}
+INSTALLROOT=${pkg}
+INSTALL_ROOT=${pkg}
+PERL_INSTALL_ROOT=${pkg}
+INSTALL_PREFIX=${pkg}
+
+Thus it's not required to put in .pwbuilds commands like:
+
+_i_opt DESTDIR=${pkg}
+
+If for some reason these definitions break make install, you can turn them off
+by passing -u option to _install.

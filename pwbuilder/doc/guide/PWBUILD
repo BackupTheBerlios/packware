@@ -1,0 +1,409 @@
+_doc [-d] [-b subdirectory] [-r directory] [-s N] [-x file] [files]
+
+Points to files that will be put as documentation in
+/usr/doc/${name}-${version} directory. Files are separated with space. Their
+location is relative to source directory. This command can be used many times.
+
+-d - automatically select files whose names have all letters upper-case.
+ABOUT-NLS file will be copied, too. With this option you can still define
+addtional files in a normal way.
+
+-b subdirectory - look for -d files in given subdirectory rather that top
+level directory of sources.
+
+-s N - the default source if the first one. This option allows to change the
+source number.
+
+-x file - exclude file from automatically selected files. This option can be
+used many times.
+
+-r directory - defines a directory that the files will be put in. It will be
+/usr/doc/${directory} instead of /usr/doc/${name}-${version}.
+
+_doc command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_source [-f] [-p proj] [-t dir] [-g] [-z] [-u] [-m md5] [-n name] [-v ver] [-i] [url]
+
+Adds new source. File location can be given as URL address that begins with
+http:// or ftp://. If URL ends with '/', file name is set automatically this
+way: '${name}-${version}.tar.bz2'.
+
+-g - use '.tar.gz' rather than '.tar.bz2' when setting file name automatically.
+
+-z - use '.tgz' rather than '.tar.bz2' when setting file name automatically.
+
+-Z - use '.zip' rather than '.tar.bz2' when setting file name automatically.
+
+-n string - use ${string} instead of ${name} when setting file name
+automatically.
+
+-v string - use ${string} instead of ${version} when setting file name
+automatically.
+
+-m md5 - sets md5 checksum for file. This checksum is used to verify file
+before unpacking.
+
+-t dir - changes top directory of source. Default is file name without
+extension.
+
+-u - causes source not to be unpacked, even if there is such possibility.
+
+-f - tells pwbuilder that a source can be obtained for SourceForge. URL is not
+needed then and is formed automatically in this way:
+http://unc.dl.sourceforge.net/sourceforge/${name}/${name}-${version}.tar.bz2.
+If -g option is used, .tar.gz version will be fetched instead of .tar.bz2 one.
+
+-p proj - if -f option is used, and a source is in other directory than ${name}
+(a directory after /sourceforge/ is different), this option will let you
+overwrite name of this directory.
+
+-s size - size of source. It will be displayed after "+ Source " label.
+
+-c - when autocompleting source location, use an underscore instead of a dash
+to join ${name} and ${version}.
+
+-i - when source will not be found, don't stop building.
+
+_source command is available since version 0.6.0 of pwbuilder.
+-s option is available since version 0.6.1 of pwbuilder.
+-c option is available since version 0.6.2 of pwbuilder.
+-i option is available since version 0.6.2 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_c_opt [-s N] options
+
+Passes options to configure script that is executed by _configure command.
+
+-s N - use options for source number N instead of 1.
+
+_c_opt command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_m_opt [-s N] options
+
+Passes options to make that is executed by _make command.
+
+-s N - use options for source number N instead of 1.
+
+_m_opt command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_i_opt [-s N] options
+
+Passes options to make install that is executed by _install command.
+
+-s N - use options for source number N instead of 1.
+
+_i_opt command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_configure [-s N] [-b subdirectory] [options]
+
+Executes configure script and gives it additional options.
+
+-s N - execute configure for source number N instead of 1.
+
+-b subdirectory - execute configure in a subdirectory of source tree. Instead
+of using -b option, _configure command may be preceded by _execindir command.
+
+_configure command is available since version 0.6.0 of pwbuilder.
+-b option is available since version 0.6.1 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_make [-s N] [-b subdirectory] [options]
+
+Executes make and gives it additional options.
+
+-s N - execute make for source number N instead of 1.
+
+-b subdirectory - execute make in a subdirectory of source tree. Instead
+of using -b option, _make command may be preceded by _execindir command.
+
+_make command is available since version 0.6.0 of pwbuilder.
+-b option is available since version 0.6.1 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_install [-s N] [-u] [-b subdirectory] [options]
+
+Executes make install and gives it additional options.
+
+-s N - execute make install for source number N instead of 1.
+
+-b subdirectory - execute make install in a subdirectory of source tree.
+Instead of using -b option, _install command may be preceded by _execindir
+command.
+
+-u - don't set DESTDIR, INSTALLROOT, INSTALL_ROOT, PERL_ISNTALL_ROOT and
+INSTALL_PREFIX variables for make install.
+
+_install command is available since version 0.6.0 of pwbuilder.
+-b option is availabe since version 0.6.1 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_cmi [-s N] [-u] [-b subdirectory]
+
+Executes _configure, _make and _install.
+
+-s N - execute these commands for source number N instead of 1.
+
+-b subdirectory - execute these commands in a subdirectory of source tree.
+Instead of using -b option, _cmi command may be preceded by _execindir command.
+
+-u - don't set DESTDIR, INSTALLROOT, INSTALL_ROOT, PERL_ISNTALL_ROOT and
+INSTALL_PREFIX variables for make install.
+
+_cmi command is available since version 0.6.0 of pwbuilder.
+-b option is available since version 0.6.1 of pwbuilder.
+-u option is available since version 0.6.1 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_py_b_opt options
+
+Passes options to python setup.py build that is called by _py_build.
+
+_py_b_opt command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_py_i_opt options
+
+Passes options to python setup.py install that is called by _py_install.
+
+_py_i_opt command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_py_build [-b subdirectory] [options]
+
+Executes python setup.py build and gives it additional options.
+
+-b subdirectory - execute in a subdirectory of source tree. Instead of using
+-b option, _py_build command may be preceded by _execindir command.
+
+_py_build command is available since version 0.6.0 of pwbuilder.
+-b option is available since version 0.6.1 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_py_install [-u] [-b subdirectory] [options]
+
+Executes python setup.py install and gives it additional options.
+
+-u - don't pass --root=${pkg} to python setup.py install.
+
+-b subdirectory - execute in a subdirectory of source tree. Instead of using
+-b option, _py_install command may be preceded by _execindir command.
+
+_py_install command is available since version 0.6.0 of pwbuilder.
+-u option is available since version 0.6.1 of pwbuilder.
+-b option is available since version 0.6.1 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_patch [-s N] [-p N] [-i] file
+
+Applies patch from given file. File can be defined directly or indirectly -
+pwbuilder will try this then: ${name}-${plik}.pw.patch,
+${name}-${plik}.pw.diff, ${name}-${plik}.patch, ${name}-${plik}.diff,
+${plik}.patch, ${plik}.diff. If file begins with '/', it is used as absolute
+path to particular file.
+
+-s N - applies patch for source number N instead of 1.
+
+-p N - applies patch with level N instead of 1.
+
+-i - don't stop building if patch failed.
+
+_patch command is available since version 0.6.0 of pwbuilder.
+-i option is available since version 0.6.2 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_chmod [-R] perms files
+
+Sets non-standard file permisions. Just before saving package, permisions of
+all files are being reset to 644, and directories to 755. This command allows
+to override this settings.
+
+-R - the same as -R in chmod(1).
+
+_chmod command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_chown [-R] [-d] owning files
+
+Sets non-standard file owning. Just before saving package, ownings of all files
+and directories to root.root. This command allows to override this settings.
+
+-R - the same as -R in chown(1).
+
+-d - the same as --dereference in chown(1).
+
+_chown command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_sub name
+
+Defines a subpackage with given name.
+
+_sub command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_pwbuilder required
+
+Defines the oldest pwbuilder version that is able to build a package. This
+command is intended to use at the beginning of .pwbuild script, before basic
+variables (name, versio, build etc.) or just after them. This command checks
+whether existing pwbuilder version is greater than or equal to required
+version. If not, it stops pwbuilder.
+
+_pwbuilder command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_remove [file/dir...]
+
+This command removes given files/directories from main package. It's helpful
+if we define more than one subpackage and there are needless files or
+directories left in main package.
+
+_remove command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_alt_configure [-s N] command
+
+Changes command that will be executed by _configure instead of ./configure.
+
+-s N - changes command for source number N instead of 1.
+
+_alt_configure command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_alt_make [-s N] command
+
+Changes command that will be executed by _make instead of make.
+
+-s N - changes command for source number N instead of 1.
+
+_alt_make command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_alt_install [-s N] command
+
+Changes command that will be executed by _install instead of make install.
+
+-s N - changes command for source number N instead of 1.
+
+_alt_install command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_next_configure [-s N] command
+
+Like _alt_configure but sets the command only for the next _configure call.
+
+_next_configure command is available since version 0.6.3 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_next_make [-s N] command
+
+Like _alt_make but sets the command only for the next _make call.
+
+_next_make command is available since version 0.6.3 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_next_install [-s N] command
+
+Like _alt_install but sets the command only for the next _install call.
+
+_next_install command is available since version 0.6.3 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_config [-s]
+
+Allows to override /etc/pwbuilder.conf or ~/.pwbuilderrc or commandline
+settings.
+
+-s - don't strip binaries.
+
+_config command is available since version 0.6.0 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_require package [[-eq|-gt|-lt|-ge|-le] version[-build]] [-p subpackage]
+
+Tell pwbuilder what requirements built package has. pwbuilder will create
+install/slack-required file from this data.
+
+-p subpackage - requirement applies to a subpackage, not main package.
+
+  -----------------------------------------------
+ | Relation | Meaning | Comment                  |
+ |----------|---------|--------------------------|
+ | -eq      | =       | equal to                 |
+ | -gt      | >       | greater than             |
+ | -lt      | <       | lower than               |
+ | -ge      | >=      | greater than or equal to |
+ | -le      | <=      | lower than or equal to   |
+  -----------------------------------------------
+
+Examples:
+
+_require openssl
+_require openssl -ge 0.9.7
+_require openssl -eq 0.9.7-2
+_require openssl -gt 0.9.7-i386-2
+
+_require command is available since version 0.6.3 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_execindir directory command
+
+Executes the command in the directory. If _setexecdir was used, then directory
+must not be given.
+
+_execindir command is available since version 0.6.3 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_setexecdir directory
+
+Sets directory for _execindir.
+
+_setexecdir command is available since version 0.6.4 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_unsetexecdir
+
+Unsets directory for _execindir.
+
+_unsetexecdir command is available since version 0.6.4 of pwbuilder.
+
+-------------------------------------------------------------------------------
+
+_qconf_fix file
+
+Fixes a problem with Makefiles generated by qconf with ../ bug.
+
+file - buggy Makefile

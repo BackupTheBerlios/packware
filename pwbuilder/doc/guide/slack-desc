@@ -1,0 +1,12 @@
+janosik: janosik (An open source alternative for Platnik.)
+janosik:
+janosik: Janosik is a free and open implementation of Platnik, a program that
+janosik: is required for electronic transfer of papers to ZUS (a Polish
+janosik: national insurance office).
+janosik: 
+janosik: Platnik is available only for MS Windows. Janosik has been written in
+janosik: Python, and thus it runs on all platforms Python and PyGTK2 are ported
+janosik: to.
+janosik:
+janosik:
+janosik:

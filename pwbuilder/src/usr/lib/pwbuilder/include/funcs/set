@@ -1,0 +1,14 @@
+#!/bin/sh
+
+function _set() {
+
+	if [ "$2" = "" ]; then
+
+		pwtext "_set: not enough parameters."
+		exit 2
+
+	fi
+
+	echo "$2" > ${var}/$1
+
+}

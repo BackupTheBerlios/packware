@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_openssl() {
+
+	if [ -f /usr/lib/pkgconfig/openssl.pc ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function _next_make() {
+
+	srcnum="1"
+	nextmake=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			*) nextmake="${nextmake} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${nextmake}" = "" ]; then
+
+		pwtext "_next_make: no command specified"
+		exit 2
+
+	fi
+
+	echo -n " ${nextmake} " >> ${tmp}/nextmake_${srcnum}
+
+}

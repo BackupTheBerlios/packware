@@ -1,0 +1,7 @@
+#!/bin/sh
+
+function _unsetexecdir() {
+
+	rm -f ${tmp}/setexecdir
+
+}

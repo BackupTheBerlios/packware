@@ -1,0 +1,41 @@
+#!/bin/sh
+
+name="pwbuilder"
+version="0.6.4-pre3"
+build="1"
+
+fakeroot="0.7.8"
+pwutils="0.6"
+
+_pwbuilder 0.6.3
+
+_doc -d -r fakeroot-${fakeroot} README.fake
+
+_source -t fakeroot-${fakeroot} -m d9612083d722f49091f54217ce90f9a5 -s 678306 http://packware.intersec.pl/source/fakeroot_${fakeroot}.tar.gz
+_source -n pwutils -v ${pwutils} -m 48d32d94b45774967357c94b7fbb2cb3 -s 3440 http://packware.intersec.pl/
+
+_patch fakeroot-libdir
+
+_c_opt --prefix=/usr
+
+_i_opt DESTDIR=${pkg}
+
+_cmi
+
+_make -s 2
+
+cp -R ${src}/src/* ${pkg}
+
+for i in desc getsfmirror sltd sltm; do
+    cp ${src2}/${i} ${pkg}/usr/lib/pwbuilder/bin
+done
+
+echo ${version} > ${doc}/VERSION
+cp -R ${src}/doc/* ${doc}
+
+find ${pkg} -type d -name CVS | xargs rm -r
+
+for i in pl; do
+    mkdir ${pkg}/usr/share/locale/${i}/LC_MESSAGES
+    msgfmt ${src}/po/${i}.po -o ${pkg}/usr/share/locale/${i}/LC_MESSAGES/${name}.mo
+done

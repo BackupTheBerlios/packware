@@ -1,0 +1,147 @@
+#!/bin/sh
+
+function _patch() {
+
+	level="1"
+	patches=""
+	srcnum="1"
+	failig=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-p) shift ; level="$1" ;;
+			-s) shift ; srcnum="$1" ;;
+			-i) failig="yes" ;;
+			*) patches="${patches} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	if [ "${patches}" = "" ]; then
+
+		pwtext "_patch: no patch specified"
+		exit 2
+
+	fi
+
+	eval "srcd=\"\${src${srcnum}}\""
+
+	echo 0 > ${tmp}/patch-exit
+
+	(
+
+	cd ${srcd}
+
+	for i in ${patches}; do
+
+		pfile=""
+
+		pwtext "+ Patch %s" ${i}
+
+		if echo "${i}" | grep "^/" > /dev/null 2>&1; then
+
+			if [ -f "${i}" ]; then
+
+				pfile="${i}"
+
+			else
+
+				pwtext "! Error: file not found"
+				echo 3 > ${tmp}/patch-exit
+				exit 3
+
+			fi
+
+		else
+
+			for j in ${i} ${i}.bz2 ${i}.gz \
+				    ${name}-${i}.pw.patch \
+				    ${name}-${i}.pw.patch.bz2 \
+				    ${name}-${i}.pw.patch.gz \
+				    ${name}-${i}.pw.diff \
+				    ${name}-${i}.pw.diff.bz2 \
+				    ${name}-${i}.pw.diff.gz \
+				    ${name}-${i}.patch \
+				    ${name}-${i}.patch.bz2 \
+				    ${name}-${i}.patch.gz \
+				    ${name}-${i}.diff \
+				    ${name}-${i}.diff.bz2 \
+				    ${name}-${i}.diff.gz \
+				    ${i}.pw.patch \
+				    ${i}.pw.patch.bz2 \
+				    ${i}.pw.patch.gz \
+				    ${i}.pw.diff \
+				    ${i}.pw.diff.bz2 \
+				    ${i}.pw.diff.gz \
+				    ${i}.patch \
+				    ${i}.patch.bz2 \
+				    ${i}.patch.gz \
+				    ${i}.diff \
+				    ${i}.diff.bz2 \
+				    ${i}.diff.gz ; do
+
+				if [ -f "${src}"/${j} ]; then
+
+					pfile="${src}"/${j}
+					break
+
+				fi
+
+			done
+
+		fi
+
+		if [ "${pfile}" = "" ]; then
+
+			pwtext "! Error: no matching file"
+			echo 3 > ${tmp}/patch-exit
+			exit 3
+
+		fi
+
+		if echo "${pfile}" | grep "[.]bz2$" > /dev/null 2>&1; then
+
+			xcat="bzcat"
+
+		elif echo "${pfile}" | grep "[.]gz$" > /dev/null 2>&1; then
+
+			xcat="zcat"
+
+		else
+
+			xcat="cat"
+
+		fi
+
+		${xcat} "${pfile}" | patch -p${level} > /dev/null 2>&1
+
+		if [ ! $? = 0 ]; then
+
+			pwtext "! Error: applying failed"
+			echo 3 > ${tmp}/patch-exit
+			exit 3
+
+		fi
+
+	done
+
+	)
+
+	if [ ! "${failig}" = "yes" ]; then
+
+		if [ ! `cat ${tmp}/patch-exit` = 0 ]; then
+
+			exit `cat ${tmp}/patch-exit`
+
+		fi
+
+	fi
+
+	return `cat ${tmp}/patch-exit`
+
+}

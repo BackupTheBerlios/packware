@@ -1,0 +1,116 @@
+#!/bin/sh
+
+buid="${RANDOM}${RANDOM}${RANDOM}" ; export buid
+
+if [ "${usertmp}" = "" ]; then
+
+	tmp="/tmp/pwbuilder-${buid}"
+
+else
+
+	eval "tmp=${usertmp}/pwbuilder-${buid}"
+
+fi
+
+mkdir -p ${tmp} ; chmod 700 ${tmp} ; export tmp
+
+pkg="${tmp}/installroot" ; mkdir -p ${pkg}     ; export pkg
+xsrcdir="${tmp}/sources" ; mkdir -p ${xsrcdir} ; export xsrcdir
+scripts="${tmp}/scripts" ; mkdir -p ${scripts} ; export scripts
+sub="${tmp}/subs"        ; mkdir -p ${sub}     ; export sub
+var="${tmp}/var"         ; mkdir -p ${var}     ; export var
+empty="${tmp}/empty"     ; mkdir -p ${empty}   ; export empty
+
+egrep "^[ ]*[a-zA-Z0-9_]+=" "${buildscript}" > ${scripts}/bsdefs
+source ${scripts}/bsdefs
+
+docdir="/usr/doc/${name}-${version}" ; export docdir
+doc="${pkg}${docdir}"                ; export doc    ; mkdir -p ${doc}
+
+export pw_target="${target}"
+export pw_debug="${debug}"
+
+if [ "${pw_target}" = "i386" ]; then
+
+	coflags="-march=i386 -mcpu=i686 ${cflags}"
+
+elif [ "${pw_target}" = "i486" ]; then
+
+	coflags="-march=i486 -mcpu=i686 ${cflags}"
+
+else
+
+	coflags="-march=${pw_target} -mcpu=${pw_target} ${cflags}"
+
+fi
+
+if [ "${use_ccache}" = "yes" ]; then
+
+	CC="ccache gcc ${coflags}"
+	CXX="ccache g++ ${coflags}"
+
+	if [ "${use_distcc}" = "yes" ]; then
+
+		CCACHE_PREFIX="distcc" ; export CCACHE_PREFIX
+
+	fi
+
+elif [ "${use_distcc}" = "yes" ]; then
+
+	CC="distcc gcc ${coflags}"
+	CXX="distcc g++ ${coflags}"
+
+else
+
+	CC="gcc ${coflags}"
+	CXX="g++ ${coflags}"
+
+fi
+
+export CC CXX coflags
+
+AM_CFLAGS="${coflags}"   ; export AM_CFLAGS
+AM_CXXFLAGS="${coflags}" ; export AM_CXXFLAGS
+AM_CPPFLAGS="${coflags}" ; export AM_CPPFLAGS
+
+src="`dirname \"${buildscript}\"`"
+
+if echo ${src} | grep '^[.]$' > /dev/null 2>&1; then
+
+	src="`pwd`"
+
+elif echo ${src} | grep '^[.][.]/' > /dev/null 2>&1; then
+
+	src="`pwd`/${src}"
+
+elif echo ${src} | grep '^[.]/' > /dev/null 2>&1; then
+
+	src="`pwd`/${src}"
+
+elif echo ${src} | grep -v '^/' > /dev/null 2>&1; then
+
+	src="`pwd`/${src}"
+
+fi
+
+export src
+
+fqbsp="${src}/`basename ${buildscript}`" ; export fqbsp
+
+if [ "${srcspool}" = "" ]; then
+
+	srcspool="${src}"
+
+else
+
+	eval "srcspool=${srcspool}"
+
+fi
+
+export srcspool
+
+export sfmirror passiveftp
+
+export SED=/usr/bin/sed
+
+cd ${empty}

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_perl() {
+
+	if [ -x /usr/bin/perl ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

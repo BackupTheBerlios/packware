@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_mysql() {
+
+	if [ -x /usr/bin/mysql_config ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+function _execindir() {
+
+    prevdir="`pwd`"
+
+    if [ -f ${tmp}/setexecdir ]; then
+
+	    cd "`cat ${tmp}/setexecdir`"
+
+    else
+
+	    cd "$1"
+	    shift
+
+    fi
+
+    inotherdir=yes "$@"
+    cd "${prevdir}"
+
+}

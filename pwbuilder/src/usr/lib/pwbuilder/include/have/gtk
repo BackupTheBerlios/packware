@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function _have_gtk() {
+
+	if [ -x /usr/bin/gtk-config ]; then
+
+		return 0;
+
+	else
+
+		return 1;
+
+	fi
+
+}

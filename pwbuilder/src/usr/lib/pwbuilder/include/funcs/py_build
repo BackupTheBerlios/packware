@@ -1,0 +1,58 @@
+#!/bin/sh
+
+function _py_build() {
+
+	srcnum="1"
+	subdir=""
+	opts=""
+
+	while [ $# -gt 0 ]; do
+
+		case "$1" in
+
+			-s) shift ; srcnum="$1" ;;
+			-b) shift ; subdir="$1" ;;
+			*) opts="${opts} $1" ;;
+
+		esac
+
+		shift
+
+	done
+
+	eval "srcd=\"\${src${srcnum}}\""
+
+	(
+
+		if [ ! "${inotherdir}" = "yes" ]; then
+
+			cd ${srcd}/${subdir}
+
+		fi
+
+		touch ${tmp}/py_b_opts_${srcnum}
+
+		if [ "${pw_debug}" = "yes" ]; then
+
+			echo "+ Python build #${srcnum} (python setup.py build "`cat ${tmp}/py_b_opts_${srcnum}` ${opts}")"
+			python setup.py build `cat ${tmp}/py_b_opts_${srcnum}` ${opts}
+			echo $? > ${tmp}/pybures
+
+		else
+
+			echo "+ Python build #${srcnum}"
+			python setup.py build `cat ${tmp}/py_b_opts_${srcnum}` ${opts} > /dev/null
+			echo $? > ${tmp}/pybures
+
+		fi
+
+	)
+
+	if [ ! `cat ${tmp}/pybures` = 0 ]; then
+
+		pwtext "! Error: python build failed"
+		exit 3
+
+	fi
+
+}

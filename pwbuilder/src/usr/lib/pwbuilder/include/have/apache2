@@ -1,0 +1,19 @@
+#!/bin/sh
+
+function _have_apache2() {
+
+	if [ ! -x /usr/sbin/httpd ]; then
+
+		return 1;
+
+	fi
+
+	if /usr/sbin/httpd -v | grep Apache/1 > /dev/null 2>&1; then
+
+		return 1;
+
+	fi
+
+	return 0;
+
+}
