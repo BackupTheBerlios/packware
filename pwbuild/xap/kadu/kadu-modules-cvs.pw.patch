@@ -1,7 +1,7 @@
 diff -ruN kadu.orig/.config kadu/.config
---- kadu.orig/.config	2004-08-22 02:40:31.000000000 +0200
-+++ kadu/.config	2004-08-26 21:11:42.000000000 +0200
-@@ -13,73 +13,73 @@
+--- kadu.orig/.config	2004-08-28 16:16:09.000000000 +0200
++++ kadu/.config	2004-08-29 16:17:02.000000000 +0200
+@@ -13,25 +13,25 @@
  #
  
  # Tray icon support
@@ -9,34 +9,29 @@ diff -ruN kadu.orig/.config kadu/.config
 +module_docking=m
  
  # XLib tray docking techniques module (depends: docking)
--module_x11_docking=y
-+module_x11_docking=m
+ module_x11_docking=m
  
  # WindowMaker docking module (depends: docking)
 -module_wmaker_docking=n
 +module_wmaker_docking=m
  
  # OpenSSL encrypted chat support
--module_encryption=y
-+module_encryption=m
+ module_encryption=m
  
  # Speech synthesis support (depends: notify)
 -module_speech=n
 +module_speech=m
  
  # Voice chat support (depends: dcc)
--module_voice=y
-+module_voice=m
+ module_voice=m
  
  # General sound support (depends: notify)
 -module_sound=y
 +module_sound=m
  
  # External application sound support (depends: sound)
--module_ext_sound=y
-+module_ext_sound=m
- 
- # Direct /dev/dsp sound support (depends: sound)
+ module_ext_sound=m
+@@ -40,10 +40,10 @@
  module_dsp_sound=m
  
  # aRts sound server support (depends: sound)
@@ -49,38 +44,17 @@ diff -ruN kadu.orig/.config kadu/.config
  
  # Network Audio System support (depends: sound)
  module_nas_sound=n
- 
- # SMS module
--module_sms=y
-+module_sms=m
- 
- # default gateways for SMS module (depends: sms)
--module_default_sms=y
-+module_default_sms=m
- 
- # dcc module with file transfer support
--module_dcc=y
-+module_dcc=m
- 
- # Auto away module
--module_autoaway=y
-+module_autoaway=m
- 
- # Register/unregister account, remind/change password support
--module_account_management=y
-+module_account_management=m
+@@ -64,7 +64,7 @@
+ module_account_management=m
  
  # General notification module
 -module_notify=y
 +module_notify=m
  
  # Notification by window module (depends: notify)
--module_window_notify=y
-+module_window_notify=m
- 
- # Notification by hints module (depends: notify)
--module_hints=y
-+module_hints=m
+ module_window_notify=m
+@@ -73,13 +73,13 @@
+ module_hints=m
  
  # Always on top window docking module (depends: docking)
 -module_desktop_docking=n
@@ -130,14 +104,10 @@ diff -ruN kadu.orig/.config kadu/.config
 -module_xosd_notify=n
 +module_xosd_notify=n
  
- #
- # Below are some icon themes, one default and others, made by third
-@@ -130,11 +130,11 @@
- #
- 
- # Default icon theme shipped with sources
--icons_default=y
-+icons_default=y
+ # Weather checking
+ module_weather=n
+@@ -136,8 +136,8 @@
+ icons_default=y
  
  # Crystal 16x16 icons made by Arcisz
 -icons_crystal16=n

@@ -1,14 +1,14 @@
 #!/bin/sh
 
 name="kadu"
-version="20040826"
+version="20040829"
 build="1"
 
 _pwbuilder 0.6.3
 
 _doc -d -x CVS ChangeLog
 
-_source -m 8e7161bc60d7168887701c755df1ef66 -s 1028237 -t ${name} http://kadu.net/download/snapshots/
+_source -m 17218f24adcd848220ee6428e29d4f14 -s 1030104 -t ${name} http://kadu.net/download/snapshots/
 
 _patch lpthread
 _patch libgsm-install
@@ -33,6 +33,9 @@ cp ${src1}/kadu/hi32-app-kadu.png ${pkg}/opt/kde/share/icons/hicolor/32x32/apps/
 cp ${src1}/kadu/hi48-app-kadu.png ${pkg}/opt/kde/share/icons/hicolor/48x48/apps/kadu.png
 
 # $Log: kadu-cvs.pwbuild,v $
+# Revision 1.4  2004/08/29 14:35:12  swiergot
+# - Version 20040829.
+#
 # Revision 1.3  2004/08/26 20:05:19  swiergot
 # - Version 20040826.
 #
