@@ -8,7 +8,7 @@ _pwbuilder 0.6.3
 
 _doc -d ChangeLog
 
-_source -m d01a36de2ebb5b4f7c407ae6cc7668b1 -s 312 http://www.stack.nl/~brama/mp3blaster/src/mp3blaster-3.2.0.tar.gz
+_source -m d01a36de2ebb5b4f7c407ae6cc7668b1 -s 312991 http://www.stack.nl/~brama/mp3blaster/src/mp3blaster-3.2.0.tar.gz
 
 _c_opt --prefix=/usr
 _c_opt --sysconfdir=/etc
@@ -16,6 +16,9 @@ _c_opt --sysconfdir=/etc
 _cmi
 
 # $Log: mp3blaster.pwbuild,v $
+# Revision 1.3  2004/08/18 12:58:06  vrok
+# Fixed up file size.
+#
 # Revision 1.2  2004/08/18 10:09:30  vrok
 # mp3blaster.pwbuild was a bit messed up. Sorry for that.
 #
