@@ -1,0 +1,28 @@
+diff -ruN sylpheed-claws.orig/po/POTFILES.in sylpheed-claws/po/POTFILES.in
+--- sylpheed-claws.orig/po/POTFILES.in	2004-08-13 16:46:10.000000000 +0200
++++ sylpheed-claws/po/POTFILES.in	2004-10-09 16:20:18.000000000 +0200
+@@ -64,7 +64,6 @@
+ src/mimeview.c
+ src/news.c
+ src/news_gtk.c
+-src/passphrase.c
+ src/plugins/clamav/clamav_plugin.c
+ src/plugins/clamav/clamav_plugin_gtk.c
+ src/plugins/demo/demo.c
+@@ -76,6 +75,8 @@
+ src/plugins/mathml_viewer/mathml_viewer.c
+ src/plugins/pgpmime/plugin.c
+ src/plugins/pgpmime/sgpgme.c
++src/plugins/pgpmime/passphrase.c
++src/plugins/pgpmime/select-keys.c
+ src/plugins/spamassassin/spamassassin.c
+ src/plugins/spamassassin/spamassassin_gtk.c
+ src/plugins/trayicon/trayicon.c
+@@ -102,7 +103,6 @@
+ src/privacy.c
+ src/procmsg.c
+ src/quote_fmt.c
+-src/select-keys.c
+ src/send_message.c
+ src/setup.c
+ src/sourcewindow.c
