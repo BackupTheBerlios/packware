@@ -1,18 +1,18 @@
 diff -ruN kadu.orig/.config kadu/.config
---- kadu.orig/.config	2004-08-01 05:57:15.000000000 +0200
-+++ kadu/.config	2004-08-14 17:05:37.000000000 +0200
-@@ -7,70 +7,70 @@
+--- kadu.orig/.config	2004-08-22 02:40:31.000000000 +0200
++++ kadu/.config	2004-08-26 21:11:42.000000000 +0200
+@@ -13,73 +13,73 @@
  #
  
  # Tray icon support
 -module_docking=y
 +module_docking=m
  
- # XLib tray docking techniques module
+ # XLib tray docking techniques module (depends: docking)
 -module_x11_docking=y
 +module_x11_docking=m
  
- # WindowMaker docking module
+ # WindowMaker docking module (depends: docking)
 -module_wmaker_docking=n
 +module_wmaker_docking=m
  
@@ -20,41 +20,41 @@ diff -ruN kadu.orig/.config kadu/.config
 -module_encryption=y
 +module_encryption=m
  
- # Speech synthesis support
+ # Speech synthesis support (depends: notify)
 -module_speech=n
 +module_speech=m
  
- # Voice chat support
+ # Voice chat support (depends: dcc)
 -module_voice=y
 +module_voice=m
  
- # General sound support
+ # General sound support (depends: notify)
 -module_sound=y
 +module_sound=m
  
- # External application sound support
+ # External application sound support (depends: sound)
 -module_ext_sound=y
 +module_ext_sound=m
  
- # Direct /dev/dsp sound support
+ # Direct /dev/dsp sound support (depends: sound)
  module_dsp_sound=m
  
- # Arts sound server support
+ # aRts sound server support (depends: sound)
 -module_arts_sound=n
 +module_arts_sound=m
  
- # ESD sound server support
+ # ESD sound server support (depends: sound)
 -module_esd_sound=n
 +module_esd_sound=m
  
- # Network Audio System support
+ # Network Audio System support (depends: sound)
  module_nas_sound=n
  
  # SMS module
 -module_sms=y
 +module_sms=m
  
- # default gateways for SMS module
+ # default gateways for SMS module (depends: sms)
 -module_default_sms=y
 +module_default_sms=m
  
@@ -70,17 +70,21 @@ diff -ruN kadu.orig/.config kadu/.config
 -module_account_management=y
 +module_account_management=m
  
- # General notification module (needed by sound, speech, hints, window_notify)
+ # General notification module
 -module_notify=y
 +module_notify=m
  
- # Notification by window module
+ # Notification by window module (depends: notify)
 -module_window_notify=y
 +module_window_notify=m
  
- # Notification by hints module
+ # Notification by hints module (depends: notify)
 -module_hints=y
 +module_hints=m
+ 
+ # Always on top window docking module (depends: docking)
+-module_desktop_docking=n
++module_desktop_docking=m
  
  # Autoresponder module
  module_autoresponder=m
@@ -89,16 +93,16 @@ diff -ruN kadu.orig/.config kadu/.config
 -module_echo=n
 +module_echo=m
  
+ 
  #
- # Below are some external modules, made by third parties, but
-@@ -81,22 +81,22 @@
+@@ -95,28 +95,28 @@
  #
  
  # TCL scripting support and KaduPro extensions
 -module_tcl_scripting=n
 +module_tcl_scripting=n
  
- # Xmms player support
+ # XMMS player support
 -module_xmms=n
 +module_xmms=m
  
@@ -114,10 +118,32 @@ diff -ruN kadu.orig/.config kadu/.config
 -module_mail=n
 +module_mail=m
  
- # Spellchecker module (Aspell support)
+ # Spellchecker module (aspell support)
 -module_spellchecker=n
 +module_spellchecker=m
  
  # PC-Speaker support
 -module_pcspeaker=n
 +module_pcspeaker=m
+ 
+ # Notification by XOSD (depends: notify)
+-module_xosd_notify=n
++module_xosd_notify=n
+ 
+ #
+ # Below are some icon themes, one default and others, made by third
+@@ -130,11 +130,11 @@
+ #
+ 
+ # Default icon theme shipped with sources
+-icons_default=y
++icons_default=m
+ 
+ # Crystal 16x16 icons made by Arcisz
+-icons_crystal16=n
++icons_crystal16=m
+ 
+ # Crystal 22x22 icons made by Arcisz
+-icons_crystal22=n
++icons_crystal22=m
+ 
