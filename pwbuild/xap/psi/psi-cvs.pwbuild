@@ -1,14 +1,14 @@
 #!/bin/sh
 
 name="psi"
-version="20040730"
+version="20040815"
 build="1"
 
 _pwbuilder 0.6.4
 
 _doc -d ChangeLog -x CVS
 
-_source -m f0abfdb90e302070cf861ec46848c98c -s 1816833 -t ${name}/${name} ftp://ftp.berlios.de/pub/packware/sources/
+_source -m d433d2334a96bf731609e2f82257eb26 -s 1828660 -t ${name}/${name} ftp://ftp.berlios.de/pub/packware/sources/
 
 _patch -p 0 translations
 _patch no_online_status
@@ -67,6 +67,9 @@ ln -s ${docdir}/README ${pkg}/usr/share/psi
 cp ${src}/indicator.png ${pkg}/usr/share/psi/iconsets/roster/default
 
 # $Log: psi-cvs.pwbuild,v $
+# Revision 1.2  2004/08/15 13:43:50  swiergot
+# - Version 20040815.
+#
 # Revision 1.1  2004/07/30 20:34:54  swiergot
 # - Initial commit.
 # - Version 0.9.2/20040730.
