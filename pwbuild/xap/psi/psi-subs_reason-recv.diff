@@ -1,0 +1,243 @@
+diff -ru -X exclude iris-clean/include/im.h iris/include/im.h
+--- ../../iris-clean/include/im.h	Sat Dec 06 20:29:16 2003
++++ ../../iris/include/im.h	Tue Feb 03 01:31:32 2004
+@@ -582,7 +582,7 @@
+ 		void resourceAvailable(const Jid &, const Resource &);
+ 		void resourceUnavailable(const Jid &, const Resource &);
+ 		void presenceError(const Jid &, int, const QString &);
+-		void subscription(const Jid &, const QString &);
++		void subscription(const Jid &, const QString &, const QString &);
+ 		void messageReceived(const Message &);
+ 		void debugText(const QString &);
+ 		void xmlIncoming(const QString &);
+@@ -608,7 +608,7 @@
+ 		void slotRosterRequestFinished();
+ 
+ 		// basic daemons
+-		void ppSubscription(const Jid &, const QString &);
++		void ppSubscription(const Jid &, const QString &, const QString &);
+ 		void ppPresence(const Jid &, const Status &);
+ 		void pmMessage(const Message &);
+ 		void prRoster(const Roster &);
+diff -ru -X exclude iris-clean/xmpp-im/client.cpp iris/xmpp-im/client.cpp
+--- ../../iris-clean/xmpp-im/client.cpp	Sat Dec 06 20:29:22 2003
++++ ../../iris/xmpp-im/client.cpp	Tue Feb 03 01:30:32 2004
+@@ -200,7 +200,7 @@
+ 	d->resourceList += Resource(resource(), stat);
+ 
+ 	JT_PushPresence *pp = new JT_PushPresence(rootTask());
+-	connect(pp, SIGNAL(subscription(const Jid &, const QString &)), SLOT(ppSubscription(const Jid &, const QString &)));
++	connect(pp, SIGNAL(subscription(const Jid &, const QString &, const QString &)), SLOT(ppSubscription(const Jid &, const QString &, const QString &)));
+ 	connect(pp, SIGNAL(presence(const Jid &, const Status &)), SLOT(ppPresence(const Jid &, const Status &)));
+ 
+ 	JT_PushMessage *pm = new JT_PushMessage(rootTask());
+@@ -647,9 +647,9 @@
+ 	return Jid(s);
+ }
+ 
+-void Client::ppSubscription(const Jid &j, const QString &s)
++void Client::ppSubscription(const Jid &j, const QString &s, const QString &r)
+ {
+-	subscription(j, s);
++	subscription(j, s, r);
+ }
+ 
+ void Client::ppPresence(const Jid &j, const Status &s)
+diff -ru -X exclude iris-clean/xmpp-im/xmpp_tasks.cpp iris/xmpp-im/xmpp_tasks.cpp
+--- ../../iris-clean/xmpp-im/xmpp_tasks.cpp	Fri Jan 16 17:06:28 2004
++++ ../../iris/xmpp-im/xmpp_tasks.cpp	Tue Feb 03 01:38:12 2004
+@@ -561,6 +561,9 @@
+ 	Jid j(e.attribute("from"));
+ 	Status p;
+ 
++	QDomElement tag;
++	bool found;
++
+ 	if(e.hasAttribute("type")) {
+ 		QString type = e.attribute("type");
+ 		if(type == "unavailable") {
+@@ -573,13 +576,14 @@
+ 			p.setError(code, str);
+ 		}
+ 		else {
+-			subscription(j, type);
++			tag = findSubTag(e, "status", &found);
++			if(found)
++				subscription(j, type, tagContent(tag));
++			else
++				subscription(j, type, "");
+ 			return true;
+ 		}
+ 	}
+-
+-	QDomElement tag;
+-	bool found;
+ 
+ 	tag = findSubTag(e, "status", &found);
+ 	if(found)
+diff -ru -X exclude iris-clean/xmpp-im/xmpp_tasks.h iris/xmpp-im/xmpp_tasks.h
+--- ../../iris-clean/xmpp-im/xmpp_tasks.h	Fri Oct 24 05:38:10 2003
++++ ../../iris/xmpp-im/xmpp_tasks.h	Tue Feb 03 01:29:08 2004
+@@ -155,7 +155,7 @@
+ 
+ 	signals:
+ 		void presence(const Jid &, const Status &);
+-		void subscription(const Jid &, const QString &);
++		void subscription(const Jid &, const QString &, const QString &);
+ 
+ 	private:
+ 		class Private;
+diff -ru -X exclude psi-clean/src/eventdb.cpp psi/src/eventdb.cpp
+--- psi-clean/src/eventdb.cpp	Tue Aug 19 15:53:16 2003
++++ psi/src/eventdb.cpp	Tue Feb 03 01:41:50 2004
+@@ -744,7 +744,7 @@
+ 		else if(type == 8)
+ 			subType = "unsubscribed";
+ 
+-		AuthEvent *ae = new AuthEvent(j, subType, 0);
++		AuthEvent *ae = new AuthEvent(j, subType, "", 0);
+ 		ae->setTimeStamp(QDateTime::fromString(sTime, Qt::ISODate));
+ 		return ae;
+ 	}
+diff -ru -X exclude psi-clean/src/eventdlg.cpp psi/src/eventdlg.cpp
+--- psi-clean/src/eventdlg.cpp	Thu Dec 18 14:10:46 2003
++++ psi/src/eventdlg.cpp	Tue Feb 03 01:22:34 2004
+@@ -1487,6 +1487,8 @@
+ 		d->le_subj->setText("");
+ 		if(type == "subscribe") {
+ 			QString body(tr("<big>[System Message]</big><br>This user wants to subscribe to your presence.  Click the button labelled \"Add/Auth\" to authorize the subscription.  This will also add the person to your contact list if it is not already there."));
++			if(!ae->reason().isEmpty())
++				body += QString(tr("<br><br>Reason:<br>%1")).arg(ae->reason());
+ 			d->mle->moveCursor(QTextEdit::MoveHome, false);
+ 			d->mle->setTextFormat(RichText);
+ 			d->mle->setText("<qt>" + body + "</qt>");
+diff -ru -X exclude psi-clean/src/psiaccount.cpp psi/src/psiaccount.cpp
+--- psi-clean/src/psiaccount.cpp	Tue Jan 27 18:09:36 2004
++++ psi/src/psiaccount.cpp	Tue Feb 03 02:02:50 2004
+@@ -400,7 +400,7 @@
+ 	connect(d->client, SIGNAL(resourceUnavailable(const Jid &, const Resource &)), SLOT(client_resourceUnavailable(const Jid &, const Resource &)));
+ 	connect(d->client, SIGNAL(presenceError(const Jid &, int, const QString &)), SLOT(client_presenceError(const Jid &, int, const QString &)));
+ 	connect(d->client, SIGNAL(messageReceived(const Message &)), SLOT(client_messageReceived(const Message &)));
+-	connect(d->client, SIGNAL(subscription(const Jid &, const QString &)), SLOT(client_subscription(const Jid &, const QString &)));
++	connect(d->client, SIGNAL(subscription(const Jid &, const QString &, const QString &)), SLOT(client_subscription(const Jid &, const QString &, const QString &)));
+ 	connect(d->client, SIGNAL(debugText(const QString &)), SLOT(client_debugText(const QString &)));
+ 	connect(d->client, SIGNAL(groupChatJoined(const Jid &)), SLOT(client_groupChatJoined(const Jid &)));
+ 	connect(d->client, SIGNAL(groupChatLeft(const Jid &)), SLOT(client_groupChatLeft(const Jid &)));
+@@ -1428,7 +1428,7 @@
+ 	handleEvent(me);
+ }
+ 
+-void PsiAccount::client_subscription(const Jid &j, const QString &str)
++void PsiAccount::client_subscription(const Jid &j, const QString &str, const QString &reason)
+ {
+ 	// if they remove our subscription, then we lost presence
+ 	if(str == "unsubscribed") {
+@@ -1437,7 +1437,7 @@
+ 			simulateContactOffline(u);
+ 	}
+ 
+-	AuthEvent *ae = new AuthEvent(j, str, this);
++	AuthEvent *ae = new AuthEvent(j, str, reason, this);
+ 	ae->setTimeStamp(QDateTime::currentDateTime());
+ 	handleEvent(ae);
+ }
+diff -ru -X exclude psi-clean/src/psiaccount.h psi/src/psiaccount.h
+--- psi-clean/src/psiaccount.h	Tue Jan 27 18:09:36 2004
++++ psi/src/psiaccount.h	Tue Feb 03 01:39:16 2004
+@@ -280,7 +280,7 @@
+ 	void client_resourceUnavailable(const Jid &, const Resource &);
+ 	void client_presenceError(const Jid &, int, const QString &);
+ 	void client_messageReceived(const Message &);
+-	void client_subscription(const Jid &, const QString &);
++	void client_subscription(const Jid &, const QString &, const QString &);
+ 	void client_debugText(const QString &);
+ 	void client_groupChatJoined(const Jid &);
+ 	void client_groupChatLeft(const Jid &);
+diff -ru -X exclude psi-clean/src/psievent.cpp psi/src/psievent.cpp
+--- psi-clean/src/psievent.cpp	Tue Jan 27 18:09:38 2004
++++ psi/src/psievent.cpp	Tue Feb 03 01:40:56 2004
+@@ -294,15 +294,16 @@
+ // AuthEvent
+ //----------------------------------------------------------------------------
+ 
+-AuthEvent::AuthEvent(const Jid &j, const QString &authType, PsiAccount *acc)
++AuthEvent::AuthEvent(const Jid &j, const QString &authType, const QString &reason, PsiAccount *acc)
+ : PsiEvent(acc)
+ {
+ 	v_from = j;
+ 	v_at = authType;
++	v_reason = reason;
+ }
+ 
+ AuthEvent::AuthEvent(const AuthEvent &from)
+-: PsiEvent(from), v_from(from.v_from), v_at(from.v_at)
++: PsiEvent(from), v_from(from.v_from), v_at(from.v_at), v_reason(from.v_reason)
+ {
+ }
+ 
+@@ -330,6 +331,11 @@
+ 	return v_at;
+ }
+ 
++QString AuthEvent::reason() const
++{
++	return v_reason;
++}
++
+ QDomElement *AuthEvent::toXml(QDomDocument *doc) const
+ {
+ 	QDomElement *e = PsiEvent::toXml(doc);
+@@ -338,6 +344,7 @@
+ 
+ 	e->appendChild( textTag(*doc, "from",	 v_from.full()) );
+ 	e->appendChild( textTag(*doc, "authType", v_at) );
++	e->appendChild( textTag(*doc, "reason", v_reason) );
+ 
+ 	return 0;
+ }
+@@ -349,6 +356,7 @@
+ 
+ 	v_from = Jid( subTagText(*e, "from") );
+ 	v_at   = subTagText(*e, "authType");
++	v_at   = subTagText(*e, "reason");
+ 
+ 	return false;
+ }
+@@ -692,7 +700,7 @@
+ 			}
+ 		}
+ 		else if ( eventType == "AuthEvent" ) {
+-			event = new AuthEvent("", "", 0);
++			event = new AuthEvent("", "", "", 0);
+ 			if ( !event->fromXml(d->psi, &e) ) {
+ 				delete event;
+ 				event = 0;
+diff -ru -X exclude psi-clean/src/psievent.h psi/src/psievent.h
+--- psi-clean/src/psievent.h	Tue Jan 27 18:09:38 2004
++++ psi/src/psievent.h	Tue Feb 03 01:23:44 2004
+@@ -112,7 +112,7 @@
+ {
+ 	Q_OBJECT
+ public:
+-	AuthEvent(const Jid &j, const QString &authType, PsiAccount *acc);
++	AuthEvent(const Jid &j, const QString &authType, const QString &reason, PsiAccount *acc);
+ 	AuthEvent(const AuthEvent &from);
+ 	~AuthEvent();
+ 
+@@ -121,6 +121,8 @@
+ 	void setFrom(const Jid &j);
+ 
+ 	QString authType() const;
++	
++	QString reason() const;
+ 
+ 	QDomElement *toXml(QDomDocument *) const;
+ 	bool fromXml(PsiCon *, const QDomElement *);
+@@ -130,6 +132,7 @@
+ private:
+ 	Jid v_from;
+ 	QString v_at;
++	QString v_reason;
+ };
+ 
+ // request pgp passphrase

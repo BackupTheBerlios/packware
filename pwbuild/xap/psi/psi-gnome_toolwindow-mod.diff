@@ -1,0 +1,13 @@
+diff -ru -X exclude psi-clean/src/mainwin.cpp psi/src/mainwin.cpp
+--- psi-clean/src/mainwin.cpp	2004-08-21 09:58:25.000000000 +0200
++++ psi/src/mainwin.cpp	2004-08-22 19:55:29.000000000 +0200
+@@ -182,7 +182,8 @@
+ //#ifdef Q_WS_X11
+ //#define TOOLW_FLAGS WStyle_Customize
+ //#else
+-#define TOOLW_FLAGS 0
++//#define TOOLW_FLAGS WStyle_NormalBorder | WStyle_Customize
++#define TOOLW_FLAGS WStyle_DialogBorder | WStyle_Customize
+ //#endif
+ 
+ MainWin::MainWin(bool _onTop, bool _asTool, PsiCon *psi, const char *name)

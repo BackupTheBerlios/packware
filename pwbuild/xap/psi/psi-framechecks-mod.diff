@@ -1,0 +1,191 @@
+diff -ru -X exclude psi-clean/src/options/opt_application-ui.ui psi/src/options/opt_application-ui.ui
+--- psi-clean/src/options/opt_application-ui.ui	Thu Mar 04 22:04:10 2004
++++ psi/src/options/opt_application-ui.ui	Thu May 13 10:53:18 2004
+@@ -124,6 +124,12 @@
+                             <property name="name">
+                                 <cstring>le_linkMailer</cstring>
+                             </property>
++                            <property name="frameShape">
++                                <enum>LineEditPanel</enum>
++                            </property>
++                            <property name="frameShadow">
++                                <enum>Sunken</enum>
++                            </property>
+                         </widget>
+                         <widget class="QLineEdit" row="0" column="1">
+                             <property name="name">
+@@ -150,24 +156,16 @@
+                 </widget>
+             </vbox>
+         </widget>
+-        <widget class="QCheckBox">
+-            <property name="name">
+-                <cstring>ck_docklet</cstring>
+-            </property>
+-            <property name="text">
+-                <string>Enable Docklet</string>
+-            </property>
+-            <property name="checked">
+-                <bool>true</bool>
+-            </property>
+-        </widget>
+         <widget class="QGroupBox">
+             <property name="name">
+-                <cstring>groupBox7</cstring>
++                <cstring>ck_docklet</cstring>
+             </property>
+             <property name="title">
+                 <string>Docklet</string>
+             </property>
++            <property name="checkable">
++                <bool>true</bool>
++            </property>
+             <vbox>
+                 <property name="name">
+                     <cstring>unnamed</cstring>
+@@ -283,14 +281,6 @@
+         </widget>
+     </vbox>
+ </widget>
+-<connections>
+-    <connection>
+-        <sender>ck_docklet</sender>
+-        <signal>toggled(bool)</signal>
+-        <receiver>groupBox7</receiver>
+-        <slot>setEnabled(bool)</slot>
+-    </connection>
+-</connections>
+ <tabstops>
+     <tabstop>ck_alwaysOnTop</tabstop>
+     <tabstop>ck_keepSizes</tabstop>
+@@ -298,7 +288,6 @@
+     <tabstop>cb_link</tabstop>
+     <tabstop>le_linkBrowser</tabstop>
+     <tabstop>le_linkMailer</tabstop>
+-    <tabstop>ck_docklet</tabstop>
+     <tabstop>ck_dockDCstyle</tabstop>
+     <tabstop>ck_dockHideMW</tabstop>
+     <tabstop>ck_dockToolMW</tabstop>
+diff -ru -X exclude psi-clean/src/options/opt_events-ui.ui psi/src/options/opt_events-ui.ui
+--- psi-clean/src/options/opt_events-ui.ui	Sun Jan 04 19:30:30 2004
++++ psi/src/options/opt_events-ui.ui	Thu May 13 10:58:58 2004
+@@ -121,24 +121,16 @@
+                 </widget>
+             </hbox>
+         </widget>
+-        <widget class="QCheckBox">
+-            <property name="name">
+-                <cstring>ck_popupOn</cstring>
+-            </property>
+-            <property name="text">
+-                <string>Enable popup notifications</string>
+-            </property>
+-            <property name="checked">
+-                <bool>true</bool>
+-            </property>
+-        </widget>
+         <widget class="QGroupBox">
+             <property name="name">
+-                <cstring>groupBox1</cstring>
++                <cstring>ck_popupOn</cstring>
+             </property>
+             <property name="title">
+                 <string>Popup Notifications</string>
+             </property>
++            <property name="checkable">
++                <bool>true</bool>
++            </property>
+             <vbox>
+                 <property name="name">
+                     <cstring>unnamed</cstring>
+@@ -187,14 +179,6 @@
+         </widget>
+     </vbox>
+ </widget>
+-<connections>
+-    <connection>
+-        <sender>ck_popupOn</sender>
+-        <signal>toggled(bool)</signal>
+-        <receiver>groupBox1</receiver>
+-        <slot>setEnabled(bool)</slot>
+-    </connection>
+-</connections>
+ <tabstops>
+     <tabstop>ck_popupMsgs</tabstop>
+     <tabstop>ck_allowAwayPopup</tabstop>
+@@ -205,7 +189,6 @@
+     <tabstop>rb_aSolid</tabstop>
+     <tabstop>rb_aBlink</tabstop>
+     <tabstop>rb_aAnimate</tabstop>
+-    <tabstop>ck_popupOn</tabstop>
+     <tabstop>ck_popupOnMessage</tabstop>
+     <tabstop>ck_popupOnOnline</tabstop>
+     <tabstop>ck_popupOnStatus</tabstop>
+diff -ru -X exclude psi-clean/src/options/opt_general_groupchat.ui psi/src/options/opt_general_groupchat.ui
+--- psi-clean/src/options/opt_general_groupchat.ui	Sat Jan 17 14:48:10 2004
++++ psi/src/options/opt_general_groupchat.ui	Thu May 13 11:00:46 2004
+@@ -30,21 +30,16 @@
+                 <property name="name">
+                     <cstring>unnamed</cstring>
+                 </property>
+-                <widget class="QCheckBox">
+-                    <property name="name">
+-                        <cstring>ck_gcHighlights</cstring>
+-                    </property>
+-                    <property name="text">
+-                        <string>Enable word highlighting</string>
+-                    </property>
+-                </widget>
+                 <widget class="QGroupBox">
+                     <property name="name">
+-                        <cstring>alertGroupBox</cstring>
++                        <cstring>ck_gcHighlights</cstring>
+                     </property>
+                     <property name="title">
+                         <string>Word Highlighting</string>
+                     </property>
++                    <property name="checkable">
++                        <bool>true</bool>
++                    </property>
+                     <property name="toolTip" stdset="0">
+                         <string>Highlight lines and alert the user if this text is included in chat</string>
+                     </property>
+@@ -172,21 +167,16 @@
+                 <property name="name">
+                     <cstring>unnamed</cstring>
+                 </property>
+-                <widget class="QCheckBox">
+-                    <property name="name">
+-                        <cstring>ck_gcNickColoring</cstring>
+-                    </property>
+-                    <property name="text">
+-                        <string>Enable Nick Coloring</string>
+-                    </property>
+-                </widget>
+                 <widget class="QGroupBox">
+                     <property name="name">
+-                        <cstring>ncGroupBox</cstring>
++                        <cstring>ck_gcNickColoring</cstring>
+                     </property>
+                     <property name="title">
+                         <string>Nick Coloring</string>
+                     </property>
++                    <property name="checkable">
++                        <bool>true</bool>
++                    </property>
+                     <vbox>
+                         <property name="name">
+                             <cstring>unnamed</cstring>
+@@ -318,12 +308,10 @@
+     </hbox>
+ </widget>
+ <tabstops>
+-    <tabstop>ck_gcHighlights</tabstop>
+     <tabstop>lb_highlightWords</tabstop>
+     <tabstop>le_newHighlightWord</tabstop>
+     <tabstop>pb_removeHighlightWord</tabstop>
+     <tabstop>pb_addHighlightWord</tabstop>
+-    <tabstop>ck_gcNickColoring</tabstop>
+     <tabstop>lb_nickColors</tabstop>
+     <tabstop>le_newNickColor</tabstop>
+     <tabstop>pb_nickColor</tabstop>

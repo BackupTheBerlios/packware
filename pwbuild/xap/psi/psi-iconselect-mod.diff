@@ -1,0 +1,42 @@
+diff -ru psi-clean/libpsi/psiwidgets/iconselect.cpp psi/libpsi/psiwidgets/iconselect.cpp
+--- psi-clean/libpsi/psiwidgets/iconselect.cpp	Thu Aug 14 10:14:48 2003
++++ psi/libpsi/psiwidgets/iconselect.cpp	Thu Aug 14 17:53:40 2003
+@@ -15,6 +15,9 @@
+ 
+ #include "iconset.h"
+ 
++#include <qstylesheet.h>
++#define expandEntities(s) (QStyleSheet::escape(s))
++
+ //----------------------------------------------------------------------------
+ // IconSelectButton
+ //----------------------------------------------------------------------------
+@@ -109,15 +112,22 @@
+ 
+ 				// and list all possible variants in the ToolTip
+ 				QString toolTip;
++				
++				if ( str )
++					toolTip=QString("<nobr><b>")+expandEntities(*str)+"</b></nobr>";
++				
+ 				QDictIterator<QString> it2 ( ic->text() );
+ 				for ( ; it2.current(); ++it2) {
+-					if ( !toolTip.isEmpty() )
+-						toolTip += ", ";
+-					toolTip += **it2;
+-					break; // comment this to get list of iconsets
++					if ( *it2!=str ) {
++						if ( !toolTip.isEmpty() )
++							toolTip += "<br>";
++						if ( toolTip.length() > 50 ) {
++							toolTip += "...";
++							break;
++						}
++						toolTip += QString("<nobr>")+expandEntities(**it2)+"</nobr>";
++					}
+ 				}
+-				if ( toolTip.length() > 30 )
+-					toolTip = toolTip.left(30) + "...";
+ 				QToolTip::add(this, toolTip);
+ 			}
+ 		}

@@ -1,0 +1,65 @@
+diff -ru -X exclude psi-clean/src/common.cpp psi/src/common.cpp
+--- psi-clean/src/common.cpp	Sat Oct 25 09:10:08 2003
++++ psi/src/common.cpp	Sun Oct 26 15:53:26 2003
+@@ -603,6 +586,11 @@
+ 		// returns us the first chunk as a plaintext string
+ 		QString str = p.next();
+ 
++		if ( p.tag() == "a" ) {
++			p.putPlain(str);
++			continue;
++		}
++
+ 		int i = 0;
+ 		while ( i >= 0 ) {
+ 			// find closest emoticon
+diff -ru -X exclude psi-clean/src/rtparse.cpp psi/src/rtparse.cpp
+--- psi-clean/src/rtparse.cpp	Thu Mar 13 01:13:32 2003
++++ psi/src/rtparse.cpp	Sun Oct 26 15:55:06 2003
+@@ -27,6 +27,7 @@
+ 	in = _in;
+ 	v_atEnd = false;
+ 	v_at = 0;
++	v_tag = "";
+ 	//printf("rtparse:\n");
+ }
+ 
+@@ -36,6 +37,11 @@
+ 	return out;
+ }
+ 
++const QString &RTParse::tag() const
++{
++	return v_tag;
++}
++
+ QString RTParse::next()
+ {
+ 	if(v_atEnd)
+@@ -52,6 +58,8 @@
+ 			++n;
+ 			s = in.mid(v_at, n-v_at);
+ 		}
++		int te = in.find(QRegExp("\\s|>"), v_at);
++		v_tag = in.mid(v_at+1, te-v_at-1);
+ 		v_at += s.length();
+ 		out += s;
+ 	}
+diff -ru -X exclude psi-clean/src/rtparse.h psi/src/rtparse.h
+--- psi-clean/src/rtparse.h	Thu Mar 13 01:13:32 2003
++++ psi/src/rtparse.h	Sun Oct 26 15:54:00 2003
+@@ -31,12 +31,14 @@
+ 	const QString &output() const;
+ 
+ 	QString next();
++	const QString &tag() const;
+ 	bool atEnd() const;
+ 	void putPlain(const QString &);
+ 	void putRich(const QString &);
+ 
+ private:
+ 	QString in, out;
++	QString v_tag;
+ 	int v_at;
+ 	bool v_atEnd;
+ };

@@ -1,0 +1,68 @@
+diff -ru -X exclude psi-clean/src/common.cpp psi/src/common.cpp
+--- psi-clean/src/common.cpp	Sun Sep 14 23:38:20 2003
++++ psi/src/common.cpp	Sat Sep 27 09:23:40 2003
+@@ -790,6 +790,11 @@
+ 		// voice
+ 		return is->status(STATUS_ONLINE);
+ 	}
++	else if ( category == "application" ) {
++		QString trans;
++		if (type == "weather" || type == "x-weather")
++			return is->transportStatus("weather", STATUS_ONLINE);
++	}
+ 	// application
+ 	   // bot
+ 	   // calendar
+diff -ru -X exclude psi-clean/src/options/opt_iconset_roster.ui psi/src/options/opt_iconset_roster.ui
+--- psi-clean/src/options/opt_iconset_roster.ui	Mon Sep 29 22:47:28 2003
++++ psi/src/options/opt_iconset_roster.ui	Mon Sep 29 22:54:42 2003
+@@ -124,6 +124,26 @@
+                         </column>
+                     <item>
+                         <property name="text">
++                            <string>Weather</string>
++                        </property>
++                        <property name="text">
++                            <string></string>
++                        </property>
++                        <property name="text">
++                            <string>weather</string>
++                        </property>
++                        <property name="pixmap">
++                            <pixmap></pixmap>
++                        </property>
++                        <property name="pixmap">
++                            <pixmap></pixmap>
++                        </property>
++                        <property name="pixmap">
++                            <pixmap></pixmap>
++                        </property>
++                    </item>
++                    <item>
++                        <property name="text">
+                             <string>Default</string>
+                         </property>
+                         <property name="text">
+diff -ru -X exclude psi-clean/src/psi_profiles.cpp psi/src/psi_profiles.cpp
+--- psi-clean/src/psi_profiles.cpp	Sun Sep 14 23:38:34 2003
++++ psi/src/psi_profiles.cpp	Sat Sep 27 09:04:04 2003
+@@ -515,6 +515,7 @@
+ 	prefs.serviceRosterIconset["msn"]	= "msn";
+ 	prefs.serviceRosterIconset["yahoo"]	= "yahoo";
+ 	prefs.serviceRosterIconset["sms"]	= "sms";
++	prefs.serviceRosterIconset["weather"]	= "weather.jisp";
+ 
+ 	prefs.customRosterIconset.clear();
+ 
+diff -ru -X exclude psi-clean/src/psiiconset.cpp psi/src/psiiconset.cpp
+--- psi-clean/src/psiiconset.cpp	Mon Sep 08 19:16:12 2003
++++ psi/src/psiiconset.cpp	Sat Sep 27 09:35:34 2003
+@@ -114,7 +114,8 @@
+ 			services["icq"]		= QRegExp("^icq");
+ 			services["msn"]		= QRegExp("^msn");
+ 			services["yahoo"]	= QRegExp("^yahoo");
+ 			services["sms"]		= QRegExp("^sms");
++			services["weather"]	= QRegExp("^(pogoda|weather)");
+ 
+ 			bool found = false;
+ 

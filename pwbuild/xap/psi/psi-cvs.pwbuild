@@ -1,46 +1,70 @@
 #!/bin/sh
 
 name="psi"
-version="20040819"
+version="20041018"
 build="1"
 
 _pwbuilder 0.6.4
 
 _doc -d ChangeLog -x CVS
 
-_source -m bb2b879b12fed18c4301543d6d58ee96 -s 1845166 -t ${name}/${name} ftp://ftp.berlios.de/pub/packware/sources/
+_source -m 196aed09319ba5ba584b4605ffdf63b4 -s 1848309 -t ${name}/${name} ftp://ftp.berlios.de/pub/packware/sources/
 
+cp ${src}/richlistview.* ${src1}/src
+
+_patch client_wrap-mod
+_patch emots-mod
+_patch empty_group-fix
+_patch framechecks-mod
+_patch gnome_toolwindow-mod
+_patch group_openclose_single_click-mod
+_patch headings-mod
+_patch icon_buttons_big_return-mod
+_patch iconselect-mod
+_patch line_in_options-mod
+_patch linkify-mod-rev-fix
+_patch nicechats-mod
+_patch no_online_status-mod
+_patch options_resize-fix
+_patch qt_trans-add
+_patch rich_contactview-0.7-add
+_patch save_profile-mod
+_patch settoggles-fix
+_patch status_history-add
+_patch status_indicator++-add
+_patch subs_reason-recv
+_patch thin_borders-mod
+_patch tooltips_linkify-rev
+_patch url_emoticon-mod
+_patch weather_agent_icons-add
 _patch -p 0 translations
-_patch no_online_status
-_patch no_default_status_text
-_patch status_history
-#_patch status_indicator-cvs
+_patch indicator-icon
 
 _have_libmng && _patch enable-mng
 
-_setexecdir ${src1}/../qca
-_execindir cp README ${doc}/README.qca
-_execindir _configure --prefix=/usr
+execdir=${src1}/../qca
+_execindir ${execdir} cp README ${doc}/README.qca
+_configure -d ${execdir} --prefix=/usr
 _qconf_fix ${src1}/../qca/Makefile
-_execindir _make
-_execindir _install
+_make -d ${execdir} 
+_install -d ${execdir} 
 
 if _have_sasl2; then
-    _setexecdir ${src1}/../qca/plugins/qca-sasl
-    _execindir cp README ${doc}/README.qca-sasl
-    _execindir _configure
+    execdir=${src1}/../qca/plugins/qca-sasl
+    _execindir ${execdir} cp README ${doc}/README.qca-sasl
+    _configure -d ${execdir}
     _qconf_fix ${src1}/../qca/plugins/qca-sasl/Makefile
-    _execindir _make
-    _execindir _install
+    _make -d ${execdir}
+    _install -d ${execdir}
 fi
 
 if _have_openssl; then
-    _setexecdir ${src1}/../qca/plugins/qca-tls
-    _execindir cp README ${doc}/README.qca-tls
-    _execindir _configure
+    execdir=${src1}/../qca/plugins/qca-tls
+    _execindir ${execdir} cp README ${doc}/README.qca-tls
+    _configure -d ${execdir}
     _qconf_fix ${src1}/../qca/plugins/qca-tls/Makefile
-    _execindir _make
-    _execindir _install
+    _make -d ${execdir}
+    _install -d ${execdir}
 fi
 
 _c_opt --prefix=/usr
@@ -60,6 +84,8 @@ _patch opt
 _make
 _install
 
+find ${pkg}/usr/share/psi -type d -name CVS -exec rm -rf {} \; 2> /dev/null
+
 rm ${pkg}/usr/share/psi/{COPYING,README}
 ln -s ${docdir}/COPYING ${pkg}/usr/share/psi
 ln -s ${docdir}/README ${pkg}/usr/share/psi
@@ -67,6 +93,10 @@ ln -s ${docdir}/README ${pkg}/usr/share/psi
 cp ${src}/indicator.png ${pkg}/usr/share/psi/iconsets/roster/default
 
 # $Log: psi-cvs.pwbuild,v $
+# Revision 1.4  2004/10/18 11:58:16  swiergot
+# - Version 20041018.
+# - Added many patches from http://ftp.xiaoka.com/friends/skazi/psi/patches/.
+#
 # Revision 1.3  2004/08/19 08:10:48  swiergot
 # - Version 20040819.
 # - Disabled status-indicator patch for now.

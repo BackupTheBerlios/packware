@@ -1,0 +1,13 @@
+diff -ru -X exclude psi-clean/src/contactview.cpp psi/src/contactview.cpp
+--- psi-clean/src/contactview.cpp	Mon Oct 06 07:42:10 2003
++++ psi/src/contactview.cpp	Tue Oct 14 20:46:46 2003
+@@ -2249,7 +2249,8 @@
+ 		if(d->type == Group && option.clNewHeadings) {
+ 			//xcg.setColor(QColorGroup::Text, option.color[cGroupBack]);
+ 			QFont f = p->font();
+-			f.setPointSize(option.smallFontSize);
++			//f.setPointSize(option.smallFontSize);
++			f.setWeight(QFont::Bold);
+ 			p->setFont(f);
+ 		} else {
+ 			//xcg.setColor(QColorGroup::Text, option.color[cGroupFore]);

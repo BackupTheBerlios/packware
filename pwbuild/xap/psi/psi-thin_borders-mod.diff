@@ -1,0 +1,39 @@
+diff -ru -X exclude psi-clean/src/mainwin.cpp psi/src/mainwin.cpp
+--- psi-clean/src/mainwin.cpp	Wed May 05 14:41:00 2004
++++ psi/src/mainwin.cpp	Tue May 11 15:09:24 2004
+@@ -97,6 +97,6 @@
+ 	QWidget *center = new QWidget (this, "Central widget");
+ 	setCentralWidget ( center );
+ 
+-	d->vb_main = new QVBoxLayout(center, 2);
++	d->vb_main = new QVBoxLayout(center);
+ 	cvlist = new ContactView(center);
+ 
+diff -ru -X exclude psi-clean/src/chatdlg.cpp psi/src/chatdlg.cpp
+--- psi-clean/src/chatdlg.cpp	Fri May 07 20:23:00 2004
++++ psi/src/chatdlg.cpp	Tue May 11 19:10:18 2004
+@@ -133,13 +133,13 @@
+ 	d->key = "";
+ 	d->lastWasEncrypted = false;
+ 
+-	QVBoxLayout *vb1 = new QVBoxLayout(this, 4);
++	QVBoxLayout *vb1 = new QVBoxLayout(this, 2);
+ 	QSplitter *sp = new QSplitter(Vertical, this);
+ 	vb1->addWidget(sp);
+ 
+ 	QWidget *sp_top = new QWidget(sp);
+ 	// first row
+-	QVBoxLayout *vb2 = new QVBoxLayout(sp_top, 4);
++	QVBoxLayout *vb2 = new QVBoxLayout(sp_top, 2);
+ 	d->lb_ident = d->pa->accountLabel(sp_top, true);
+ 	d->lb_ident->setSizePolicy(QSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum ));
+ 
+@@ -164,7 +164,7 @@
+ 
+ 	QWidget *sp_bottom = new QWidget(sp);
+ 	// tool area
+-	QVBoxLayout *vb3 = new QVBoxLayout(sp_bottom, 4);
++	QVBoxLayout *vb3 = new QVBoxLayout(sp_bottom, 2);
+ 	QHBoxLayout *hb3 = new QHBoxLayout(vb3);
+ 	d->tb_clear = new IconToolButton(sp_bottom);
+ 	connect(d->tb_clear, SIGNAL(clicked()), SLOT(doClearButton()));

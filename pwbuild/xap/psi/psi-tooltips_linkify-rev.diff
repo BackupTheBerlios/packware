@@ -1,0 +1,24 @@
+diff -ru -X exclude psi-clean/src/chatdlg.cpp psi/src/chatdlg.cpp
+--- psi-clean/src/chatdlg.cpp	Thu Apr 01 09:44:42 2004
++++ psi/src/chatdlg.cpp	Thu Apr 01 10:02:20 2004
+@@ -406,7 +406,7 @@
+ 		//}
+ 
+ 		if(u)
+-			QToolTip::add(d->lb_status, u->makeTip(true, false));
++			QToolTip::add(d->lb_status, u->makeTip());
+ 		else
+ 			QToolTip::remove(d->lb_status);
+ 
+diff -ru -X exclude psi-clean/src/eventdlg.cpp psi/src/eventdlg.cpp
+--- psi-clean/src/eventdlg.cpp	Thu Apr 01 09:44:50 2004
++++ psi/src/eventdlg.cpp	Thu Apr 01 10:02:34 2004
+@@ -1410,7 +1410,7 @@
+ 			d->lb_status->setIcon(is->statusPtr(jid, status));
+ 
+ 		if(u)
+-			QToolTip::add(d->lb_status, u->makeTip(true, false));
++			QToolTip::add(d->lb_status, u->makeTip());
+ 		else
+ 			QToolTip::remove(d->lb_status);
+ 

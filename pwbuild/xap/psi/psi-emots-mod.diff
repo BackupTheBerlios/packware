@@ -1,0 +1,155 @@
+diff -ru -X exclude psi-clean/libpsi/psiwidgets/psitextview.cpp psi/libpsi/psiwidgets/psitextview.cpp
+--- psi-clean/libpsi/psiwidgets/psitextview.cpp	Thu Apr 01 09:44:40 2004
++++ psi/libpsi/psiwidgets/psitextview.cpp	Mon Apr 19 14:50:32 2004
+@@ -242,6 +242,9 @@
+ 		y = ypos;
+ 	}
+ 
++	y+=2; cy+=2; 
++	p->setClipping(FALSE);
++
+ 	if ( !icon ) {
+ 		p->fillRect( x, y, width, height, cg.dark() );
+ 		return;
+diff -ru -X exclude psi-clean/src/common.cpp psi/src/common.cpp
+--- psi-clean/src/common.cpp	Sun Mar 21 15:44:42 2004
++++ psi/src/common.cpp	Mon Apr 19 14:54:52 2004
+@@ -635,11 +635,10 @@
+ 							continue;
+ 
+ 						if(ePos == -1 || n < ePos || (rx.matchedLength() > foundLen && n < ePos + foundLen)) {
+-							// there must be whitespace at least on one side of the emoticon
+ 							if ( ( n == 0 ) ||
+ 							     ( n+rx.matchedLength() == (int)str.length() ) ||
+-							     ( n > 0 && str[n-1].isSpace() ) ||
+-							     ( n+rx.matchedLength() < (int)str.length() && str[n+rx.matchedLength()].isSpace() ) )
++							     ( n > 0 && ( !option.spaceEmoticons || str[n+rx.matchedLength()].isSpace() ) ) ||
++							     ( n+rx.matchedLength() < (int)str.length() && ( !option.spaceEmoticons || str[n+rx.matchedLength()].isSpace() ) ) )
+ 							{
+ 								ePos = n;
+ 								closest = icon;
+diff -ru -X exclude psi-clean/src/common.h psi/src/common.h
+--- psi-clean/src/common.h	Thu Mar 04 22:04:00 2004
++++ psi/src/common.h	Mon Apr 19 14:54:12 2004
+@@ -108,7 +108,7 @@
+ 	QString player;
+ 	QString customBrowser, customMailer;
+ 
+-	bool ignoreHeadline, ignoreNonRoster, scrollTo, keepSizes, useEmoticons, alertOpenChats;
++	bool ignoreHeadline, ignoreNonRoster, scrollTo, keepSizes, useEmoticons, spaceEmoticons, alertOpenChats;
+ 	bool raiseChatWindow, showSubjects, showCounter, chatSays, chatSoftReturn, showGroupCounts;
+ 
+ 	QSize sizeEventDlg, sizeChatDlg;
+diff -ru -X exclude psi-clean/src/eventdlg.cpp psi/src/eventdlg.cpp
+--- psi-clean/src/eventdlg.cpp	Thu Apr 01 09:44:50 2004
++++ psi/src/eventdlg.cpp	Mon Apr 19 14:50:32 2004
+@@ -1465,10 +1465,12 @@
+ 		d->mle->moveCursor(QTextEdit::MoveHome, false);
+ 		d->mle->setTextFormat(RichText);
+ 
++		txt = linkify(txt);
++
+ 		if(option.useEmoticons)
+ 			txt = emoticonify(txt);
+ 
+-		d->mle->setText("<qt>" + linkify(txt) + "</qt>");
++		d->mle->setText("<qt>" + txt + "</qt>");
+ 
+ 		d->le_subj->setText(m.subject());
+ 		d->le_subj->setCursorPosition(0);
+diff -ru -X exclude psi-clean/src/options/opt_iconset.cpp psi/src/options/opt_iconset.cpp
+--- psi-clean/src/options/opt_iconset.cpp	Sat Jan 17 14:48:14 2004
++++ psi/src/options/opt_iconset.cpp	Mon Apr 19 14:59:00 2004
+@@ -459,6 +459,7 @@
+ 
+ 	IconsetEmoUI *d = (IconsetEmoUI *)w;
+ 	opt->useEmoticons = d->ck_useEmoticons->isChecked();
++	opt->spaceEmoticons = d->ck_spaceEmoticons->isChecked();
+ 
+ 	opt->emoticons.clear();
+ 	IconWidgetItem *item = (IconWidgetItem *)d->iss_emoticons->firstItem();
+@@ -483,6 +484,7 @@
+ 
+ 	IconsetEmoUI *d = (IconsetEmoUI *)w;
+ 	d->ck_useEmoticons->setChecked( opt->useEmoticons );
++	d->ck_spaceEmoticons->setChecked( opt->spaceEmoticons );
+ 
+ 	// fill in the iconset view
+ 	d->iss_emoticons->clear();
+@@ -514,6 +516,8 @@
+ 		customPal.setDisabled(customPal.inactive());
+ 		d->ck_useEmoticons->setEnabled(false);
+ 		d->ck_useEmoticons->setPalette(customPal);
++		d->ck_spaceEmoticons->setEnabled(false);
++		d->ck_spaceEmoticons->setPalette(customPal);
+ 
+ 		d->groupBox9->setEnabled(false);
+ 		d->groupBox9->setPalette(customPal);
+@@ -557,6 +561,8 @@
+ 	else if ( e->type() == QEvent::User + 1 ) { // finish event
+ 		d->ck_useEmoticons->setEnabled(true);
+ 		d->ck_useEmoticons->unsetPalette();
++		d->ck_spaceEmoticons->setEnabled(true);
++		d->ck_spaceEmoticons->unsetPalette();
+ 
+ 		d->groupBox9->setEnabled(true);
+ 		d->groupBox9->unsetPalette();
+@@ -566,6 +572,10 @@
+ 		bool checked = d->ck_useEmoticons->isChecked();
+ 		d->ck_useEmoticons->setChecked( true );
+ 		d->ck_useEmoticons->setChecked( checked );
++
++		checked = d->ck_spaceEmoticons->isChecked();
++		d->ck_spaceEmoticons->setChecked( true );
++		d->ck_spaceEmoticons->setChecked( checked );
+ 
+ 		d->progress->hide();
+ 
+diff -ru -X exclude psi-clean/src/options/opt_iconset_emo.ui psi/src/options/opt_iconset_emo.ui
+--- psi-clean/src/options/opt_iconset_emo.ui	Sun Sep 14 23:38:50 2003
++++ psi/src/options/opt_iconset_emo.ui	Mon Apr 19 15:01:08 2004
+@@ -28,6 +28,17 @@
+             </property>
+             <property name="text">
+                 <string>Enable Emoticons</string>
++            </property>
++            <property name="checked">
++                <bool>true</bool>
++            </property>
++        </widget>
++        <widget class="QCheckBox">
++            <property name="name">
++                <cstring>ck_spaceEmoticons</cstring>
++            </property>
++            <property name="text">
++                <string>Require whitespace before/after emoticons</string>
+             </property>
+             <property name="checked">
+                 <bool>true</bool>
+diff -ru -X exclude psi-clean/src/psi_profiles.cpp psi/src/psi_profiles.cpp
+--- psi-clean/src/psi_profiles.cpp	Sun Mar 21 15:47:06 2004
++++ psi/src/psi_profiles.cpp	Mon Apr 19 14:55:54 2004
+@@ -382,6 +382,7 @@
+ 	prefs.asMessage = QObject::tr("Auto Status (idle)");
+ 	prefs.scrollTo = TRUE;
+ 	prefs.useEmoticons = false;
++	prefs.spaceEmoticons = false;
+ 	prefs.alertOpenChats = false;
+ 	prefs.raiseChatWindow = false;
+ 	prefs.showSubjects = true;
+@@ -660,6 +661,7 @@
+ 			p_misc.appendChild(textTag(doc, "ignoreNonRoster", prefs.ignoreNonRoster));
+ 			p_misc.appendChild(textTag(doc, "scrollTo", prefs.scrollTo));
+ 			p_misc.appendChild(textTag(doc, "useEmoticons", prefs.useEmoticons));
++			p_misc.appendChild(textTag(doc, "spaceEmoticons", prefs.spaceEmoticons));
+ 			p_misc.appendChild(textTag(doc, "alertOpenChats", prefs.alertOpenChats));
+ 			p_misc.appendChild(textTag(doc, "raiseChatWindow", prefs.raiseChatWindow));
+ 			p_misc.appendChild(textTag(doc, "showSubjects", prefs.showSubjects));
+@@ -1141,6 +1143,7 @@
+ 				readBoolEntry(tag, "ignoreNonRoster", &prefs.ignoreNonRoster);
+ 				readBoolEntry(tag, "scrollTo", &prefs.scrollTo);
+ 				readBoolEntry(tag, "useEmoticons", &prefs.useEmoticons);
++				readBoolEntry(tag, "spaceEmoticons", &prefs.spaceEmoticons);
+ 				readBoolEntry(tag, "alertOpenChats", &prefs.alertOpenChats);
+ 				readBoolEntry(tag, "raiseChatWindow", &prefs.raiseChatWindow);
+ 				readBoolEntry(tag, "showSubjects", &prefs.showSubjects);

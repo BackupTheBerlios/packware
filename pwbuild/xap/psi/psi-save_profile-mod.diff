@@ -1,0 +1,22 @@
+diff -ru -X exclude psi-clean/src/statusdlg.cpp psi/src/statusdlg.cpp
+--- psi-clean/src/statusdlg.cpp	Sun Jan 04 20:30:30 2004
++++ psi/src/statusdlg.cpp	Mon Jan 05 00:14:58 2004
+@@ -149,11 +149,16 @@
+ 	d->save = new QCheckBox(this);
+ 	d->save->setText(tr("Sa&ve as Preset"));
+ 	d->save->setChecked(false);
+-	hb->addWidget(pb1);
+-	hb->addStretch(1);
+ 	hb->addWidget(d->save);
+ 	hb->addStretch(1);
++	hb->addWidget(pb1);
+ 	hb->addWidget(pb2);
++	
++	setTabOrder(d->cb_type, d->cb_preset);
++	setTabOrder(d->cb_preset, d->te);
++	setTabOrder(d->te, d->save);
++	setTabOrder(d->save, pb1);
++	setTabOrder(pb1, pb2);
+ 
+ 	// set the rest up
+ 	d->te->setTextFormat(PlainText);

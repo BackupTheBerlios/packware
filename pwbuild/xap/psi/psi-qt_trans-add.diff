@@ -1,0 +1,48 @@
+diff -ru -X exclude psi-clean/src/main.cpp psi/src/main.cpp
+--- psi-clean/src/main.cpp	Tue Mar 16 01:16:02 2004
++++ psi/src/main.cpp	Thu Jun 17 19:53:30 2004
+@@ -55,6 +55,7 @@
+ using namespace XMPP;
+ 
+ QTranslator *trans;
++QTranslator *qttrans;
+ QString curLang = "en";
+ QString curLangName = QT_TR_NOOP("language_name");
+ 
+@@ -62,6 +63,7 @@
+ {
+ 	//printf("changing lang: [%s]\n", lang.latin1());
+ 	trans->clear();
++	qttrans->clear();
+ 	if(lang == "en") {
+ 		curLang = lang;
+ 		curLangName = "English";
+@@ -77,6 +79,8 @@
+ 		if(!QFile::exists(*it))
+ 			continue;
+ 		if(trans->load("psi_" + lang, *it)) {
++			// try to load qt library translation
++			qttrans->load("qt_" + lang, *it);
+ 			curLang = lang;
+ 			return;
+ 		}
+@@ -373,6 +377,9 @@
+ 	trans = new QTranslator(0);
+ 	app->installTranslator(trans);
+ 
++	qttrans = new QTranslator(0);
++	app->installTranslator(qttrans);
++
+ 	// need SHA1 for Iconset sound
+ 	if(!QCA::isSupported(QCA::CAP_SHA1))
+ 		QCA::insertProvider(XMPP::createProviderHash());
+@@ -385,6 +392,9 @@
+ 	app->removeTranslator(trans);
+ 	delete trans;
+ 	trans = 0;
++	app->removeTranslator(qttrans);
++	delete qttrans;
++	qttrans = 0;
+ 
+ 	delete app;
+ 

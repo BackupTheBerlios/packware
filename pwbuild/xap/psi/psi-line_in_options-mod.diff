@@ -1,0 +1,33 @@
+diff -ru -X exclude psi-clean/src/options/ui_options.ui psi/src/options/ui_options.ui
+--- psi-clean/src/options/ui_options.ui	Tue Nov 25 20:16:46 2003
++++ psi/src/options/ui_options.ui	Sun Nov 30 16:57:20 2003
+@@ -9,7 +9,7 @@
+             <x>0</x>
+             <y>0</y>
+             <width>408</width>
+-            <height>292</height>
++            <height>295</height>
+         </rect>
+     </property>
+     <property name="caption">
+@@ -54,6 +54,20 @@
+                         <enum>LastColumn</enum>
+                     </property>
+                 </widget>
++                <widget class="Line">
++                    <property name="name">
++                        <cstring>line2</cstring>
++                    </property>
++                    <property name="frameShape">
++                        <enum>VLine</enum>
++                    </property>
++                    <property name="frameShadow">
++                        <enum>Sunken</enum>
++                    </property>
++                    <property name="orientation">
++                        <enum>Vertical</enum>
++                    </property>
++                </widget>
+                 <widget class="QLayoutWidget">
+                     <property name="name">
+                         <cstring>layout3</cstring>

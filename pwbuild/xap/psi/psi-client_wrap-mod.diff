@@ -1,0 +1,13 @@
+diff -ru psi-clean/src/userlist.cpp psi/src/userlist.cpp
+--- psi-clean/src/userlist.cpp	Wed Jul 30 09:38:36 2003
++++ psi/src/userlist.cpp	Wed Jul 30 15:17:12 2003
+@@ -384,7 +384,7 @@
+ 				if(trim)
+ 					ver.truncate(200);
+ 				ver = expandEntities(ver);
+-				str += QString("<br><nobr>") + QObject::tr("Using") + QString(": %1").arg(ver) + "</nobr>";
++				str += QString("<br>") + QObject::tr("Using") + QString(": %1").arg(ver);
+ 			}
+ 
+ 			// status message
+

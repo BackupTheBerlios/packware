@@ -1,0 +1,13 @@
+diff -ru -X exclude psi-clean/src/options/ui_options.ui psi/src/options/ui_options.ui
+--- psi-clean/src/options/ui_options.ui	Tue Nov 25 20:16:46 2003
++++ psi/src/options/ui_options.ui	Sun Feb 15 22:21:06 2004
+                         <cstring>layout3</cstring>
+@@ -73,7 +87,7 @@
+                             </property>
+                             <property name="sizePolicy">
+                                 <sizepolicy>
+-                                    <hsizetype>7</hsizetype>
++                                    <hsizetype>3</hsizetype>
+                                     <vsizetype>3</vsizetype>
+                                     <horstretch>0</horstretch>
+                                     <verstretch>0</verstretch>
