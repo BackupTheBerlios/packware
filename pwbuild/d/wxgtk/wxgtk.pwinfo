@@ -1,0 +1,2 @@
+info="GTK port of the cross-platform wxWindows C++application framework class library"
+desc="wxWindows/GTK is the GTK+ port of the C++ cross-platform wxWindows GUI library, offering classes for all common GUI controls as well as a comprehensive set of helper classes for most common application tasks, ranging from networking to HTML display and image manipulation. There are also Python and Perl bindings available for the GTK and the MSW port, and documentation available for practically all classes."
