@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if [ ! -f etc/icecast.xml ]; then
+    mv -f etc/icecast.xml.new etc/icecast.xml
+fi

@@ -1,0 +1,37 @@
+#!/bin/sh
+
+name="icecast"
+version="2.0.2"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d
+
+_source -m 92d7a814db7c64075c3d4c1e480fbf25 -s 750391 -g http://svn.xiph.org/releases/${name}/
+
+_patch conf
+
+_c_opt --prefix=/usr
+_c_opt --sysconfdir=/etc
+_c_opt --localstatedir=/var
+
+_cmi
+
+mkdir ${doc}/html
+cp ${pkg}/usr/share/doc/icecast/*.html ${doc}/html
+rm -r ${pkg}/usr/share/doc
+
+mv ${pkg}/etc/icecast.xml ${pkg}/etc/icecast.xml.new
+_chmod 600 /etc/icecast.xml.new
+_chown nobody.nogroup /etc/icecast.xml.new
+
+mkdir ${pkg}/var/log/icecast
+_chmod 700 /var/log/icecast
+_chown nobody.nogroup /var/log/icecast
+
+# $Log: icecast.pwbuild,v $
+# Revision 1.1  2004/10/04 18:11:42  swiergot
+# - Initial commit.
+# - Version 2.0.2.
+#
