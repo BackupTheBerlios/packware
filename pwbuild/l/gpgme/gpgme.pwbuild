@@ -1,0 +1,21 @@
+#!/bin/sh
+
+name="gpgme"
+version="0.3.16"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d
+
+_source -m 0476b219695ea25cb2a97b18b717e381 -s 679430 -g ftp://ftp.gnupg.org/gcrypt/${name}/
+
+_c_opt --prefix=/usr
+
+_cmi
+
+# $Log: gpgme.pwbuild,v $
+# Revision 1.1  2004/07/30 20:58:55  swiergot
+# - Initial commit.
+# - Version 0.3.16.
+#

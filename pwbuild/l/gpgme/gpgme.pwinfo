@@ -1,0 +1,2 @@
+info="A C wrapper library for GnuPG."
+desc="GnuPG Made Easy (GPGME) is a library designed to make access to GnuPG easier for applications. It provides a high-level cryptography API for encryption, decryption, signing, signature verification, and key management. It currently uses GnuPG as its backend, but the API is not restricted to this engine. In fact, support for other backends is planned."
