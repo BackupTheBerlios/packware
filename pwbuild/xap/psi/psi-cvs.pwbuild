@@ -1,20 +1,20 @@
 #!/bin/sh
 
 name="psi"
-version="20040815"
+version="20040819"
 build="1"
 
 _pwbuilder 0.6.4
 
 _doc -d ChangeLog -x CVS
 
-_source -m d433d2334a96bf731609e2f82257eb26 -s 1828660 -t ${name}/${name} ftp://ftp.berlios.de/pub/packware/sources/
+_source -m bb2b879b12fed18c4301543d6d58ee96 -s 1845166 -t ${name}/${name} ftp://ftp.berlios.de/pub/packware/sources/
 
 _patch -p 0 translations
 _patch no_online_status
 _patch no_default_status_text
 _patch status_history
-_patch status_indicator-cvs
+#_patch status_indicator-cvs
 
 _have_libmng && _patch enable-mng
 
@@ -67,6 +67,10 @@ ln -s ${docdir}/README ${pkg}/usr/share/psi
 cp ${src}/indicator.png ${pkg}/usr/share/psi/iconsets/roster/default
 
 # $Log: psi-cvs.pwbuild,v $
+# Revision 1.3  2004/08/19 08:10:48  swiergot
+# - Version 20040819.
+# - Disabled status-indicator patch for now.
+#
 # Revision 1.2  2004/08/15 13:43:50  swiergot
 # - Version 20040815.
 #
