@@ -1,0 +1,24 @@
+#!/bin/sh
+
+name="opendchub"
+version="0.7.14"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d ChangeLog Documentation Samplescripts -x NEWS -x README
+
+_source -m 6121347154820e2b307a5aecafa86ce8 -s 187739 -f -g
+
+chmod 644 ${src1}/{AUTHORS,COPYING,ChangeLog,INSTALL}
+
+_c_opt --prefix=/usr
+_c_opt --enable-switch_user
+
+_cmi
+
+# $Log: opendchub.pwbuild,v $
+# Revision 1.1  2004/09/21 07:36:35  swiergot
+# - Initial commit.
+# - Version 0.7.14.
+#
