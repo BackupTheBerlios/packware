@@ -1,0 +1,22 @@
+#!/bin/sh
+
+name="gnome-python"
+xversion="2.0"
+version="${xversion}.2"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d -x NEWS -x README ChangeLog PKG-INFO
+
+_source -m 6a8108fce2e50afece82640707569dc7 -s 348277 ftp://ftp.gnome.org/pub/GNOME/sources/${name}/${xversion}/
+
+_c_opt --prefix=/usr
+
+_cmi
+
+# $Log: gnome-python.pwbuild,v $
+# Revision 1.1  2004/08/01 12:57:22  stoodi
+# - Initial commit.
+# - Version 2.0.2
+#

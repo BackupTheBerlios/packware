@@ -1,0 +1,2 @@
+info="Python interfaces to gnome-libs."
+desc="gnome-python is a set of interfaces to gnome-libs. It also contains a copy of PyGTK, so you don't have to worry about gnome-python getting out of sync with your copy of PyGTK. The bindings cover almost all of the APIs in gnome-libs."
