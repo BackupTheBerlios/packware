@@ -1,0 +1,18 @@
+#!/bin/sh
+
+name="mplayer-codecs-windows-all"
+version="20040809"
+build="1"
+
+_pwbuilder 0.6.3
+
+_source -m af9393af607120f6df84b972b9c61159 -s 10659400 -n windows-all -Z http://www1.mplayerhq.hu/MPlayer/releases/codecs/
+
+mkdir ${pkg}/usr/lib/mplayer
+cp ${src1}/* ${pkg}/usr/lib/mplayer
+
+# $Log: mplayer-codecs-windows-all.pwbuild,v $
+# Revision 1.1  2004/08/16 11:09:34  swiergot
+# - Initial commit.
+# - Version 20040809.
+#

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+name="mplayer-codecs-essential"
+version="20040809"
+build="1"
+
+_pwbuilder 0.6.3
+
+_source -m e9ce132b3b60528a83b90fc2eee91eef -s 7906407 -n essential http://www1.mplayerhq.hu/MPlayer/releases/codecs/
+
+mkdir ${pkg}/usr/lib/mplayer
+cp ${src1}/* ${pkg}/usr/lib/mplayer
+
+# $Log: mplayer-codecs-essential.pwbuild,v $
+# Revision 1.1  2004/08/16 11:08:11  swiergot
+# - Initial commit.
+# - Version 20040809.
+#
