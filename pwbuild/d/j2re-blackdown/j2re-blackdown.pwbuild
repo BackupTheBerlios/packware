@@ -1,0 +1,25 @@
+#!/bin/sh
+
+name="j2re-blackdown"
+version="1.4.2-rc1"
+build="1"
+
+_pwbuilder 0.6.3
+
+_source -m 50c0faa2d536b09a48eb0584df84e32a -s 13315794 -u ftp://ftp.tux.org/java/JDK-`echo ${version} | cut -d '-' -f 1`/i386/`echo ${version} | cut -d '-' -f 2`/j2re-${version}-linux-i586-gcc3.2.bin
+
+mkdir ${pkg}/usr/lib ${pkg}/etc/profile.d
+cd ${pkg}/usr/lib
+function more() { echo; }; export -f more
+agreed=1 \
+sh ${src1} -x
+unset -f more
+ln -s j2re`echo ${version} | cut -f 1 -d -` ${pkg}/usr/lib/${name}
+cp ${src}/${name}.sh ${src}/${name}.csh ${pkg}/etc/profile.d
+chmod 755 ${pkg}/etc/profile.d/*
+
+# $Log: j2re-blackdown.pwbuild,v $
+# Revision 1.1  2004/07/30 13:20:44  swiergot
+# - Initial commit.
+# - Version 1.4.2-rc1.
+#
