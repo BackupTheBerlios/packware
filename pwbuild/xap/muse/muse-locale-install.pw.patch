@@ -1,0 +1,10 @@
+diff -ruN MuSE-0.9.orig/po/Makefile MuSE-0.9/po/Makefile
+--- MuSE-0.9.orig/po/Makefile	2004-04-15 00:52:44.000000000 +0200
++++ MuSE-0.9/po/Makefile	2004-10-05 23:36:32.000000000 +0200
+@@ -1,5 +1,5 @@
+ INSTALL= /usr/bin/install -c
+-INSTALLNLSDIR=$(BASEDIR)/usr/local/share/locale
++INSTALLNLSDIR=$(DESTDIR)/usr/share/locale
+ 
+ PACKAGE = muse
+ 

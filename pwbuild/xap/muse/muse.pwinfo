@@ -1,0 +1,2 @@
+info="Multiple Streaming Engine."
+desc="MuSE is a user-friendly tool for network audio streaming, making life easier for independent free speech radio stations. It can mix, encode, and stream sound over the Internet that can be tuned in to by the majority of audio players. It can simultaneously mix up to 6 encoded audio channels plus a sound card input signal, sending the result to an Icecast server. It offers an intuitive GTK2 interface for real-time operation and can also be used from command line."

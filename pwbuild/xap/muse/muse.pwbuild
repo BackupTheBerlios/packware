@@ -1,0 +1,27 @@
+#!/bin/sh
+
+name="muse"
+version="0.9"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d -x ABOUT-NLS -x CVS ChangeLog KNOWN-BUGS
+
+_source -m 0c2075c9f62ba1d08459f669498b6bcf -s 1363091 -n MuSE -g ftp://ftp.dyne.org/${name}/releases/
+
+_patch locale-install
+
+_c_opt --prefix=/usr
+_c_opt --enable-ncurses
+_c_opt --enable-gtk2
+
+_cmi
+
+rm -r ${pkg}/usr/doc/MuSE
+
+# $Log: muse.pwbuild,v $
+# Revision 1.1  2004/10/05 21:41:16  swiergot
+# - Initial commit.
+# - Version 0.9.
+#
