@@ -1,14 +1,14 @@
 #!/bin/sh
 
 name="kadu"
-version="20040910"
+version="20040921"
 build="1"
 
 _pwbuilder 0.6.3
 
 _doc -d -x CVS ChangeLog
 
-_source -m b0c7bbe02cb74a75110f6f055d71c5aa -s 1062039 -t ${name} http://kadu.net/download/snapshots/
+_source -m c5f1797e1442c8e594381bedd9b8e1fc -s 1077818 -t ${name} http://kadu.net/download/snapshots/
 
 _patch lpthread
 _patch libgsm-install
@@ -16,7 +16,7 @@ _patch modules-cvs
 
 _c_opt --prefix=/usr
 _c_opt --enable-modules
-_c_opt --with-existing-libgadu
+# _c_opt --with-existing-libgadu
 
 _cmi
 
@@ -33,6 +33,10 @@ cp ${src1}/kadu/hi32-app-kadu.png ${pkg}/opt/kde/share/icons/hicolor/32x32/apps/
 cp ${src1}/kadu/hi48-app-kadu.png ${pkg}/opt/kde/share/icons/hicolor/48x48/apps/kadu.png
 
 # $Log: kadu-cvs.pwbuild,v $
+# Revision 1.6  2004/09/21 15:11:46  swiergot
+# - Version 20040921.
+# - Build with bundled libgadu.
+#
 # Revision 1.5  2004/09/10 09:05:48  swiergot
 # - Version 20040910.
 # - Disabled pcspeaker and weather modules for now.

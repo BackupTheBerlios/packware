@@ -1,8 +1,8 @@
 diff -ruN kadu.orig/.config kadu/.config
---- kadu.orig/.config	2004-08-31 18:55:03.000000000 +0200
-+++ kadu/.config	2004-09-10 09:37:22.000000000 +0200
-@@ -13,25 +13,25 @@
- #
+--- kadu.orig/.config	2004-09-15 14:36:23.000000000 +0200
++++ kadu/.config	2004-09-21 16:25:42.000000000 +0200
+@@ -15,21 +15,21 @@
+ #################### docking #########################################
  
  # Tray icon support
 -module_docking=y
@@ -15,15 +15,11 @@ diff -ruN kadu.orig/.config kadu/.config
 -module_wmaker_docking=n
 +module_wmaker_docking=m
  
- # OpenSSL encrypted chat support
- module_encryption=m
+ # Always on top window docking module (depends: docking)
+-module_desktop_docking=n
++module_desktop_docking=m
  
- # Speech synthesis support (depends: notify)
--module_speech=n
-+module_speech=m
- 
- # Voice chat support (depends: dcc)
- module_voice=m
+ ##################### sound ##########################################
  
  # General sound support (depends: notify)
 -module_sound=y
@@ -31,7 +27,7 @@ diff -ruN kadu.orig/.config kadu/.config
  
  # External application sound support (depends: sound)
  module_ext_sound=m
-@@ -40,10 +40,10 @@
+@@ -38,10 +38,10 @@
  module_dsp_sound=m
  
  # aRts sound server support (depends: sound)
@@ -44,8 +40,8 @@ diff -ruN kadu.orig/.config kadu/.config
  
  # Network Audio System support (depends: sound)
  module_nas_sound=n
-@@ -64,7 +64,7 @@
- module_account_management=m
+@@ -49,7 +49,7 @@
+ ###################### notifications #################################
  
  # General notification module
 -module_notify=y
@@ -53,30 +49,32 @@ diff -ruN kadu.orig/.config kadu/.config
  
  # Notification by window module (depends: notify)
  module_window_notify=m
-@@ -73,13 +73,13 @@
+@@ -58,7 +58,7 @@
  module_hints=m
  
- # Always on top window docking module (depends: docking)
--module_desktop_docking=n
-+module_desktop_docking=m
+ # Speech synthesis support (depends: notify)
+-module_speech=n
++module_speech=m
  
- # Autoresponder module
+ ###################### p2p ###########################################
+ 
+@@ -94,7 +94,7 @@
  module_autoresponder=m
  
- # Echo sample module
+ # Echo module (testing module!)
 -module_echo=n
 +module_echo=m
- # Configuration wizard module
- module_config_wizard=m
  
-@@ -96,31 +96,31 @@
+ ############################################# EXTERNAL ###########################################################################
+ 
+@@ -111,34 +111,34 @@
  #
  
- # TCL scripting support and KaduPro extensions
+ # TCL scripting support and KaduPro extensions (depends: notify, docking)
 -module_tcl_scripting=n
 +module_tcl_scripting=n
  
- # XMMS player support
+ # XMMS player support (depends: notify)
 -module_xmms=n
 +module_xmms=m
  
@@ -88,7 +86,7 @@ diff -ruN kadu.orig/.config kadu/.config
 -module_filedesc=n
 +module_filedesc=m
  
- # Mail checker module
+ # Mail checker module (depends: hints)
 -module_mail=n
 +module_mail=m
  
@@ -108,9 +106,13 @@ diff -ruN kadu.orig/.config kadu/.config
 -module_weather=n
 +module_weather=n
  
- #
- # Below are some icon themes, one default and others, made by third
-@@ -137,8 +137,8 @@
+ # ao library sound module (alsa, oss, esd, aix, irix, nas, sun, netbsd, openbsd) (depends: sound)
+-module_ao_sound=n
++module_ao_sound=m
+ 
+ ############################################# ICONS ###########################################################################
+ 
+@@ -157,8 +157,8 @@
  icons_default=y
  
  # Crystal 16x16 icons made by Arcisz
