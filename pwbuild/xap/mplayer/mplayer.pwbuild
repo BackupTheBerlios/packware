@@ -1,0 +1,33 @@
+#!/bin/sh
+
+name="mplayer"
+version="1.0pre5"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d ChangeLog
+
+_source -m fbe6919eb025526e8ed129cd61a49969 -s 5072836 -n MPlayer ftp://ftp1.mplayerhq.hu/MPlayer/releases/
+
+_c_opt --prefix=/usr
+_c_opt --confdir=/etc/mplayer
+_c_opt --enable-gui
+_c_opt --enable-largefiles
+_c_opt --enable-joystick
+_c_opt --enable-menu
+_c_opt --enable-xmms
+_c_opt --enable-runtime-cpudetection
+_c_opt --language=all
+_c_opt --enable-dynamic-plugins
+_c_opt --with-codecsdir=/usr/lib/mplayer
+
+_cmi
+
+rmdir ${pkg}/usr/share/mplayer/Skin ${pkg}/usr/share/mplayer/font
+
+# $Log: mplayer.pwbuild,v $
+# Revision 1.1  2004/08/16 11:06:10  swiergot
+# - Initial commit.
+# - Version 1.0pre5.
+#
