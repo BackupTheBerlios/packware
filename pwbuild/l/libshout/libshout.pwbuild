@@ -1,0 +1,24 @@
+#!/bin/sh
+
+name="libshout"
+version="2.0"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d examples/example.c
+
+_source -m 627f3eede05b2237bee1369e4a95143c -s 326556 -g http://svn.xiph.org/releases/${name}/
+
+_c_opt --prefix=/usr
+
+_cmi
+
+rm -r ${pkg}/usr/share/doc
+rmdir ${pkg}/usr/bin
+
+# $Log: libshout.pwbuild,v $
+# Revision 1.1  2004/10/03 19:32:44  swiergot
+# - Initial commit.
+# - Version 2.0.0.
+#
