@@ -1,2 +1,2 @@
-info="Aterm - X11 terminal"
+info="A X11 terminal."
 desc="aterm is the X Terminal Emulator. Originated from rxvt 2.4.8 it strives to provide user with complete control over its look. Features include fast transparency with shading and tinting, NeXTish scrollbar, fading when unfocused and more."
