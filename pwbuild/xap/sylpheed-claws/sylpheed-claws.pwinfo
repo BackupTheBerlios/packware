@@ -1,0 +1,3 @@
+info="A GTK+ based user-friendly e-mail client."
+desc="Sylpheed is a GTK+ based, lightweight, and fast e-mail client. Almost all commands are accessible with the keyboard. It also has many features such as multiple accounts, POP3/APOP support, thread display, and multipart MIME.
+This is an alternative version of Sylpheed, called Claws. It has many more features and has fixed all bugs found in latest version of original Sylpheed."

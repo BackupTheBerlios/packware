@@ -1,0 +1,10 @@
+diff -ruN sylpheed-claws.orig/autogen.sh sylpheed-claws/autogen.sh
+--- sylpheed-claws.orig/autogen.sh	2002-12-03 11:24:51.000000000 +0100
++++ sylpheed-claws/autogen.sh	2003-09-23 09:39:40.000000000 +0200
+@@ -4,5 +4,4 @@
+   && libtoolize --force --copy \
+   && autoheader \
+   && automake --add-missing --foreign --copy \
+-  && autoconf \
+-  && ./configure --enable-maintainer-mode $@
++  && autoconf -Iac/missing

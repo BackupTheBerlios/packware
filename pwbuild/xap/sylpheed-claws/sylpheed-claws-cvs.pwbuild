@@ -1,0 +1,42 @@
+#!/bin/sh
+
+name="sylpheed-claws"
+version="0.9.12-39"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d README.claws TODO.claws -x CVS
+
+_source -m ad4f6beef232c8e2b8fbb98813328bdd -s 2290857 -t ${name} ftp://ftp.berlios.de/pub/packware/sources/
+
+_patch autogen
+
+( cd ${src1} ; ./autogen.sh )
+
+_c_opt --prefix=/usr
+_c_opt --program-suffix=-claws
+
+_c_opt --enable-ldap
+_c_opt --enable-ipv6
+_c_opt --enable-spamassassin-plugin
+
+_have_gpgme && _c_opt --enable-gpgme
+_have_openssl && _c_opt --enable-openssl
+_have_aspell && _c_opt --enable-aspell
+
+_m_opt faqdir=${docdir}/faq
+_m_opt manualdir=${docdir}/manual
+
+_i_opt faqdir=${docdir}/faq
+_i_opt manualdir=${docdir}/manual
+
+_cmi
+
+rm ${doc}/manual/ja/sylpheed.sgml
+
+# $Log: sylpheed-claws-cvs.pwbuild,v $
+# Revision 1.1  2004/07/30 19:27:51  swiergot
+# - Initial commit.
+# - Version 0.9.12/0.9.12-39/0.9.12-39.7-gtk2.
+#
