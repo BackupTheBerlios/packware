@@ -6,6 +6,7 @@ function _py_install() {
 	subdir=""
 	undefine=""
 	opts=""
+	otherdir=""
 
 	while [ $# -gt 0 ]; do
 
@@ -14,6 +15,7 @@ function _py_install() {
 			-s) shift ; srcnum="$1" ;;
 			-b) shift ; subdir="$1" ;;
 			-u) undefine="yes" ;;
+			-d) shift ; otherdir="$1" ;;
 			*) opts="${opts} $1" ;;
 
 		esac
@@ -22,13 +24,24 @@ function _py_install() {
 
 	done
 
+	if [ "${inotherdir}" = "yes" ]; then
+
+		pwtext "_py_install: must not be invoked with _execindir; use -d instead"
+		exit 2
+
+	fi
+
 	eval "srcd=\"\${src${srcnum}}\""
 
 	(
 
-		if [ ! "${inotherdir}" = "yes" ]; then
+		if [ "${otherdir}" = "" ]; then
 
 			cd ${srcd}/${subdir}
+
+		else
+
+			cd "${otherdir}"
 
 		fi
 
@@ -43,13 +56,13 @@ function _py_install() {
 		if [ "${pw_debug}" = "yes" ]; then
 
 			echo "+ Python install #${srcnum} (python setup.py install "${destvars} `cat ${tmp}/py_i_opts_${srcnum}` ${opts}")"
-			python setup.py install ${destvars} `cat ${tmp}/py_i_opts_${srcnum}` ${opts}
+			_exec python setup.py install ${destvars} `cat ${tmp}/py_i_opts_${srcnum}` ${opts}
 			echo $? > ${tmp}/pyinres
 
 		else
 
 			echo "+ Python install #${srcnum}"
-			python setup.py install ${destvars} `cat ${tmp}/py_i_opts_${srcnum}` ${opts} > /dev/null
+			_exec python setup.py install ${destvars} `cat ${tmp}/py_i_opts_${srcnum}` ${opts} > /dev/null
 			echo $? > ${tmp}/pyinres
 
 		fi

@@ -5,6 +5,7 @@ function _configure() {
 	srcnum="1"
 	subdir=""
 	opts=""
+	otherdir=""
 
 	while [ $# -gt 0 ]; do
 
@@ -12,6 +13,7 @@ function _configure() {
 
 			-s) shift ; srcnum="$1" ;;
 			-b) shift ; subdir="$1" ;;
+			-d) shift ; otherdir="$1" ;;
 			*) opts="${opts} $1" ;;
 
 		esac
@@ -19,6 +21,13 @@ function _configure() {
 		shift
 
 	done
+
+	if [ "${inotherdir}" = "yes" ]; then
+
+		pwtext "_configure: must not be invoked with _execindir; use -d instead"
+		exit 2
+
+	fi
 
 	if [ ! -f ${tmp}/altconfigure_${srcnum} ]; then
 
@@ -30,9 +39,13 @@ function _configure() {
 
 	(
 
-		if [ ! "${inotherdir}" = "yes" ]; then
+		if [ "${otherdir}" = "" ]; then
 
 			cd ${srcd}/${subdir}
+
+		else
+
+			cd "${otherdir}"
 
 		fi
 
@@ -51,13 +64,13 @@ function _configure() {
 		if [ "${pw_debug}" = "yes" ]; then
 
 			echo "+ Configure #${srcnum} ("`cat ${tmp}/actconfigure_${srcnum}` `cat ${tmp}/c_opts_${srcnum}` ${opts}")"
-			`cat ${tmp}/actconfigure_${srcnum}` `cat ${tmp}/c_opts_${srcnum}` ${opts}
+			_exec `cat ${tmp}/actconfigure_${srcnum}` `cat ${tmp}/c_opts_${srcnum}` ${opts}
 			echo $? > ${tmp}/confres
 
 		else
 
 			echo "+ Configure #${srcnum}"
-			`cat ${tmp}/actconfigure_${srcnum}` `cat ${tmp}/c_opts_${srcnum}` ${opts} > /dev/null
+			_exec `cat ${tmp}/actconfigure_${srcnum}` `cat ${tmp}/c_opts_${srcnum}` ${opts} > /dev/null
 			echo $? > ${tmp}/confres
 
 		fi

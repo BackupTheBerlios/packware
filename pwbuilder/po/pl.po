@@ -48,6 +48,10 @@ msgstr "_set: za ma³o argumentów."
 msgid "_sub: subpackage name not supplied"
 msgstr "_sub: nie podano nazwy podpakietu"
 
+#: /usr/lib/pwbuilder/include/funcs/make:27
+msgid "_make: must not be invoked with _execindir; use -d instead"
+msgstr "_make: nie mo¿na wywo³aæ z _execindir; u¿yj -d"
+
 #: /usr/lib/pwbuilder/include/funcs/make:65
 msgid "! Error: make failed"
 msgstr "! B³±d: make nie powiod³o siê"
@@ -116,6 +120,10 @@ msgstr "! B³±d: brak pasuj±cego pliku"
 msgid "! Error: applying failed"
 msgstr "! B³±d: na³o¿enie nie powiod³o siê"
 
+#: /usr/lib/pwbuilder/include/funcs/configure:27
+msgid "_configure: must not be invoked with _execindir; use -d instead"
+msgstr "_configure: nie mo¿na wywo³aæ z _execindir; u¿yj -d"
+
 #: /usr/lib/pwbuilder/include/funcs/configure:65
 msgid "! Error: configure failed"
 msgstr "! B³±d: configure nie powiod³o siê"
@@ -171,6 +179,10 @@ msgstr "! B³±d: rozpakowanie nie powiod³o siê"
 #: /usr/lib/pwbuilder/include/funcs/alt_install:23
 msgid "_alt_install: no command specified"
 msgstr "_alt_install: nie podano polecenia"
+
+#: /usr/lib/pwbuilder/include/funcs/install:29
+msgid "_install: must not be invoked with _execindir; use -d instead"
+msgstr "_install: nie mo¿na wywo³aæ z _execindir; u¿yj -d"
 
 #: /usr/lib/pwbuilder/include/funcs/install:73
 msgid "! Error: make install failed"

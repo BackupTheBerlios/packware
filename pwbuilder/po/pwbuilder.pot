@@ -51,6 +51,10 @@ msgstr ""
 msgid "_sub: subpackage name not supplied"
 msgstr ""
 
+#: /usr/lib/pwbuilder/include/funcs/make:27
+msgid "_make: must not be invoked with _execindir; use -d instead"
+msgstr ""
+
 #: /usr/lib/pwbuilder/include/funcs/make:65
 msgid "! Error: make failed"
 msgstr ""
@@ -119,6 +123,10 @@ msgstr ""
 msgid "! Error: applying failed"
 msgstr ""
 
+#: /usr/lib/pwbuilder/include/funcs/configure:27
+msgid "_configure: must not be invoked with _execindir; use -d instead"
+msgstr ""
+
 #: /usr/lib/pwbuilder/include/funcs/configure:65
 msgid "! Error: configure failed"
 msgstr ""
@@ -173,6 +181,10 @@ msgstr ""
 
 #: /usr/lib/pwbuilder/include/funcs/alt_install:23
 msgid "_alt_install: no command specified"
+msgstr ""
+
+#: /usr/lib/pwbuilder/include/funcs/install:29
+msgid "_install: must not be invoked with _execindir; use -d instead"
 msgstr ""
 
 #: /usr/lib/pwbuilder/include/funcs/install:73

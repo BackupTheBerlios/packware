@@ -1,7 +1,7 @@
 #!/bin/sh
 
 name="pwbuilder"
-version="0.6.4-pre4"
+version="0.6.4-pre5"
 build="1"
 
 fakeroot="1.0.5"

@@ -5,6 +5,7 @@ function _cmi() {
 	srcnum="1"
 	undefine=""
 	subdir=""
+	otherdir=""
 
 	while [ $# -gt 0 ]; do
 
@@ -13,6 +14,7 @@ function _cmi() {
 			-s) shift ; srcnum="$1" ;;
 			-u) undefine="-u" ;;
 			-b) shift ; subdir="-b $1" ;;
+			-d) shift ; otherdir="-d $1" ;;
 
 		esac
 
@@ -20,8 +22,8 @@ function _cmi() {
 
 	done
 
-	_configure -s ${srcnum} ${subdir}
-	_make -s ${srcnum} ${subdir}
-	_install -s ${srcnum} ${subdir} ${undefine}
+	_configure -s ${srcnum} ${otherdir} ${subdir}
+	_make -s ${srcnum} ${otherdir} ${subdir}
+	_install -s ${srcnum} ${otherdir} ${subdir} ${undefine}
 
 }

@@ -1,9 +1,9 @@
 pwbuilder has been developed in The Packware Project CVS repository. You can
 access the repository anonymously:
 
-cvs -d:pserver:anonymous@cvs.intersec.pl:/cvs login
-Logging in to :pserver:anonymous@cvs.intersec.pl:2401/cvs
+cvs -d:pserver:anonymous@cvs.berlios.de:/cvsroot/packware login
+Logging in to :pserver:anonymous@cvs.berlios.de:2401/cvsroot/packware
 CVS password: [just press Enter]
 cvs -z3 co pwbuilder
 
-Alternatively, you can use a web interface at http://cvs.intersec.pl/.
+Alternatively, you can use a web interface at http://cvs.berlios.de/packware/.

@@ -15,7 +15,7 @@ function _execindir() {
 
     fi
 
-    inotherdir=yes "$@"
+    env -i USER=$USER HOME=$HOME inotherdir=yes sh -l /usr/lib/pwbuilder/bin/xexec "$@"
     cd "${prevdir}"
 
 }

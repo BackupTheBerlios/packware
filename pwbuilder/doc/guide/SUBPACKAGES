@@ -1,5 +1,5 @@
-pwbuilder has an ability to create subpackages. First, in .pwbuil script there
-should be _sub command to define a subpackage, ie.:
+pwbuilder has an ability to create subpackages. First, in .pwbuild script
+there should be _sub command to define a subpackage, ie.:
 
 _sub libgadu
 
@@ -21,4 +21,4 @@ Optionally, we can create .pwinfo files for subpackages, named
 ${subpackage}.pwinfo.
 
 Full ekg package source that makes use of subpackages feature can be found
-in out CVS.
+in our CVS.

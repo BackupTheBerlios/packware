@@ -5,6 +5,7 @@ function _py_build() {
 	srcnum="1"
 	subdir=""
 	opts=""
+	otherdir=""
 
 	while [ $# -gt 0 ]; do
 
@@ -12,6 +13,7 @@ function _py_build() {
 
 			-s) shift ; srcnum="$1" ;;
 			-b) shift ; subdir="$1" ;;
+			-d) shift ; otherdir="$1" ;;
 			*) opts="${opts} $1" ;;
 
 		esac
@@ -20,13 +22,24 @@ function _py_build() {
 
 	done
 
+	if [ "${inotherdir}" = "yes" ]; then
+
+		pwtext "_py_build: must not be invoked with _execindir; use -d instead"
+		exit 2
+
+	fi
+
 	eval "srcd=\"\${src${srcnum}}\""
 
 	(
 
-		if [ ! "${inotherdir}" = "yes" ]; then
+		if [ "${otherdir}" = "" ]; then
 
 			cd ${srcd}/${subdir}
+
+		else
+
+			cd "${otherdir}"
 
 		fi
 
@@ -35,13 +48,13 @@ function _py_build() {
 		if [ "${pw_debug}" = "yes" ]; then
 
 			echo "+ Python build #${srcnum} (python setup.py build "`cat ${tmp}/py_b_opts_${srcnum}` ${opts}")"
-			python setup.py build `cat ${tmp}/py_b_opts_${srcnum}` ${opts}
+			_exec python setup.py build `cat ${tmp}/py_b_opts_${srcnum}` ${opts}
 			echo $? > ${tmp}/pybures
 
 		else
 
 			echo "+ Python build #${srcnum}"
-			python setup.py build `cat ${tmp}/py_b_opts_${srcnum}` ${opts} > /dev/null
+			_exec python setup.py build `cat ${tmp}/py_b_opts_${srcnum}` ${opts} > /dev/null
 			echo $? > ${tmp}/pybures
 
 		fi

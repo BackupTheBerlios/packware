@@ -22,4 +22,4 @@ slackver_b - second part of full version (0, 1 etc.).
 slackver_c - third part of full version (0, 01 etc.).
 
 slackver_max - full version, equals to
-${slackver_a}.${slackver_b}.${slackver_c} (np 8.0.0, 8.1.0, 9.0.0 etc.).
+${slackver_a}.${slackver_b}.${slackver_c} (ie. 8.0.0, 8.1.0, 9.0.0 etc.).

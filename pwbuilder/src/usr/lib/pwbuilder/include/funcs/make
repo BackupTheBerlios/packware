@@ -5,6 +5,7 @@ function _make() {
 	srcnum="1"
 	subdir=""
 	opts=""
+	otherdir=""
 
 	while [ $# -gt 0 ]; do
 
@@ -12,6 +13,7 @@ function _make() {
 
 			-s) shift ; srcnum="$1" ;;
 			-b) shift ; subdir="$1" ;;
+			-d) shift ; otherdir="$1" ;;
 			*) opts="${opts} $1" ;;
 
 		esac
@@ -19,6 +21,13 @@ function _make() {
 		shift
 
 	done
+
+	if [ "${inotherdir}" = "yes" ]; then
+
+		pwtext "_make: must not be invoked with _execindir; use -d instead"
+		exit 2
+
+	fi
 
 	if [ ! -f ${tmp}/altmake_${srcnum} ]; then
 
@@ -30,9 +39,13 @@ function _make() {
 
 	(
 
-		if [ ! "${inotherdir}" = "yes" ]; then
+		if [ "${otherdir}" = "" ]; then
 
 			cd ${srcd}/${subdir}
+
+		else
+
+			cd "${otherdir}"
 
 		fi
 
@@ -51,13 +64,13 @@ function _make() {
 		if [ "${pw_debug}" = "yes" ]; then
 
 			echo "+ Make #${srcnum} ("`cat ${tmp}/actmake_${srcnum}` `cat ${tmp}/m_opts_${srcnum}` ${opts}")"
-			`cat ${tmp}/actmake_${srcnum}` `cat ${tmp}/m_opts_${srcnum}` ${opts}
+			_exec `cat ${tmp}/actmake_${srcnum}` `cat ${tmp}/m_opts_${srcnum}` ${opts}
 			echo $? > ${tmp}/makeres
 
 		else
 
 			echo "+ Make #${srcnum}"
-			`cat ${tmp}/actmake_${srcnum}` `cat ${tmp}/m_opts_${srcnum}` ${opts} > /dev/null
+			_exec `cat ${tmp}/actmake_${srcnum}` `cat ${tmp}/m_opts_${srcnum}` ${opts} > /dev/null
 			echo $? > ${tmp}/makeres
 
 		fi

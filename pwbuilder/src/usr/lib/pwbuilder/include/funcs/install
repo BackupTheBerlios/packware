@@ -6,6 +6,7 @@ function _install() {
 	subdir=""
 	undefine=""
 	opts=""
+	otherdir=""
 
 	while [ $# -gt 0 ]; do
 
@@ -13,6 +14,7 @@ function _install() {
 
 			-s) shift ; srcnum="$1" ;;
 			-b) shift ; subdir="$1" ;;
+			-d) shift ; otherdir="$1" ;;
 			-u) undefine="yes" ;;
 			*) opts="${opts} $1" ;;
 
@@ -21,6 +23,13 @@ function _install() {
 		shift
 
 	done
+
+	if [ "${inotherdir}" = "yes" ]; then
+
+		pwtext "_install: must not be invoked with _execindir; use -d instead"
+		exit 2
+
+	fi
 
 	if [ ! -f ${tmp}/altinstall_${srcnum} ]; then
 
@@ -32,9 +41,13 @@ function _install() {
 
 	(
 
-		if [ ! "${inotherdir}" = "yes" ]; then
+		if [ "${otherdir}" = "" ]; then
 
 			cd ${srcd}/${subdir}
+
+		else
+
+			cd "${otherdir}"
 
 		fi
 
@@ -59,13 +72,13 @@ function _install() {
 		if [ "${pw_debug}" = "yes" ]; then
 
 			echo "+ Install #${srcnum} ("`cat ${tmp}/actinstall_${srcnum}` ${destvars} `cat ${tmp}/i_opts_${srcnum}` ${opts}")"
-			`cat ${tmp}/actinstall_${srcnum}` ${destvars} `cat ${tmp}/i_opts_${srcnum}` ${opts}
+			_exec `cat ${tmp}/actinstall_${srcnum}` ${destvars} `cat ${tmp}/i_opts_${srcnum}` ${opts}
 			echo $? > ${tmp}/instres
 
 		else
 
 			echo "+ Install #${srcnum}"
-			`cat ${tmp}/actinstall_${srcnum}` ${destvars} `cat ${tmp}/i_opts_${srcnum}` ${opts} > /dev/null
+			_exec `cat ${tmp}/actinstall_${srcnum}` ${destvars} `cat ${tmp}/i_opts_${srcnum}` ${opts} > /dev/null
 			echo $? > ${tmp}/instres
 
 		fi

@@ -53,7 +53,7 @@ extension.
 -f - tells pwbuilder that a source can be obtained for SourceForge. URL is not
 needed then and is formed automatically in this way:
 http://unc.dl.sourceforge.net/sourceforge/${name}/${name}-${version}.tar.bz2.
-If -g option is used, .tar.gz version will be fetched instead of .tar.bz2 one.
+The extension can be changed with options described above.
 
 -p proj - if -f option is used, and a source is in other directory than ${name}
 (a directory after /sourceforge/ is different), this option will let you
@@ -103,7 +103,7 @@ _i_opt command is available since version 0.6.0 of pwbuilder.
 
 -------------------------------------------------------------------------------
 
-_configure [-s N] [-b subdirectory] [options]
+_configure [-s N] [-b subdirectory] [-d directory] [options]
 
 Executes configure script and gives it additional options.
 
@@ -112,58 +112,69 @@ Executes configure script and gives it additional options.
 -b subdirectory - execute configure in a subdirectory of source tree. Instead
 of using -b option, _configure command may be preceded by _execindir command.
 
+-d directory - execute configure in other directory.
+
 _configure command is available since version 0.6.0 of pwbuilder.
 -b option is available since version 0.6.1 of pwbuilder.
+-d option is available since version 0.6.4 of pwbuilder.
 
 -------------------------------------------------------------------------------
 
-_make [-s N] [-b subdirectory] [options]
+_make [-s N] [-b subdirectory] [-d directory] [options]
 
 Executes make and gives it additional options.
 
 -s N - execute make for source number N instead of 1.
 
 -b subdirectory - execute make in a subdirectory of source tree. Instead
-of using -b option, _make command may be preceded by _execindir command.
+of using -b option, _make command may be invoked with -d option.
+
+-d directory - execute make in other directory.
 
 _make command is available since version 0.6.0 of pwbuilder.
 -b option is available since version 0.6.1 of pwbuilder.
+-d option is available since version 0.6.4 of pwbuilder.
 
 -------------------------------------------------------------------------------
 
-_install [-s N] [-u] [-b subdirectory] [options]
+_install [-s N] [-u] [-b subdirectory] [-d directory] [options]
 
 Executes make install and gives it additional options.
 
 -s N - execute make install for source number N instead of 1.
 
 -b subdirectory - execute make install in a subdirectory of source tree.
-Instead of using -b option, _install command may be preceded by _execindir
-command.
+Instead of using -b option, _install command may be invoked with -d option.
 
--u - don't set DESTDIR, INSTALLROOT, INSTALL_ROOT, PERL_ISNTALL_ROOT and
+-d directory - execute make install in other directory.
+
+-u - don't set DESTDIR, INSTALLROOT, INSTALL_ROOT, PERL_INSTALL_ROOT and
 INSTALL_PREFIX variables for make install.
 
 _install command is available since version 0.6.0 of pwbuilder.
 -b option is availabe since version 0.6.1 of pwbuilder.
+-d option is available since version 0.6.4 of pwbuilder.
 
 -------------------------------------------------------------------------------
 
-_cmi [-s N] [-u] [-b subdirectory]
+_cmi [-s N] [-u] [-b subdirectory] [-d directory]
 
 Executes _configure, _make and _install.
 
 -s N - execute these commands for source number N instead of 1.
 
 -b subdirectory - execute these commands in a subdirectory of source tree.
-Instead of using -b option, _cmi command may be preceded by _execindir command.
+Instead of using -b option, _cmi command may be invoked with -d option.
 
 -u - don't set DESTDIR, INSTALLROOT, INSTALL_ROOT, PERL_ISNTALL_ROOT and
 INSTALL_PREFIX variables for make install.
 
+-d directory - execute these commands in other directory.
+
 _cmi command is available since version 0.6.0 of pwbuilder.
 -b option is available since version 0.6.1 of pwbuilder.
 -u option is available since version 0.6.1 of pwbuilder.
+-d option is available since version 0.6.4 of pwbuilder.
 
 -------------------------------------------------------------------------------
 
@@ -183,39 +194,45 @@ _py_i_opt command is available since version 0.6.0 of pwbuilder.
 
 -------------------------------------------------------------------------------
 
-_py_build [-b subdirectory] [options]
+_py_build [-b subdirectory] [-d directory] [options]
 
 Executes python setup.py build and gives it additional options.
 
 -b subdirectory - execute in a subdirectory of source tree. Instead of using
--b option, _py_build command may be preceded by _execindir command.
+-b option, _py_build command may be invoked with -d option.
+
+-d directory - execute python setup.py build in other directory.
 
 _py_build command is available since version 0.6.0 of pwbuilder.
 -b option is available since version 0.6.1 of pwbuilder.
+-d option is available since version 0.6.4 of pwbuilder.
 
 -------------------------------------------------------------------------------
 
-_py_install [-u] [-b subdirectory] [options]
+_py_install [-u] [-b subdirectory] [-d directory] [options]
 
 Executes python setup.py install and gives it additional options.
 
 -u - don't pass --root=${pkg} to python setup.py install.
 
 -b subdirectory - execute in a subdirectory of source tree. Instead of using
--b option, _py_install command may be preceded by _execindir command.
+-b option, _py_install command may be invoked with -d option.
+
+-d directory - execute python setup.py install in other directory.
 
 _py_install command is available since version 0.6.0 of pwbuilder.
 -u option is available since version 0.6.1 of pwbuilder.
 -b option is available since version 0.6.1 of pwbuilder.
+-d option is available since version 0.6.4 of pwbuilder.
 
 -------------------------------------------------------------------------------
 
 _patch [-s N] [-p N] [-i] file
 
 Applies patch from given file. File can be defined directly or indirectly -
-pwbuilder will try this then: ${name}-${plik}.pw.patch,
-${name}-${plik}.pw.diff, ${name}-${plik}.patch, ${name}-${plik}.diff,
-${plik}.patch, ${plik}.diff. If file begins with '/', it is used as absolute
+pwbuilder will try this then: ${name}-${file}.pw.patch,
+${name}-${file}.pw.diff, ${name}-${file}.patch, ${name}-${file}.diff,
+${file}.patch, ${file}.diff. If file begins with '/', it is used as absolute
 path to particular file.
 
 -s N - applies patch for source number N instead of 1.
@@ -266,7 +283,7 @@ _pwbuilder required
 
 Defines the oldest pwbuilder version that is able to build a package. This
 command is intended to use at the beginning of .pwbuild script, before basic
-variables (name, versio, build etc.) or just after them. This command checks
+variables (name, version, build etc.) or just after them. This command checks
 whether existing pwbuilder version is greater than or equal to required
 version. If not, it stops pwbuilder.
 
@@ -407,3 +424,11 @@ _qconf_fix file
 Fixes a problem with Makefiles generated by qconf with ../ bug.
 
 file - buggy Makefile
+
+-------------------------------------------------------------------------------
+
+_exec command
+
+Executes the command in clear environment.
+
+_exec command is available since version 0.6.4 of pwbuilder.
