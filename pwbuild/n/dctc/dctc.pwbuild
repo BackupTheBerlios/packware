@@ -1,0 +1,21 @@
+#!/bin/sh
+
+name="dctc"
+version="0.85.9"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d
+
+_source -g -m 3e2772cbbc36fac47fd31d01a7520a2e -s 2426880 http://ac2i.homelinux.com/dctc/
+
+_c_opt --prefix=/usr
+
+_cmi
+
+# $Log: dctc.pwbuild,v $
+# Revision 1.1  2004/08/08 09:43:54  stoodi
+# - Initial commit.
+# - Version 0.85.9
+#
