@@ -1,0 +1,51 @@
+#!/bin/sh
+
+name="nvidia"
+version="1.0-6111"
+build="1"
+dso=`echo ${version} | tr - '.'`
+
+_pwbuilder 0.6.3
+
+_config -s
+
+_source -m 51e83be46f83c52102ccb8995b54f4e2 -s 8167999 -u http://download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}-pkg1.run
+
+cd ${tmp}
+sh ${src1} -x
+cd `basename ${src1} .run`
+
+cd usr/src/nv
+gcc ${src}/ktest.c -o ktest -nostdinc -I/lib/modules/`uname -r`/build/include
+if [ ! -x ktest ]; then
+	echo "Cannot compile ktest." 1>&2
+	return 1
+fi
+if ./ktest; then
+	ln -s Makefile.kbuild Makefile
+else
+	ln -s Makefile.nvidia Makefile
+	echo "Kernel 2.4.x not supported yet." 1>&2
+	return 1
+fi
+make CC=gcc -C /lib/modules/`uname -r`/build SUBDIRS=`pwd` modules
+mkdir ${pkg}/lib/modules/`uname -r`/kernel/drivers/video
+cp nvidia.ko ${pkg}/lib/modules/`uname -r`/kernel/drivers/video
+
+cd ../../..
+mkdir ${pkg}/usr/X11R6/bin
+cp usr/bin/nvidia-* ${pkg}/usr/X11R6/bin
+cp -r usr/X11R6 ${pkg}/usr
+chmod 644 ${pkg}/usr/X11R6/lib/modules/drivers/nvidia_drv.o
+cp usr/lib/lib* ${pkg}/usr/X11R6/lib
+cp -r usr/include ${doc}
+cp usr/share/doc/* ${doc}
+ln -s libGL.so.${dso} ${pkg}/usr/X11R6/lib/libGL.so
+ln -s libGL.so.${dso} ${pkg}/usr/X11R6/lib/libGL.so.1
+ln -s libglx.so.${dso} ${pkg}/usr/X11R6/lib/modules/extensions/libglx.so
+
+# $Log: nvidia.pwbuild,v $
+# Revision 1.1  2004/08/20 09:01:39  swiergot
+# - Initial commit.
+# - Version 1.0-6111.
+#

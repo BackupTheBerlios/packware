@@ -1,0 +1,2 @@
+info="Original drivers for NVidia graphic cards."
+desc="This package contains X11 drivers and Linux kernel module provided by NVidia for their graphic cards."
