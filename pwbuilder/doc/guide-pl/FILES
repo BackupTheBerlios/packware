@@ -1,0 +1,23 @@
+*.pwbuild
+
+G³ówny skrypt buduj±cy. Plik nie musi byæ (choæ mo¿e, to lepiej nie)
+wykonywalny. Nazwa tego pliku nie musi byæ w ¿aden sposób zwi±zana z nazw±
+pakietu. Dostêpne polecenia s± opisane w pliku PWBUILD.
+
+*.pwinfo
+
+Plik z informacjami na temat pakietu (opis itd.). Nazwa tego pliku powinna
+byæ taka, jak nazwa pakietu. Szczegó³y w pliku PWINFO.
+
+*.pwsub
+
+Lista plików i katalogów nale¿±cych do podpakietu. Nazwa tego pliku powinna
+byæ taka, jak nazwa podpakietu. Je¿eli w pliku .pwbuild u¿yto polecenia
+"_sub NAZWA", to musi istnieæ plik NAZWA.pwsub (dodatkowo mo¿e te¿ istnieæ
+plik NAZWA.pwinfo).
+
+*.pw-postinst
+
+Skrypt, który znajdzie siê w pakiecie jako plik install/doinst.sh i bêdzie
+wykonywany podczas instalacji pakietu. Nazwa tego pliku powinna byæ taka sama,
+jak nazwa pakietu lub podpakietu.

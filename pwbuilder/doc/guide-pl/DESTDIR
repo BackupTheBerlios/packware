@@ -1,0 +1,15 @@
+pwbuilder automatycznie ustawia pewne zmienne dla make install, które jest
+wywo³ywane przez _install. Oto te zmienne:
+
+DESTDIR=${pkg}
+INSTALLROOT=${pkg}
+INSTALL_ROOT=${pkg}
+PERL_INSTALL_ROOT=${pkg}
+INSTALL_PREFIX=${pkg}
+
+Dlatego nie jest konieczne u¿ywaæ w plikach .pwbuild poleceñ typu:
+
+_i_opt DESTDIR=${pkg}
+
+Je¿eli z jakiego¶ powodu zmienne te psuj± make install, mo¿na je wy³±czyæ,
+przekazuj±c do _install opcjê -u.

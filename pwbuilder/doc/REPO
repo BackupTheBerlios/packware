@@ -6,4 +6,5 @@ Logging in to :pserver:anonymous@cvs.berlios.de:2401/cvsroot/packware
 CVS password: [just press Enter]
 cvs -z3 co pwbuilder
 
-Alternatively, you can use a web interface at http://cvs.berlios.de/packware/.
+Alternatively, you can use a web interface at:
+http://cvs.berlios.de/cgi-bin/viewcvs.cgi/packware/

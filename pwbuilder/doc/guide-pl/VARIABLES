@@ -1,0 +1,25 @@
+tmp - tymczasowy katalog, unikalny dla ka¿dego procesu pwbuildera.
+
+pkg - katalog, który bêdzie u¿yty jako nadrzêdny dla instalacji pakietu.
+Zawarto¶æ tego katalogu stanie siê zawarto¶ci± pakietu.
+
+doc - katalog ${pkg}/usr/doc/${name}-${version} z dokumentacj± pakietu.
+
+docdir - równa siê /usr/doc/${name}-${version}.
+
+src - katalog zawieraj±cy skrypt .pwbuild.
+
+srcN - katalogi zawieraj±ce ¼ród³a dodane przez polecenie _command (N = 1...).
+
+srcx - ostatnio zdefiniowane srcN.
+
+slackver - wersja u¿ywanego Slackware'a (8.0, 8.1, 9.0, itp.).
+
+slackver_a - piersza czê¶æ pe³nej wersji (7, 8, 9, itp.).
+
+slackver_b - druga czê¶æ pe³nej wersji (0, 1 itp.).
+
+slackver_c - trzecia czê¶æ pe³nej wersji (0, 01 itp.).
+
+slackver_max - pe³na wersja, równa siê
+${slackver_a}.${slackver_b}.${slackver_c} (np. 8.0.0, 8.1.0, 9.0.0 itp.).

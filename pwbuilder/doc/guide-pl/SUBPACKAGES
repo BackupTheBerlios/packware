@@ -1,0 +1,24 @@
+pwbuilder jest w stanie tworzyæ podpakiety. Po pierwsze, w skrypcie .pwbuild
+powinno byæ polecenie _sub definiuj±ce podpakiet, np.:
+
+_sub libgadu
+
+Podpakiet bêdzie nosi³ nazwê ${subpackage}, nie ${name}-${subpackage}.
+Po drugie, trzeba zdefiniowaæ listê plików i katalogów, które maj± trafiæ do
+podpakietu. Robi siê to tworz±c plik ${subpackage}.pwsub. Przyk³adowo:
+
+/usr/include
+/usr/lib
+/usr/doc/ekg-${version}/api.txt
+/usr/doc/ekg-${version}/protocol.html
+/usr/doc/ekg-${version}/functions.txt
+
+Jak widaæ, mo¿na u¿ywaæ tu zmiennych zdefiniowanych w skrypcie .pwbuild.
+I nie chodzi jedynie o zmienne name, version i build, ale o dowoln± zmienn±
+zdefiniowan± w skrypcie .pwbuild. Uwaga: nazwy zmiennych musz± byæ ujête w
+nawiasy klamrowe {}, nie mo¿na napisaæ po prostu $version.
+Opcjonalnie, mo¿na stworzyæ plik .pwinfo dla podpakietu, nazywaj±cy siê
+${subpackage}.pwinfo.
+
+¬ród³a pakietu ekg, w których u¿ywane s± podpakiety, znajduj± siê
+w repozytorium CVS.

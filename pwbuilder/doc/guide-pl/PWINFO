@@ -1,0 +1,14 @@
+W katalogu, który zawiera skrypt .pwbuild, mo¿na umie¶ciæ plik ${name}.pwinfo,
+gdzie ${name} to warto¶æ zmiennej name, ustawianej w skrypcie .pwbuild.
+
+W plikach .pwinfo nale¿y zdefiniowaæ pewne zmienne. Oto one:
+
+info - krótki opis pakietu, d³ugo¶ci po³owy linii.
+
+desc - d³u¿szy opis.
+
+Pole desc jest automatycznie formatowane podczas budowania pakietu. Metoda
+formatowania zosta³a zilustrowana w do³±czonych plikach. Plik janosik.pwinfo
+jest przyk³adem takiego pliku. Plik slack-desc jest plikiem wynikowym,
+generowanym z pliku janosik.pwinfo. slack-desc nie mo¿e mieæ wiêcej ni¿ 11
+linii. Jeden akapit powinien byæ zawarty w jednej linii, bez ³amania wierszy.

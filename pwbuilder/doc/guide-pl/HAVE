@@ -1,0 +1,11 @@
+Dla plików .pwbuild s± dostêpne polecenia, które pozwalaj± sprawdziæ obecno¶æ
+w systemie niektórych programów. Na przyk³ad:
+
+_have_openssl && _c_opt --with-openssl
+_have_mysql && _c_opt --with-mysql
+
+Polecenia _have_* zwracaj± 0, je¿eli program istnieje, lub 1, je¿eli nie.
+Aby dowiedzieæ siê, jakie polecenia _have_* s± dostêpne, nale¿y zajrzeæ do
+katalogu /usr/lib/pwbuilder/include/have.
+
+Polecenia _have_* s± u¿ywane m.in. w pakietach php lub sylpheed-claws.

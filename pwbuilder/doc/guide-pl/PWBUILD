@@ -1,0 +1,442 @@
+_doc [-d] [-b podkatalog] [-r katalog] [-s N] [-x plik] [pliki]
+
+Okre¶la pliki, które trafi± jako dokumentacja do /usr/doc/${name}-${version}.
+Pliki s± oddzielane spacj±. Ich lokalizacja jest relatywna do katalogu
+¼róde³. To polecenie mo¿e byæ u¿yte wiele razy.
+
+-d - automatycznie wybiera pliki, których nazwy z³o¿one s± tylko z du¿ych
+liter. Plik ABOUT-NLS równie¿ zostanie wybrany. U¿ycie tej opcji nie wyklucza
+mo¿liwo¶ci podania argumentu [pliki].
+
+-b podkatalog - u¿yte obok -d, powoduje szukanie domy¶lnych plików
+w podkatalogu, a nie w najwy¿szym katalogu ¼róde³.
+
+-s N - domy¶lnie brane jest pod uwagê ¼ród³o zdefiniowane jako pierwsze.
+Ta opcja pozwala zmieniæ numer ¼ród³a.
+
+-x plik - wy³±cza plik z automatycznego wybierania. Ta opcja mo¿e zostaæ u¿yta
+wielokrotnie.
+
+-r katalog - okre¶la katalog, do którego powêdruj± pliki. Bêdzie to
+/usr/doc/${katalog} zamiast /usr/doc/${name}-${version}.
+
+Polecenie _doc jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_source [-f] [-p proj] [-t katalog] [-g] [-z] [-u] [-m md5] [-n nazwa] [-v wersja] [-i] [url]
+
+Dodaj nowe ¼ród³o. Po³o¿enie pliku mo¿e byæ podane jako adres URL, który
+zaczyna siê od http:// lub ftp://. Je¿eli URL koñczy siê znakiem '/', nazwa
+pliku jest automatycznie ustalana jako '${name}-${version}.tar.bz2'.
+
+-g - przy automatycznym ustalaniu nazwy pliku u¿yj koñcówki '.tar.gz'.
+
+-z - przy automatycznym ustalaniu nazwy pliku u¿yj koñcówki '.tgz'.
+
+-Z - przy automatycznym ustalaniu nazwy pliku u¿yj koñcówki '.zip'.
+
+-n ³añcuch - przy automatycznym ustalaniu nazwy pliku u¿yj ${³añcuch} zamiast
+${name}.
+
+-v ³añcuch - przy automatycznym ustalaniu nazwy pliku u¿yj ${³añcuch} zamiast
+${version}.
+
+-m md5 - ustala sumê kontroln± md5 dla pliku. Suma ta jest u¿ywana do
+weryfikacji poprawno¶ci pliku przed rozpakowaniem.
+
+-t katalog - zmienia nadrzêdny katalog ¼róde³. Domy¶lny jest nazw± pliku
+bez rozszerzenia.
+
+-u - powoduje, ¿e ¼ród³o nie bêdzie rozpakowane, nawet je¿eli mo¿na.
+
+-f - okre¶la, ¿e ¼ród³o mo¿e zostaæ pobrane z SourceForge. URL nie jest
+potrzebny, jest ustalany automatycznie w nastêpuj±cy sposób:
+http://unc.dl.sourceforge.net/sourceforge/${name}/${name}-${version}.tar.bz2.
+Rozszerzenie mo¿e byæ zmienione odpowiednimi opcjami.
+
+-p proj - je¿eli u¿yto opcji -f, a ¼ród³o jest w innym katalogu ni¿ ${name}
+(katalog po /sourceforge/ jest inny), ta opcja pozwala zdefiniowaæ inny
+katalog.
+
+-s rozmiar - rozmiar ¼ród³a. Zostanie wy¶wietlony po etykiecie "+ Source ".
+
+-c - przy automatycznym ustalaniu nazwy pliku u¿yj znaku podkre¶lenia zamiast
+my¶lnika, aby po³±czyæ ${name} i ${version}.
+
+-i - gdy ¼ród³o nie mo¿e zostaæ znalezione, nie przerywaj budowania.
+
+Polecenie _source jest dostêpne od wersji 0.6.0.
+Opcja -s jest dostêpna od wersji 0.6.1.
+Opcja -c jest dostêpna od wersji 0.6.2.
+Opcja -i jest dostêpna od wersji 0.6.2.
+
+-------------------------------------------------------------------------------
+
+_c_opt [-s N] opcje
+
+Przekazuje opcje do skryptu configure, wykonywanego przez polecenie
+_configure.
+
+-s N - przekazywane opcje tycz± siê ¼ród³a numer N zamiast 1.
+
+Polecenie _c_opt jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_m_opt [-s N] opcje
+
+Przekazuje opcje do make, wykonywanego przez polecenie _make.
+
+-s N - przekazywane opcje tycz± siê ¼ród³a numer N zamiast 1.
+
+Polecenie _m_opt jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_i_opt [-s N] opcje
+
+Przekazuje opcje do make install, wykonywanego przez polecenie _install.
+
+-s N - przekazywane opcje tycz± siê ¼ród³a numer N zamiast 1.
+
+Polecenie _i_opt jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_configure [-s N] [-b podkatalog] [-d katalog] [opcje]
+
+Wykonuje skrypt configure, przekazuj±c mu dodatkowe opcje.
+
+-s N - wykonuje configure dla ¼ród³a numer N zamiast 1.
+
+-b podkatalog - wykonuje configure w podkatalogu drzewa ¼ród³a. Zamiast u¿ywaæ
+opcji -b, mo¿na te¿ u¿yæ opcji -d.
+
+-d katalog - wykonuje configure i innym katalogu.
+
+Polecenie _configure jest dostêpne od wersji 0.6.0.
+Opcja -b jest dostêpna od wersji 0.6.1.
+Opcja -d jest dostêpna od wersji 0.6.4.
+
+-------------------------------------------------------------------------------
+
+_make [-s N] [-b podkatalog] [-d katalog] [opcje]
+
+Wykonuje make, przekazuj±c mu dodatkowe opcje.
+
+-s N - wykonuje make dla ¼ród³a numer N zamiast 1.
+
+-b podkatalog - wykonuje make dla podkatalogu drzewa ¼ród³a. Zamiast u¿ywaæ
+opcji -b, mo¿na te¿ u¿yæ opcji -d.
+
+-d katalog - wykonuje make w innym katalogu.
+
+Polecenie _make jest dostêpne od wersji 0.6.0.
+Opcja -b jest dostêpna od wersji 0.6.1.
+Opcja -d jest dostêpna od wersji 0.6.4.
+
+-------------------------------------------------------------------------------
+
+_install [-s N] [-u] [-b podkatalog] [-d katalog] [opcje]
+
+Wykonuje make install, przekazuj±c mu dodatkowe opcje.
+
+-s N - wykonuje make install dla ¼ród³a numer N zamiast 1.
+
+-b podkatalog - wykonuje make install w podkatalogu drzewa ¼ród³a. Zamiast
+u¿ywaæ opcji -b, mo¿na te¿ u¿yæ opcji -d.
+
+-d katalog - wykonuje make install w innym katalogu.
+
+-u - nie przekazuj zmiennych DESTDIR, INSTALLROOT, INSTALL_ROOT,
+PERL_INSTALL_ROOT i INSTALL_PREFIX do make install.
+
+Polecenie _install jest dostêpne od wersji 0.6.0.
+Opcja -b jest dostêpna od wersji 0.6.1.
+Opcja -d jest dostêpna od wersji 0.6.4.
+
+-------------------------------------------------------------------------------
+
+_cmi [-s N] [-u] [-b podkatalog] [-d katalog]
+
+Wykonuje _configure, _make i _install.
+
+-s N - wykonuje wymienione polecenia dla ¼ród³a numer N zamiast 1.
+
+-b podkatalog - wykonuje wymienione polecenia w podkatalogu drzewa ¼ród³a.
+Zamiast u¿ywaæ opcji -b, mo¿na te¿ u¿yæ opcji -d.
+
+-u - nie przekazuj zmiennych DESTDIR, INSTALLROOT, INSTALL_ROOT,
+PERL_INSTALL_ROOT i INSTALL_PREFIX do make install.
+
+-d katalog - wykonuje wymienione polecenia w innym katalogu.
+
+Polecenie _cmi jest dostêpne od wersji 0.6.0.
+Opcja -b jest dostêpna od wersji 0.6.1.
+Opcja -u jest dostêpna od wersji 0.6.1.
+Opcja -d jest dostêpna od wersji 0.6.4.
+
+-------------------------------------------------------------------------------
+
+_py_b_opt opcje
+
+Przekazuje opcje do python setup.py build, wykonywanego przez _py_build.
+
+Polecenie _py_b_opt jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_py_i_opt opcje
+
+Przekazuje opcje do python setup.py install, wykonywanego przez _py_install.
+
+Polecenie _py_i_opt jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_py_build [-b podkatalog] [-d katalog] [opcje]
+
+Wykonuje python setup.py build, przekazuj±c mu dodatkowe opcje.
+
+-b podkatalog - wykonuje python setup.py build w podkatalogu drzewa ¼róde³.
+Zamiast u¿ywaæ opcji -b, mo¿na te¿ u¿yæ opcji -d.
+
+-d katalog - wykonuje python setup.py build w innym katalogu.
+
+Polecenie _py_build jest dostêpne od wersji 0.6.0.
+Opcja -b jest dostêpna od wersji 0.6.1.
+Opcja -d jest dostêpna od wersji 0.6.4.
+
+-------------------------------------------------------------------------------
+
+_py_install [-u] [-b podkatalog] [-d katalog] [opcje]
+
+Wykonuje python setup.py install, przekazuj±c mu dodatkowe opcje.
+
+-u - nie przekazuj --root=${pkg} do python setup.py install.
+
+-b podkatalog - wykonuje python setup.py install w podkatalogu drzewa ¼róde³.
+Zamiast u¿ywaæ opcji -b, mo¿na te¿ u¿yæ opcji -d.
+
+-d katalog - wykonuje python setup.py install w innym katalogu.
+
+Polecenie _py_install jest dostêpne od wersji 0.6.0.
+Opcja -u jest dostêpna od wersji 0.6.1.
+Opcja -b jest dostêpna od wersji 0.6.1.
+Opcja -d jest dostêpna od wersji 0.6.4.
+
+-------------------------------------------------------------------------------
+
+_patch [-s N] [-p N] [-i] plik
+
+Nak³ada ³±tê z podanego pliku. Plik mo¿e byæ okre¶lony bezpo¶rednio lub
+po¶rednio - pwbuilder wypróbuje nastêpuj±ce konfiguracje:
+${name}-${plik}.pw.patch, ${name}-${plik}.pw.diff, ${name}-${plik}.patch,
+${name}-${plik}.diff, ${plik}.patch, ${plik}.diff. Je¿eli plik zaczyna siê od
+znaku '/', jest traktowany jako absolutna ¶cie¿ka do pliku.
+
+-s N - nak³ada ³atê na ¼ród³o numer N zamiast 1.
+
+-p N - nak³ada ³atê na ¼ród³o numer N zamiast 1.
+
+-i - nie przerywaj budowania je¿eli nak³adanie nie powiedzie siê.
+
+Polecenie _patch jest dostêpne od wersji 0.6.0.
+Opcja -i jest dostêpna od wersji 0.6.2.
+
+-------------------------------------------------------------------------------
+
+_chmod [-R] uprawnienia pliki
+
+Ustawia niestandardowe uprawnienia plików. Tu¿ przed zapisaniem pakietu
+uprawnienia wszystkich plików s± ustawiane na 644, a katalogów na 755. To
+polecenie pozwala nadpisaæ te ustawienia.
+
+-R - to samo co -R w chmod(1).
+
+Polecenie _chmod jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_chown [-R] [-d] w³a¶ciciel pliki
+
+Ustawia niestandardowego w³asciciela plików. Tu¿ przed zapisaniem pakietu
+w³a¶ciciel wszystkich plików jest ustawiany na root.root. To polecenie pozwala
+nadpisaæ te ustawienia.
+
+-R - to samo co -R w chown(1).
+
+-d - to samo co --dereference w chown(1).
+
+Polecenie _chown jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_sub nazwa
+
+Definuje podpakiet o podanej nazwie.
+
+Polecenie _sub jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_pwbuilder wymagany
+
+Okre¶la najstarsz± wersjê pwbuildera, która jest potrzebna do zbudowania
+pakietu. To polecenie powinno byæ u¿ywane na pocz±tku skryptu .pwbuild,
+przed podstawowymi zmiennymi (name, version, build itd.) lub tu¿ za nimi.
+To polecenie sprawdza, czy obecna wersja pwbuildera jest wy¿sza lub równa
+wymaganej wersji. Je¿eli nie, zatrzymuje pwbuildera.
+
+Polecenie _pwbuilder jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_remove [plik/katalog...]
+
+To polecenie usuwa podane pliki/katalogi z g³ównego pakietu. Jest pomocne,
+kiedy definiujemy wiêcej ni¿ jeden podpakiet i w g³ównym pakiecie pozostaj±
+niepotrzebne pliki lub katalogi.
+
+Polecenie _remove jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_alt_configure [-s N] polecenie
+
+Zmienia polecenie, które zostanie wykonane przez _configure zamiast
+./configure.
+
+-s N - zmiania polecenie dla ¼ród³a numer N zamiast 1.
+
+Polecenie _alt_configure jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_alt_make [-s N] polecenie
+
+Zmienia polecenie, które zostanie wykonane przez _make zamiast
+make.
+
+-s N - zmiania polecenie dla ¼ród³a numer N zamiast 1.
+
+Polecenie _alt_make jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_alt_install [-s N] polecenie
+
+Zmienia polecenie, które zostanie wykonane przez _instlal zamiast
+make install.
+
+-s N - zmiania polecenie dla ¼ród³a numer N zamiast 1.
+
+Polecenie _alt_install jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_next_configure [-s N] polecenie
+
+Jak _alt_configure, lecz ustawia polecenie tylko na najbli¿sze wywo³anie
+_configure.
+
+Polecenie _next_configure jest dostêpne od wersji 0.6.3.
+
+-------------------------------------------------------------------------------
+
+_next_make [-s N] polecenie
+
+Jak _alt_make, lecz ustawia polecenie tylko na najbli¿sze wywo³anie
+_make.
+
+Polecenie _next_make jest dostêpne od wersji 0.6.3.
+
+-------------------------------------------------------------------------------
+
+_next_install [-s N] polecenie
+
+Jak _alt_install, lecz ustawia polecenie tylko na najbli¿sze wywo³anie
+_install.
+
+Polecenie _next_install jest dostêpne od wersji 0.6.3.
+
+-------------------------------------------------------------------------------
+
+_config [-s]
+
+Pozwala nadpisaæ ustawienia pliku /etc/pwbuilder.conf lub ~/.pwbuilderrc,
+lub ustawienia linii poleceñ.
+
+-s - nie wykonuj na binariach polecenia strip.
+
+Polecenie _strip jest dostêpne od wersji 0.6.0.
+
+-------------------------------------------------------------------------------
+
+_require pakiet [[-eq|-gt|-lt|-ge|-le] wersja[-wydanie]] [-p podpakiet]
+
+Okre¶la zale¿no¶ci budowanego pakietu. pwbuilder utworzy plik
+install/slack-required na podstawie tych danych.
+
+-p podpakiet - zale¿no¶æ dotyczy podpakietu, nie g³ównego pakietu.
+
+  ------------------------------------------
+ | Relacja | Znaczenie | Komentarz          |
+ |---------|-----------|--------------------|
+ | -eq     | =         | równe              |
+ | -gt     | >         | wiêksze ni¿        |
+ | -lt     | <         | mniejsze ni¿       |
+ | -ge     | >=        | wiêksze lub równe  |
+ | -le     | <=        | mniejsze lub równe |
+  ------------------------------------------
+
+Przyk³ady:
+
+_require openssl
+_require openssl -ge 0.9.7
+_require openssl -eq 0.9.7-2
+_require openssl -gt 0.9.7-i386-2
+
+Polecenie _require jest dostêpne od wersji 0.6.3.
+
+-------------------------------------------------------------------------------
+
+_execindir katalog polecenie
+
+Wykonuje polecenie w danym katalogu. Je¿eli u¿yte zosta³o _setexecdir, to
+katalog nie musi byæ podany.
+
+Polecenie _execindir jest dostêpne od wersji 0.6.4.
+
+-------------------------------------------------------------------------------
+
+_setexecdir katalog
+
+Ustawia katalog dla _execindir.
+
+Polecenie _setexecdir jest dostêpne od wersji 0.6.4.
+
+-------------------------------------------------------------------------------
+
+_unsetexecdir
+
+Usuwa katalog ustawiony dla _execindir.
+
+Polecenie _unsetexecdir jest dostêpne od wersji 0.6.4.
+
+-------------------------------------------------------------------------------
+
+_qconf_fix plik
+
+Usuwa problem z plikami Makefile generowanymi przez qconf z b³êdem ../.
+
+plik - wadliwy Makefile
+
+-------------------------------------------------------------------------------
+
+_exec polecenie
+
+Wykonuje dane polecenie w czystym ¶rodowisku.
+
+Polecenie _exec jest dostêpne od wersji 0.6.4.
