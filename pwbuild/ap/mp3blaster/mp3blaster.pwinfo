@@ -1,0 +1,2 @@
+info="a non-graphical mp3 player for UNIX"
+desc="Mp3blaster is an mp3 player for computers running a UNIX-like operating system, e.g. Linux, Free/Net/OpenBSD, etc. Its interface is entirely text based, thereby eliminating the need for a graphical environment like X-Windows. This does not limit the way you can control the player whilst playing though; just like any graphical mp3 player, there are cd-style buttons like play, stop, pause, next track, etc."

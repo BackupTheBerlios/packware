@@ -1,0 +1,24 @@
+#!/bin/sh
+
+name="mp3blaster"
+version="3.2.0"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d ChangeLog
+
+_source -m d01a36de2ebb5b4f7c407ae6cc7668b1 -s 312 http://www.stack.nl/~brama/mp3blaster/src/mp3blaster-3.2.0.tar.gz
+
+#_patch config
+
+_c_opt --prefix=/usr
+_c_opt --sysconfdir=/etc
+#_c_opt --disable-clamav
+
+_cmi
+
+# $Log: mp3blaster.pwbuild,v $
+# Revision 1.1  2004/08/18 10:01:17  vrok
+# *** empty log message ***
+#
