@@ -1,6 +1,6 @@
 diff -ruN kadu.orig/.config kadu/.config
---- kadu.orig/.config	2004-08-28 16:16:09.000000000 +0200
-+++ kadu/.config	2004-08-29 18:11:59.000000000 +0200
+--- kadu.orig/.config	2004-08-31 18:55:03.000000000 +0200
++++ kadu/.config	2004-09-10 09:37:22.000000000 +0200
 @@ -13,25 +13,25 @@
  #
  
@@ -66,10 +66,10 @@ diff -ruN kadu.orig/.config kadu/.config
  # Echo sample module
 -module_echo=n
 +module_echo=m
+ # Configuration wizard module
+ module_config_wizard=m
  
- 
- #
-@@ -95,31 +95,31 @@
+@@ -96,31 +96,31 @@
  #
  
  # TCL scripting support and KaduPro extensions
@@ -98,7 +98,7 @@ diff -ruN kadu.orig/.config kadu/.config
  
  # PC-Speaker support
 -module_pcspeaker=n
-+module_pcspeaker=m
++module_pcspeaker=n
  
  # Notification by XOSD (depends: notify)
 -module_xosd_notify=n
@@ -106,11 +106,11 @@ diff -ruN kadu.orig/.config kadu/.config
  
  # Weather checking
 -module_weather=n
-+module_weather=y
++module_weather=n
  
  #
  # Below are some icon themes, one default and others, made by third
-@@ -136,8 +136,8 @@
+@@ -137,8 +137,8 @@
  icons_default=y
  
  # Crystal 16x16 icons made by Arcisz
