@@ -1,6 +1,6 @@
 diff -ruN kadu.orig/.config kadu/.config
 --- kadu.orig/.config	2004-08-28 16:16:09.000000000 +0200
-+++ kadu/.config	2004-08-29 16:17:02.000000000 +0200
++++ kadu/.config	2004-08-29 18:11:59.000000000 +0200
 @@ -13,25 +13,25 @@
  #
  
@@ -69,7 +69,7 @@ diff -ruN kadu.orig/.config kadu/.config
  
  
  #
-@@ -95,28 +95,28 @@
+@@ -95,31 +95,31 @@
  #
  
  # TCL scripting support and KaduPro extensions
@@ -105,7 +105,11 @@ diff -ruN kadu.orig/.config kadu/.config
 +module_xosd_notify=n
  
  # Weather checking
- module_weather=n
+-module_weather=n
++module_weather=y
+ 
+ #
+ # Below are some icon themes, one default and others, made by third
 @@ -136,8 +136,8 @@
  icons_default=y
  
