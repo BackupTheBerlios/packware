@@ -1,0 +1,21 @@
+#!/bin/sh
+
+name="afterstep"
+version="2.00.beta4b"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d
+
+_source -n AfterStep ftp://ftp.afterstep.org/devel/  
+
+_c_opt --prefix=/usr
+
+_cmi
+
+# $Log: afterstep.pwbuild,v $
+# Revision 1.1  2004/08/08 10:02:54  stoodi
+# - Initial commit.
+# - Version 2.00.beta4b (development version)
+#
