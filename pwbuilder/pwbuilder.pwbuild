@@ -1,18 +1,18 @@
 #!/bin/sh
 
 name="pwbuilder"
-version="0.6.4-pre3"
+version="0.6.4-pre4"
 build="1"
 
-fakeroot="0.7.8"
+fakeroot="1.0.5"
 pwutils="0.6"
 
 _pwbuilder 0.6.3
 
-_doc -d -r fakeroot-${fakeroot} README.fake
+_doc -d -r fakeroot-${fakeroot} README.fake doc/README.saving -x NEWS -x README
 
-_source -t fakeroot-${fakeroot} -m d9612083d722f49091f54217ce90f9a5 -s 678306 http://packware.intersec.pl/source/fakeroot_${fakeroot}.tar.gz
-_source -n pwutils -v ${pwutils} -m 48d32d94b45774967357c94b7fbb2cb3 -s 3440 http://packware.intersec.pl/
+_source -t fakeroot-${fakeroot} -m 2c779a33b10447a9f0371ce9105a3467 -s 1192122 ftp://ftp.berlios.de/pub/packware/sources/fakeroot_${fakeroot}.tar.gz
+_source -n pwutils -v ${pwutils} -m 48d32d94b45774967357c94b7fbb2cb3 -s 3440 ftp://ftp.berlios.de/pub/packware/sources/
 
 _patch fakeroot-libdir
 
