@@ -1,0 +1,125 @@
+#!/bin/sh
+
+# mplayerfontconfig - sets up a font for MPlayer
+# Copyright (c) 2003 Jaroslaw Swierczynski <swiergot@intersec.pl>
+# Released under the terms of the GNU General Public License 2 or later
+
+if [ ! -d /usr/share/mplayer/fonts ]; then
+  exit
+fi
+
+if [ "$USER" = "root" ]; then
+  MPLAYERDIR=/usr/share/mplayer
+else
+  MPLAYERDIR=~/.mplayer
+fi
+
+if [ ! -d $MPLAYERDIR ]; then
+  mkdir -p ~/.mplayer
+fi
+
+if [ -d $MPLAYERDIR/font ]; then
+  if [ ! -L $MPLAYERDIR/font ]; then
+    dialog --backtitle "MPlayer font setup" --title "WARNING" --msgbox "$MPLAYERDIR/font is a real directory, not
+a symlink. If you choose a new font, this directory will be removed with all its content." 7 64
+  fi
+fi
+
+FONTS="`ls -1d /usr/share/mplayer/fonts/font-* | cut -f 2 -d - | sort | uniq`"
+
+if [ "$FONTS" = "" ]; then
+  dialog --backtitle "MPlayer font setup" --title "ERROR" --msgbox "The /usr/share/mplayer/fonts directory is empty. Hit Enter to exit." 5 71
+  exit
+fi
+
+COUNT=1
+
+for i in $FONTS; do
+  FONTMENU="$FONTMENU $COUNT $i"
+  FONTLIST="$FONTLIST $i"
+  COUNT=`expr $COUNT + 1`
+done
+
+TMP="`mktemp /tmp/mplayerconfig-XXXXXX`"
+rm -rf $TMP
+touch $TMP
+
+dialog --backtitle "MPlayer font setup" --title "CHOOSE FONT FAMILY" --menu "Please select font family." `expr 6 + $COUNT` 30 `expr $COUNT - 1` $FONTMENU 2> $TMP
+
+RESULT=`cat $TMP`
+
+if [ "$RESULT" = "" ]; then
+
+    rm -f $TMP
+    clear
+    exit
+
+fi
+
+FONTFAMILY="`echo $FONTLIST | awk \"{ print \\$$RESULT }\"`"
+
+FONTS="`ls -1d /usr/share/mplayer/fonts/font-$FONTFAMILY-* | cut -f 3 -d - | sort | uniq`"
+
+COUNT=1
+FONTMENU=""
+FONTLIST=""
+
+for i in $FONTS; do
+  FONTMENU="$FONTMENU $COUNT $i"
+  FONTLIST="$FONTLIST $i"
+  COUNT=`expr $COUNT + 1`
+done
+
+dialog --backtitle "MPlayer font setup" --title "CHOOSE FONT SIZE" --menu "Please select font size." `expr 6 + $COUNT` 28 `expr $COUNT - 1` $FONTMENU 2> $TMP
+
+RESULT=`cat $TMP`
+
+if [ "$RESULT" = "" ]; then
+
+    rm -f $TMP
+    clear
+    exit
+
+fi
+
+FONTSIZE="`echo $FONTLIST | awk \"{ print \\$$RESULT }\"`"
+
+FONTS="`ls -1d /usr/share/mplayer/fonts/font-$FONTFAMILY-$FONTSIZE-* | cut -f 4- -d - | sort | uniq`"
+
+COUNT=1
+FONTMENU=""
+FONTLIST=""
+
+for i in $FONTS; do
+  FONTMENU="$FONTMENU $COUNT $i"
+  FONTLIST="$FONTLIST $i"
+  COUNT=`expr $COUNT + 1`
+done
+
+dialog --backtitle "MPlayer font setup" --title "CHOOSE FONT CHARSET" --menu "Please select font charset." `expr 6 + $COUNT` 31 `expr $COUNT - 1` $FONTMENU 2> $TMP
+
+RESULT=`cat $TMP`
+
+if [ "$RESULT" = "" ]; then
+
+    rm -f $TMP
+    clear
+    exit
+
+fi
+
+FONTCHARSET="`echo $FONTLIST | awk \"{ print \\$$RESULT }\"`"
+
+dialog --backtitle "MPlayer font setup" --title "SELECTED FONT" --yesno "You have just selected the following font:
+$FONTFAMILY-$FONTSIZE-$FONTCHARSET
+Do you want to apply this font to be used by MPlayer?" 7 57
+
+if [ "$?" = "0" ]; then
+
+    rm -rf $MPLAYERDIR/font
+    ln -s /usr/share/mplayer/fonts/font-$FONTFAMILY-$FONTSIZE-$FONTCHARSET $MPLAYERDIR/font
+
+fi
+
+rm -f $TMP
+clear

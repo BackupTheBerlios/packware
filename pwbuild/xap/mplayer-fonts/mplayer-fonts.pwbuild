@@ -1,0 +1,31 @@
+#!/bin/sh
+
+name="mplayer-fonts"
+version="20030714"
+build="1"
+
+_doc -s 1 README-*
+_doc -s 2 README-*
+_doc -s 3 README-*
+_doc -s 4 README-*
+
+_pwbuilder 0.6.3
+
+_source -m d0afd83cd04c29a714a62b427aace5c5 -s 249705 ftp://ftp2.mplayerhq.hu/MPlayer/releases/fonts/font-arial-cp1250.tar.bz2
+_source -m 1ecd31d17b51f16332b1fcc7da36b312 -s 234242 ftp://ftp2.mplayerhq.hu/MPlayer/releases/fonts/font-arial-iso-8859-1.tar.bz2
+_source -m 7b47904a925cf58ea546ca15f3df160c -s 222208 ftp://ftp2.mplayerhq.hu/MPlayer/releases/fonts/font-arial-iso-8859-2.tar.bz2
+_source -m 956a9d9ea51970e057f0deb7b2e25889 -s 198950 ftp://ftp2.mplayerhq.hu/MPlayer/releases/fonts/font-arial-iso-8859-7.tar.bz2
+
+mkdir ${pkg}/usr/share/mplayer/fonts ${pkg}/usr/bin
+cp ${src}/mplayerfontconfig ${pkg}/usr/bin
+chmod 755 ${pkg}/usr/bin/mplayerfontconfig
+mv ${src1}/font-* ${pkg}/usr/share/mplayer/fonts
+mv ${src2}/font-* ${pkg}/usr/share/mplayer/fonts
+mv ${src3}/font-* ${pkg}/usr/share/mplayer/fonts
+mv ${src4}/font-* ${pkg}/usr/share/mplayer/fonts
+
+# $Log: mplayer-fonts.pwbuild,v $
+# Revision 1.1  2004/08/16 11:12:10  swiergot
+# - Initial commit.
+# - Version 20030714.
+#

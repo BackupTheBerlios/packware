@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ ! -e usr/share/mplayer/font ]; then
+
+    echo
+    echo "Setting up arial-24-iso-8859-1 as your default font. Use mplayerfontconfig to"
+    echo "select another one."
+    ln -s fonts/font-arial-24-iso-8859-1 usr/share/mplayer/font
+
+fi
