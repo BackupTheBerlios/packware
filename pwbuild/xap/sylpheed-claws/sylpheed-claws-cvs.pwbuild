@@ -1,14 +1,14 @@
 #!/bin/sh
 
 name="sylpheed-claws"
-version="0.9.12-39"
+version="0.9.12-61"
 build="1"
 
 _pwbuilder 0.6.3
 
 _doc -d README.claws TODO.claws -x CVS
 
-_source -m ad4f6beef232c8e2b8fbb98813328bdd -s 2290857 -t ${name} ftp://ftp.berlios.de/pub/packware/sources/
+_source -m 7bbd069adf60697742def621836a89ac -s 2317218 -t ${name} ftp://ftp.berlios.de/pub/packware/sources/
 
 _patch autogen
 
@@ -36,6 +36,9 @@ _cmi
 rm ${doc}/manual/ja/sylpheed.sgml
 
 # $Log: sylpheed-claws-cvs.pwbuild,v $
+# Revision 1.2  2004/08/15 14:38:32  swiergot
+# - Version 20040815.
+#
 # Revision 1.1  2004/07/30 19:27:51  swiergot
 # - Initial commit.
 # - Version 0.9.12/0.9.12-39/0.9.12-39.7-gtk2.
