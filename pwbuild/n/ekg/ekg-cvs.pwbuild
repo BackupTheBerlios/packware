@@ -1,14 +1,14 @@
 #!/bin/sh
 
 name="ekg"
-version="20040729"
+version="20040920"
 build="1"
 
 _pwbuilder 0.6.3
 
 _doc -d -b docs ../ChangeLog IDEAS-2.0 *.txt protocol.html emoticons.* api/functions.txt -x CVS
 
-_source -m bfe59b48b11880f26df245cf442740d1 -s 483721 -g http://dev.null.pl/${name}/
+_source -m 838e4079fc391e4876e97c03227f2a07 -s 483914 -g http://dev.null.pl/${name}/
 
 _patch varstxt
 
@@ -30,6 +30,9 @@ cp ${src1}/docs/ekl2.man.pl ${pkg}/usr/man/pl/man1/ekl2.1
 _sub libgadu
 
 # $Log: ekg-cvs.pwbuild,v $
+# Revision 1.2  2004/09/21 14:54:44  swiergot
+# - Version 20040920.
+#
 # Revision 1.1  2004/07/30 16:46:09  swiergot
 # - Initial commit.
 # - Version 20040729.
