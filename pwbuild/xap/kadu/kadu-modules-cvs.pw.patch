@@ -1,7 +1,7 @@
 diff -ruN kadu.orig/.config kadu/.config
---- kadu.orig/.config	2004-07-20 23:18:35.000000000 +0200
-+++ kadu/.config	2004-07-30 18:55:39.000000000 +0200
-@@ -7,61 +7,61 @@
+--- kadu.orig/.config	2004-08-01 05:57:15.000000000 +0200
++++ kadu/.config	2004-08-14 17:05:37.000000000 +0200
+@@ -7,70 +7,70 @@
  #
  
  # Tray icon support
@@ -70,6 +70,18 @@ diff -ruN kadu.orig/.config kadu/.config
 -module_account_management=y
 +module_account_management=m
  
+ # General notification module (needed by sound, speech, hints, window_notify)
+-module_notify=y
++module_notify=m
+ 
+ # Notification by window module
+-module_window_notify=y
++module_window_notify=m
+ 
+ # Notification by hints module
+-module_hints=y
++module_hints=m
+ 
  # Autoresponder module
  module_autoresponder=m
  
@@ -79,7 +91,7 @@ diff -ruN kadu.orig/.config kadu/.config
  
  #
  # Below are some external modules, made by third parties, but
-@@ -72,22 +72,22 @@
+@@ -81,22 +81,22 @@
  #
  
  # TCL scripting support and KaduPro extensions
