@@ -1,0 +1,22 @@
+diff -ruN p7zip_0.91.orig/7zip/Archive/Common/CodecsPath.cpp p7zip_0.91/7zip/Archive/Common/CodecsPath.cpp
+--- p7zip_0.91.orig/7zip/Archive/Common/CodecsPath.cpp	2004-07-11 21:14:32.000000000 +0200
++++ p7zip_0.91/7zip/Archive/Common/CodecsPath.cpp	2004-09-28 11:31:03.000000000 +0200
+@@ -30,5 +30,5 @@
+ 
+ CSysString GetCodecsFolderPrefix()
+ {
+-  return GetBaseFolderPrefix() + TEXT("Codecs\\");
++  return TEXT("/usr/lib/7z/Codecs\\");
+ }
+diff -ruN p7zip_0.91.orig/7zip/UI/Common/ArchiverInfo.cpp p7zip_0.91/7zip/UI/Common/ArchiverInfo.cpp
+--- p7zip_0.91.orig/7zip/UI/Common/ArchiverInfo.cpp	2004-07-11 21:14:20.000000000 +0200
++++ p7zip_0.91/7zip/UI/Common/ArchiverInfo.cpp	2004-09-28 11:22:43.000000000 +0200
+@@ -61,7 +61,7 @@
+   return path.Left(pos + 1);
+ }
+ 
+-static wchar_t *kFormatFolderName = L"Formats";
++static wchar_t *kFormatFolderName = L"/usr/lib/7z/Formats";
+ static LPCTSTR kRegistryPath = TEXT("Software\\7-zip");
+ static LPCTSTR kProgramPathValue = TEXT("Path");
+ 
