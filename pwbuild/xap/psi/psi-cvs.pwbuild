@@ -1,0 +1,73 @@
+#!/bin/sh
+
+name="psi"
+version="20040730"
+build="1"
+
+_pwbuilder 0.6.4
+
+_doc -d ChangeLog -x CVS
+
+_source -m f0abfdb90e302070cf861ec46848c98c -s 1816833 -t ${name}/${name} ftp://ftp.berlios.de/pub/packware/sources/
+
+_patch -p 0 translations
+_patch no_online_status
+_patch no_default_status_text
+_patch status_history
+_patch status_indicator-cvs
+
+_have_libmng && _patch enable-mng
+
+_setexecdir ${src1}/../qca
+_execindir cp README ${doc}/README.qca
+_execindir _configure --prefix=/usr
+_qconf_fix ${src1}/../qca/Makefile
+_execindir _make
+_execindir _install
+
+if _have_sasl2; then
+    _setexecdir ${src1}/../qca/plugins/qca-sasl
+    _execindir cp README ${doc}/README.qca-sasl
+    _execindir _configure
+    _qconf_fix ${src1}/../qca/plugins/qca-sasl/Makefile
+    _execindir _make
+    _execindir _install
+fi
+
+if _have_openssl; then
+    _setexecdir ${src1}/../qca/plugins/qca-tls
+    _execindir cp README ${doc}/README.qca-tls
+    _execindir _configure
+    _qconf_fix ${src1}/../qca/plugins/qca-tls/Makefile
+    _execindir _make
+    _execindir _install
+fi
+
+_c_opt --prefix=/usr
+
+_configure
+
+( cd ${src1}/src ; qmake -o Makefile )
+_qconf_fix ${src1}/src/Makefile
+
+# If you get a 'double const' error, uncomment these lines:
+#
+# sed "s}\$(QTDIR)/bin/uic}${src}/uic-wrapper}" ${src1}/src/Makefile > ${tmp}/uicfix
+# cat ${tmp}/uicfix > ${src1}/src/Makefile
+
+_patch opt
+
+_make
+_install
+
+rm ${pkg}/usr/share/psi/{COPYING,README}
+ln -s ${docdir}/COPYING ${pkg}/usr/share/psi
+ln -s ${docdir}/README ${pkg}/usr/share/psi
+
+cp ${src}/indicator.png ${pkg}/usr/share/psi/iconsets/roster/default
+
+# $Log: psi-cvs.pwbuild,v $
+# Revision 1.1  2004/07/30 20:34:54  swiergot
+# - Initial commit.
+# - Version 0.9.2/20040730.
+#

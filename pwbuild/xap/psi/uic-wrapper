@@ -1,0 +1,19 @@
+#!/bin/sh
+
+/usr/lib/qt/bin/uic "$@"
+ret=$?
+
+if [ $ret -gt 0 ]; then
+	exit $ret
+fi
+
+while [ $# -gt 0 ]; do
+	if [ "$1" = "-o" ]; then
+		of="$2"
+		break;
+	fi
+	shift
+done
+
+sed 's}static const unsigned char const}static const unsigned char}' $of > ${tmp}/uic-wrapper.tmp
+cat ${tmp}/uic-wrapper.tmp > $of

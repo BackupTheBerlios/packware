@@ -1,0 +1,21 @@
+diff -u src/main.cpp.orig src/main.cpp
+--- src/main.cpp.orig	2002-10-30 11:09:34.000000000 +0100
++++ src/main.cpp	2003-03-15 17:59:59.000000000 +0100
+@@ -55,7 +55,7 @@
+ 	}
+ 
+ 	QStringList dirs;
+-	QString subdir = "";
++	QString subdir = "/translations";
+ 	dirs += "." + subdir;
+ 	dirs += g.pathHome + subdir;
+ 	dirs += g.pathBase + subdir;
+@@ -121,7 +121,7 @@
+ 	langs.set("en", "English");
+ 
+ 	QStringList dirs;
+-	QString subdir = "";
++	QString subdir = "/translations";
+ 	dirs += "." + subdir;
+ 	dirs += g.pathHome + subdir;
+ 	dirs += g.pathBase + subdir;

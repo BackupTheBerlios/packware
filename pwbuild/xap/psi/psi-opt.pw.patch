@@ -1,0 +1,28 @@
+diff -ruN psi.orig/src/Makefile psi/src/Makefile
+--- psi.orig/src/Makefile	2003-10-05 19:28:29.000000000 +0200
++++ psi/src/Makefile	2003-10-05 19:29:58.000000000 +0200
+@@ -62,19 +62,19 @@
+ .SUFFIXES: .c .cpp .cc .cxx .C
+ 
+ .cpp.o:
+-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(INCPATH) $(AM_CFLAGS) -o $@ $<
+ 
+ .cc.o:
+-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(INCPATH) $(AM_CFLAGS) -o $@ $<
+ 
+ .cxx.o:
+-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(INCPATH) $(AM_CFLAGS) -o $@ $<
+ 
+ .C.o:
+-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(INCPATH) $(AM_CFLAGS) -o $@ $<
+ 
+ .c.o:
+-	$(CC) -c $(CFLAGS) $(INCPATH) -o $@ $<
++	$(CC) -c $(CFLAGS) $(INCPATH) $(AM_CFLAGS) -o $@ $<
+ 
+ ####### Build rules
+ 

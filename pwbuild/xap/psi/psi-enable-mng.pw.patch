@@ -1,0 +1,12 @@
+diff -ruN psi.orig/libpsi.pri psi/libpsi.pri
+--- psi.orig/libpsi.pri	2003-10-07 09:27:52.000000000 +0200
++++ psi/libpsi.pri	2003-10-09 15:07:23.000000000 +0200
+@@ -11,7 +11,7 @@
+ 
+ 	# psipng
+ 	CONFIG += psipng
+-	#CONFIG += psimng # uncomment this if you're really brave, and you have libmng installed
++	CONFIG += psimng
+ 	PSIPNG_CPP = $$LIBPSI_CPP/psipng
+ 	include($$PSIPNG_CPP/psipng.pri)
+ }
