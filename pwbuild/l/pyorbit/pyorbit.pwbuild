@@ -1,0 +1,22 @@
+#!/bin/sh
+
+name="pyorbit"
+xversion="2.0"
+version="${xversion}.0"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d PKG-INFO
+
+_source -m 084d4c51a6778eaceb5dc52e4c91b98a -s 246324 ftp://ftp.gnome.org/pub/GNOME/sources/${name}/${xversion}/
+
+_c_opt --prefix=/usr
+
+_cmi
+
+# $Log: pyorbit.pwbuild,v $
+# Revision 1.1  2004/08/01 11:52:36  stoodi
+# - Initial commit.
+# - Version 2.0.0
+#
