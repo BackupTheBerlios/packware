@@ -1,0 +1,28 @@
+#!/bin/sh
+
+name="lame"
+version="3.96.1"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d INSTALL.configure
+
+_source -m e1206c46a5e276feca11a7149e2fc6ac -s 1255629 -f -g
+
+_patch nostatic
+
+_c_opt --prefix=/usr
+_c_opt --enable-nasm
+_c_opt --enable-mp3x
+_c_opt --enable-mp3rtp
+
+_cmi
+
+mv ${pkg}/usr/share/doc/lame/html ${doc}
+
+# $Log: lame.pwbuild,v $
+# Revision 1.1  2004/08/26 19:38:27  swiergot
+# - Initial commit.
+# - Version 3.96.1.
+#
