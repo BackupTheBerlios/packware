@@ -1,0 +1,18 @@
+#!/bin/sh
+
+name="aterm"
+version="0.4.2"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d
+
+_source -s 253054 -f 
+ 
+_cmi
+
+# $Log: aterm.pwbuild,v $
+# Revision 1.1  2004/08/17 20:21:58  vrok
+# *** empty log message ***
+#
