@@ -1,0 +1,22 @@
+#!/bin/sh
+
+name="dc_gui2"
+version="0.80"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d
+
+_source -g http://ac2i.homelinux.com/dctc/
+
+_c_opt --prefix=/usr
+
+_cmi
+
+# $Log: dc_gui2.pwbuild,v $
+# Revision 1.1  2004/08/08 09:45:53  stoodi
+# - Initial commit.
+# - Version 0.80.
+# - Warning (to build this you need a lot of memory, 512-650mb)
+#
