@@ -1,0 +1,25 @@
+#!/bin/sh
+
+name="ices"
+version="0.4"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d README.playlist
+
+_source -m d31450c4011561dae0229f071cb41cb6 -s 372837 -g http://svn.xiph.org/releases/${name}/
+
+_c_opt --prefix=/usr
+_c_opt --sysconfdir=/etc/ices
+
+_cmi
+
+mv ${pkg}/usr/doc/ices/icesmanual.html ${doc}
+rm -r ${pkg}/usr/doc/ices
+
+# $Log: ices.pwbuild,v $
+# Revision 1.1  2004/10/03 19:33:32  swiergot
+# - Initial commit.
+# - Version 0.4.
+#
