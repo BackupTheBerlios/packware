@@ -1,0 +1,24 @@
+#!/bin/sh
+
+name="dillo"
+version="0.8.2"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d ChangeLog doc
+
+_source -m 4322f339aa4a4a2a4ba9a11444df9c67 -s 409961 http://www.dillo.org/download/
+
+_c_opt --prefix=/usr
+_c_opt --sysconfdir=/etc/dillo
+_c_opt --enable-ipv6
+_c_opt --enable-rtfl
+
+_cmi
+
+# $Log: dillo.pwbuild,v $
+# Revision 1.1  2004/09/26 10:57:13  swiergot
+# - Initial commit.
+# - Version 0.8.2.
+#
