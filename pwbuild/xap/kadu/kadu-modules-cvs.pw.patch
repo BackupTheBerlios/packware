@@ -137,13 +137,13 @@ diff -ruN kadu.orig/.config kadu/.config
  
  # Default icon theme shipped with sources
 -icons_default=y
-+icons_default=m
++icons_default=y
  
  # Crystal 16x16 icons made by Arcisz
 -icons_crystal16=n
-+icons_crystal16=m
++icons_crystal16=y
  
  # Crystal 22x22 icons made by Arcisz
 -icons_crystal22=n
-+icons_crystal22=m
++icons_crystal22=y
  
