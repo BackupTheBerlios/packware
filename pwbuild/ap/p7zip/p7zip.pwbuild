@@ -6,7 +6,7 @@ build="1"
 
 _pwbuilder 0.6.3
 
-_doc -d LGPL.txt ChangeLog
+_doc -d LGPL.txt ChangeLog html
 
 _source -m 8c6a7b49f360917cbdd8391f3a926a19 -s 448147 -f -c
 
@@ -20,6 +20,9 @@ cp ${src1}/bin/7z ${pkg}/usr/bin
 cp -r ${src1}/bin/{Formats,Codecs} ${pkg}/usr/lib/7z
 
 # $Log: p7zip.pwbuild,v $
+# Revision 1.2  2004/09/28 09:48:21  swiergot
+# - Added html directory to _doc.
+#
 # Revision 1.1  2004/09/28 09:44:35  swiergot
 # - Initial commit.
 # - Version 0.91.
