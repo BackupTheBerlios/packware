@@ -1,0 +1,9 @@
+/var/log/clamav {
+    weekly
+    missingok
+    compress
+    create 640 clamav clamav
+    postrotate
+	/etc/rc.d/rc.clamd restart
+    endscript
+}

@@ -1,0 +1,40 @@
+#!/bin/sh
+
+name="clamav"
+version="0.75.1"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d ChangeLog
+
+_source -m 2c85b7957eba9fd9e9ff8c2537ae006f -s 2777319 -g -f
+
+_patch config
+
+_c_opt --prefix=/usr
+_c_opt --sysconfdir=/etc
+_c_opt --disable-clamav
+
+_cmi
+
+mkdir ${pkg}/etc/logrotate.d
+cp ${src}/clamav.logrotate ${pkg}/etc/logrotate.d/clamav
+
+mkdir ${pkg}/etc/rc.d
+cp ${src}/rc.clamd ${pkg}/etc/rc.d
+chmod 755 ${pkg}/etc/rc.d/rc.clamd
+cp ${src}/rc.clamd-db ${pkg}/etc/rc.d
+chmod 755 ${pkg}/etc/rc.d/rc.clamd-db
+
+mkdir ${pkg}/etc/cron.daily
+cp ${src}/clamav.cron ${pkg}/etc/cron.daily/clamav
+
+mkdir ${pkg}/var/log
+touch ${pkg}/var/log/clamav
+
+# $Log: clamav.pwbuild,v $
+# Revision 1.1  2004/08/01 13:52:11  swiergot
+# - Initial commit.
+# - Version 0.75.1.
+#

@@ -1,0 +1,8 @@
+grep ^clamav: etc/group > /dev/null 2>&1 || \
+    groupadd -g 200 clamav
+
+grep ^clamav: etc/passwd > /dev/null 2>&1 || \
+    useradd -u 200 -d /dev/null -s /dev/null -g clamav clamav
+
+chown clamav.clamav /var/log/clamav
+chown -R clamav.clamav /usr/share/clamav

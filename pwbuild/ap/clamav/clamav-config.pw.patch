@@ -1,0 +1,138 @@
+diff -ruN clamav-0.75.1.orig/etc/clamav.conf clamav-0.75.1/etc/clamav.conf
+--- clamav-0.75.1.orig/etc/clamav.conf	2004-05-13 01:59:21.000000000 +0200
++++ clamav-0.75.1/etc/clamav.conf	2004-08-01 15:47:29.000000000 +0200
+@@ -5,12 +5,12 @@
+ 
+ 
+ # Comment or remove the line below.
+-Example
++#Example
+ 
+ # Uncomment this option to enable logging.
+ # LogFile must be writable for the user running the daemon.
+ # Full path is required.
+-#LogFile /tmp/clamd.log
++LogFile /var/log/clamav
+ 
+ # By default the log file is locked for writing - the lock protects against
+ # running clamd multiple times (if want to run another clamd, please
+@@ -24,17 +24,17 @@
+ # You may use 'M' or 'm' for megabytes (1M = 1m = 1048576 bytes)
+ # and 'K' or 'k' for kilobytes (1K = 1k = 1024 bytes). To specify the size
+ # in bytes just don't use modifiers.
+-#LogFileMaxSize 2M
++LogFileMaxSize 10M
+ 
+ # Log time with an each message.
+-#LogTime
++LogTime
+ 
+ # Log also clean files. May be useful in debugging but will drastically
+ # increase the log size.
+ #LogClean
+ 
+ # Use system logger (can work together with LogFile).
+-#LogSyslog
++LogSyslog
+ 
+ # Specify the type of syslog messages - please refer to 'man syslog'
+ # for facility names. Default is LOG_LOCAL6.
+@@ -45,7 +45,7 @@
+ 
+ # This option allows you to save the process identifier of the listening
+ # daemon (main thread).
+-#PidFile /var/run/clamd.pid
++PidFile /var/run/clamd.pid
+ 
+ # Optional path to the global temporary directory.
+ # Default is system specific - usually /var/tmp or /tmp.
+@@ -54,7 +54,7 @@
+ # Path to the database directory.
+ # Default is the hardcoded directory (mostly /usr/local/share/clamav,
+ # but it depends on installation options).
+-#DatabaseDirectory /var/lib/clamav
++DatabaseDirectory /usr/share/clamav
+ 
+ # The daemon works in local or network mode. Currently the local mode is
+ # recommended for security reasons.
+@@ -65,7 +65,7 @@
+ LocalSocket /tmp/clamd
+ 
+ # Remove stale socket after unclean shutdown.
+-#FixStaleSocket
++FixStaleSocket
+ 
+ # TCP port address.
+ #TCPSocket 3310
+@@ -74,7 +74,7 @@
+ # By default we bind to INADDR_ANY, probably not wise.
+ # Enable the following to provide some degree of protection
+ # from the outside world.
+-#TCPAddr 127.0.0.1
++TCPAddr 127.0.0.1
+ 
+ # Maximum length the queue of pending connections may grow to.
+ # Default is 15.
+@@ -85,12 +85,12 @@
+ #StreamSaveToDisk
+ 
+ # Close the connection if this limit is exceeded.
+-#StreamMaxLength 10M
++StreamMaxLength 10M
+ 
+ # Maximal number of a threads running at the same time.
+ # Default is 5, and it should be sufficient for a typical workstation.
+ # You may need to increase threads number for a server machine.
+-#MaxThreads 10
++MaxThreads 20
+ 
+ # Waiting for data from a client socket will timeout after this time (seconds).
+ # Default is 120. Value of 0 disables the timeout.
+@@ -109,7 +109,7 @@
+ 
+ # Do internal checks (eg. check the integrity of the database structures)
+ # By default clamd checks itself every 3600 seconds (1 hour).
+-#SelfCheck 600
++SelfCheck 600
+ 
+ # Execute a command when a virus is found. In the command string %v will
+ # be replaced by the virus name.
+@@ -118,7 +118,7 @@
+ 
+ # Run as selected user (clamd must be started by root).
+ # By default it doesn't drop privileges.
+-#User clamav
++User clamav
+ 
+ # Initialize the supplementary group access (for all groups in /etc/group
+ # user is added in. clamd must be started by root).
+@@ -145,7 +145,7 @@
+ ##
+ 
+ # Uncomment this option if you are planning to scan mail files.
+-#ScanMail
++ScanMail
+ 
+ ##
+ ## Archive support
+diff -ruN clamav-0.75.1.orig/etc/freshclam.conf clamav-0.75.1/etc/freshclam.conf
+--- clamav-0.75.1.orig/etc/freshclam.conf	2004-05-11 01:19:48.000000000 +0200
++++ clamav-0.75.1/etc/freshclam.conf	2004-08-01 15:47:50.000000000 +0200
+@@ -6,7 +6,7 @@
+ 
+ # It should match clamav.conf's directive ! (in most cases you shouldn't
+ # change it)
+-#DatabaseDirectory /var/lib/clamav
++DatabaseDirectory /usr/share/clamav
+ 
+ # Path to the log file (make sure it has proper permissions)
+ #UpdateLogFile /var/log/freshclam.log
+@@ -44,7 +44,7 @@
+ #HTTPProxyPassword mypass
+ 
+ # Send the RELOAD command to clamd.
+-#NotifyClamd [/optional/config/file/path]
++NotifyClamd
+ 
+ # Run command after database update.
+ #OnUpdateExecute command

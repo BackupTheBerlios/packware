@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.clamd-db
+#
+# Start/stop/restart the Clam AntiVirus' freshclam daemon
+#
+
+clamddb_start() {
+  if [ -x /usr/bin/freshclam ]; then
+    echo "Starting freshclam..."
+    /usr/bin/freshclam -d --datadir /usr/share/clamav
+  fi
+}
+
+clamddb_stop() {
+    echo "Stopping freshclam..."
+    killall freshclam
+}
+
+clamddb_restart() {
+    clamddb_stop
+    sleep 3
+    clamddb_start
+}
+
+case "$1" in
+'start')
+  clamddb_start
+  ;;
+'stop')
+  clamddb_stop
+  ;;
+'restart')
+  clamddb_restart
+  ;;
+*)
+  echo "Usage: $0 start|stop|restart"
+  ;;
+esac

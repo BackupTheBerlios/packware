@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.clamd
+#
+# Start/stop/restart the Clam AntiVirus' clamd daemon.
+#
+
+clamd_start() {
+  if [ -x /usr/sbin/clamd ]; then
+    echo "Starting clamd..."
+    /usr/sbin/clamd
+  fi
+}
+
+clamd_stop() {
+    echo "Stopping clamd..."
+    killall clamd
+}
+
+clamd_restart() {
+    clamd_stop
+    sleep 3
+    clamd_start
+}
+
+case "$1" in
+'start')
+  clamd_start
+  ;;
+'stop')
+  clamd_stop
+  ;;
+'restart')
+  clamd_restart
+  ;;
+*)
+  echo "Usage: $0 start|stop|restart"
+  ;;
+esac

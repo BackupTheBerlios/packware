@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/freshclam --datadir /usr/share/clamav
