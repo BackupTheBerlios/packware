@@ -1,0 +1,4 @@
+info="A Gadu-Gadu client for KDE."
+desc="Kadu is a KDE client for Gadu-Gadu, a Polish messenger application similar to AIM or ICQ.
+
+It's based on libgadu, a reverse-engineered Unix API for Gadu-Gadu, and implements most features of the original."

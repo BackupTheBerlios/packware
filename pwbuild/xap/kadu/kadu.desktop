@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/kadu
+Icon=kadu.png
+MiniIcon=kadu.png
+Terminal=0
+Name=Kadu
+GenericName[pl]=Klient Gadu-Gadu

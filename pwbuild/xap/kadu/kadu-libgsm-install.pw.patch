@@ -1,0 +1,84 @@
+diff -ruN kadu.orig/modules/voice/libgsm/Makefile kadu/modules/voice/libgsm/Makefile
+--- kadu.orig/modules/voice/libgsm/Makefile	2003-10-15 16:09:01.000000000 +0200
++++ kadu/modules/voice/libgsm/Makefile	2004-04-12 16:20:12.000000000 +0200
+@@ -78,9 +78,9 @@
+ # Leave GSM_INSTALL_ROOT empty to not install the GSM library outside of
+ # this directory.
+ 
+-GSM_INSTALL_ROOT = $(INSTALL_ROOT)
++GSM_INSTALL_ROOT = $(INSTALL_ROOT)/usr
+ GSM_INSTALL_LIB = $(GSM_INSTALL_ROOT)/lib
+-GSM_INSTALL_INC = $(GSM_INSTALL_ROOT)/inc
++GSM_INSTALL_INC = $(GSM_INSTALL_ROOT)/include
+ GSM_INSTALL_MAN = $(GSM_INSTALL_ROOT)/man/man3
+ 
+ 
+@@ -89,7 +89,7 @@
+ # Leave TOAST_INSTALL_ROOT empty to not install the toast binaries outside
+ # of this directory.
+ 
+-TOAST_INSTALL_ROOT	  = $(INSTALL_ROOT)
++TOAST_INSTALL_ROOT	  = $(INSTALL_ROOT)/usr
+ TOAST_INSTALL_BIN = $(TOAST_INSTALL_ROOT)/bin
+ TOAST_INSTALL_MAN = $(TOAST_INSTALL_ROOT)/man/man1
+ 
+@@ -352,49 +352,59 @@
+ 
+ $(TOAST_INSTALL_BIN)/toast:	$(TOAST)
+ 		-rm $@
++		mkdir -p $(TOAST_INSTALL_BIN)
+ 		cp $(TOAST) $@
+ 		chmod 755 $@
+ 
+ $(TOAST_INSTALL_BIN)/untoast:	$(TOAST_INSTALL_BIN)/toast
+ 		-rm $@
++		mkdir -p $(TOAST_INSTALL_BIN)
+ 		ln $? $@
+ 
+ $(TOAST_INSTALL_BIN)/tcat:	$(TOAST_INSTALL_BIN)/toast
+ 		-rm $@
++		mkdir -p $(TOAST_INSTALL_BIN)
+ 		ln $? $@
+ 
+ $(TOAST_INSTALL_MAN)/toast.1:	$(MAN)/toast.1
+ 		-rm $@
++		mkdir -p $(TOAST_INSTALL_MAN)
+ 		cp $? $@
+ 		chmod 444 $@
+ 
+ $(GSM_INSTALL_MAN)/gsm.3:	$(MAN)/gsm.3
+ 		-rm $@
++		mkdir -p $(GSM_INSTALL_MAN)
+ 		cp $? $@
+ 		chmod 444 $@
+ 
+ $(GSM_INSTALL_MAN)/gsm_option.3:	$(MAN)/gsm_option.3
+ 		-rm $@
++		mkdir -p $(GSM_INSTALL_MAN)
+ 		cp $? $@
+ 		chmod 444 $@
+ 
+ $(GSM_INSTALL_MAN)/gsm_explode.3:	$(MAN)/gsm_explode.3
+ 		-rm $@
++		mkdir -p $(GSM_INSTALL_MAN)
+ 		cp $? $@
+ 		chmod 444 $@
+ 
+ $(GSM_INSTALL_MAN)/gsm_print.3:	$(MAN)/gsm_print.3
+ 		-rm $@
++		mkdir -p $(GSM_INSTALL_MAN)
+ 		cp $? $@
+ 		chmod 444 $@
+ 
+ $(GSM_INSTALL_INC)/gsm.h:	$(INC)/gsm.h
+ 		-rm $@
++		mkdir -p $(GSM_INSTALL_INC)
+ 		cp $? $@
+ 		chmod 444 $@
+ 
+ $(GSM_INSTALL_LIB)/libgsm.a:	$(LIBGSM)
+ 		-rm $@
++		mkdir -p $(GSM_INSTALL_LIB)
+ 		cp $? $@
+ 		chmod 444 $@
+ 

@@ -1,0 +1,12 @@
+diff -ruN kadu.orig/configure kadu/configure
+--- kadu.orig/configure	2004-04-10 17:28:47.000000000 +0200
++++ kadu/configure	2004-04-20 14:51:54.000000000 +0200
+@@ -5889,7 +5889,7 @@
+ 	echo "$as_me:$LINENO: checking if libgadu.so/dylib library is in system directories" >&5
+ echo $ECHO_N "checking if libgadu.so/dylib library is in system directories... $ECHO_C" >&6
+ 	save_CFLAGS="$CFLAGS"
+-	CFLAGS="$CFLAGS  -lgadu"
++	CFLAGS="$CFLAGS  -lpthread -lgadu"
+ 	cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF

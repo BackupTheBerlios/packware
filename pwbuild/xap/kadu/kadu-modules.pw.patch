@@ -1,0 +1,103 @@
+diff -ruN kadu.orig/.config kadu/.config
+--- kadu.orig/.config	2004-06-20 17:02:43.000000000 +0200
++++ kadu/.config	2004-07-30 19:15:16.000000000 +0200
+@@ -7,55 +7,55 @@
+ #
+ 
+ # Tray icon support
+-module_docking=y
++module_docking=m
+ 
+ # XLib tray docking techniques module
+-module_x11_docking=y
++module_x11_docking=m
+ 
+ # WindowMaker docking module
+-module_wmaker_docking=n
++module_wmaker_docking=m
+ 
+ # OpenSSL encrypted chat support
+-module_encryption=y
++module_encryption=m
+ 
+ # Speech synthesis support
+-module_speech=n
++module_speech=m
+ 
+ # Voice chat support
+-module_voice=y
++module_voice=m
+ 
+ # General sound support
+-module_sound=y
++module_sound=m
+ 
+ # External application sound support
+-module_ext_sound=y
++module_ext_sound=m
+ 
+ # Direct /dev/dsp sound support
+ module_dsp_sound=m
+ 
+ # Arts sound server support
+-module_arts_sound=n
++module_arts_sound=m
+ 
+ # ESD sound server support
+-module_esd_sound=n
++module_esd_sound=m
+ 
+ # Network Audio System support
+ module_nas_sound=n
+ 
+ # SMS module
+-module_sms=y
++module_sms=m
+ 
+ # default gateways for SMS module
+-module_default_sms=y
++module_default_sms=m
+ 
+ # Auto away module
+-module_autoaway=y
++module_autoaway=m
+ 
+ # Autoresponder module
+ module_autoresponder=m
+ 
+ # Echo sample module
+-module_echo=n
++module_echo=m
+ 
+ #
+ # Below are some external modules, made by third parties, but
+@@ -66,22 +66,22 @@
+ #
+ 
+ # TCL scripting support and KaduPro extensions
+-module_tcl_scripting=n
++module_tcl_scripting=n
+ 
+ # Xmms player support
+-module_xmms=n
++module_xmms=m
+ 
+ # AmaroK player support
+-module_amarok=n
++module_amarok=m
+ 
+ # Description from file module
+-module_filedesc=n
++module_filedesc=m
+ 
+ # Mail checker module
+-module_mail=n
++module_mail=m
+ 
+ # Spellchecker module (Aspell support)
+-module_spellchecker=n
++module_spellchecker=m
+ 
+ # PC-Speaker support
+-module_pcspeaker=n
++module_pcspeaker=m

@@ -1,0 +1,39 @@
+#!/bin/sh
+
+name="kadu"
+version="0.3.9"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d ChangeLog
+
+_source -m d461c4b19670920e2ba1425d12e23f6b -s 942895 -t ${name} http://kadu.net/download/stable/
+
+_patch lpthread
+_patch libgsm-install
+_patch modules
+
+_c_opt --prefix=/usr
+_c_opt --enable-modules
+_c_opt --with-existing-libgadu
+
+_cmi
+
+for i in AUTHORS ChangeLog COPYING HISTORY README THANKS; do
+    rm ${pkg}/usr/share/kadu/${i}
+    ln -s ../../doc/${name}-${version}/${i} ${pkg}/usr/share/kadu
+done
+
+mkdir ${pkg}/opt/kde/share/applnk/Internet
+cp ${src}/kadu.desktop ${pkg}/opt/kde/share/applnk/Internet
+mkdir ${pkg}/opt/kde/share/icons/hicolor/{16x16/apps,32x32/apps,48x48/apps}
+cp ${src1}/kadu/hi16-app-kadu.png ${pkg}/opt/kde/share/icons/hicolor/16x16/apps/kadu.png
+cp ${src1}/kadu/hi32-app-kadu.png ${pkg}/opt/kde/share/icons/hicolor/32x32/apps/kadu.png
+cp ${src1}/kadu/hi48-app-kadu.png ${pkg}/opt/kde/share/icons/hicolor/48x48/apps/kadu.png
+
+# $Log: kadu.pwbuild,v $
+# Revision 1.1  2004/07/30 17:28:42  swiergot
+# - Initial commit.
+# - Version 0.3.9/20040930.
+#

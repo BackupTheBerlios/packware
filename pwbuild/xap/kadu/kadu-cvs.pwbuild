@@ -1,0 +1,39 @@
+#!/bin/sh
+
+name="kadu"
+version="20040730"
+build="1"
+
+_pwbuilder 0.6.3
+
+_doc -d -x CVS ChangeLog
+
+_source -m aa05d9b21e9dea76e65bf5ef96478bbf -s 953811 -t ${name} http://kadu.net/download/snapshots/
+
+_patch lpthread
+_patch libgsm-install
+_patch modules-cvs
+
+_c_opt --prefix=/usr
+_c_opt --enable-modules
+_c_opt --with-existing-libgadu
+
+_cmi
+
+for i in AUTHORS ChangeLog COPYING HISTORY README THANKS; do
+    rm ${pkg}/usr/share/kadu/${i}
+    ln -s ../../doc/${name}-${version}/${i} ${pkg}/usr/share/kadu
+done
+
+mkdir ${pkg}/opt/kde/share/applnk/Internet
+cp ${src}/kadu.desktop ${pkg}/opt/kde/share/applnk/Internet
+mkdir ${pkg}/opt/kde/share/icons/hicolor/{16x16/apps,32x32/apps,48x48/apps}
+cp ${src1}/kadu/hi16-app-kadu.png ${pkg}/opt/kde/share/icons/hicolor/16x16/apps/kadu.png
+cp ${src1}/kadu/hi32-app-kadu.png ${pkg}/opt/kde/share/icons/hicolor/32x32/apps/kadu.png
+cp ${src1}/kadu/hi48-app-kadu.png ${pkg}/opt/kde/share/icons/hicolor/48x48/apps/kadu.png
+
+# $Log: kadu-cvs.pwbuild,v $
+# Revision 1.1  2004/07/30 17:28:42  swiergot
+# - Initial commit.
+# - Version 0.3.9/20040930.
+#
