@@ -1,17 +1,20 @@
 #!/bin/sh
 
 name="mplayer-codecs-all"
-version="20040809"
+version="20040916"
 build="1"
 
 _pwbuilder 0.6.3
 
-_source -m 030bbd0e1e10a930ccc769140b79fe2b -s 11266573 -n all http://www1.mplayerhq.hu/MPlayer/releases/codecs/
+_source -m a03b4af330e7dfc3a22c32eb04be5f07 -s 11268600 -n all http://www1.mplayerhq.hu/MPlayer/releases/codecs/
 
 mkdir ${pkg}/usr/lib/mplayer
 cp ${src1}/* ${pkg}/usr/lib/mplayer
 
 # $Log: mplayer-codecs-all.pwbuild,v $
+# Revision 1.2  2004/09/25 22:23:17  swiergot
+# - Version 20040916.
+#
 # Revision 1.1  2004/08/16 11:07:25  swiergot
 # - Initial commit.
 # - Version 20040809.
